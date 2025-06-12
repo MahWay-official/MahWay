@@ -61,12 +61,14 @@
     }
 
     .rating {
-      margin-top: 20px;
+      margin: 30px auto;
       font-size: 1.2rem;
       background-color: rgba(0,0,0,0.6);
       display: inline-block;
       padding: 10px;
       border-radius: 10px;
+      width: 90%;
+      max-width: 320px;
     }
 
     .stars {
@@ -169,43 +171,22 @@
 
   <header>
     <img src="https://raw.githubusercontent.com/MahWay26/MahWay/refs/heads/main/027187e0-e47c-4b04-b0fc-4104a213cc6b.png" alt="logo">
-    <h1 id="title">MahWay</h1>
+    <h1>MahWay</h1>
   </header>
 
-  <div class="rating">
-    <div class="stars" id="stars">
-      <span data-val="1">★</span>
-      <span data-val="2">★</span>
-      <span data-val="3">★</span>
-      <span data-val="4">★</span>
-      <span data-val="5">★</span>
-    </div>
-    <p id="rating-text">Rated <strong>4.5/5</strong> by <strong>324,344</strong> users</p>
-  </div>
-
-  <div id="feedbackModal">
-    <p>اكتب تعليقك أو نصيحتك:</p>
-    <textarea id="feedbackText"></textarea>
-    <button onclick="submitFeedback()">إرسال</button>
-  </div>
-
- <form action="https://forms.prse.io/f/xmqepgyk" method="POST">
-    <div id="local-title">طلب خدمة (Service Request)</div>
-    
-    <input type="text" name="sender" placeholder="اسم المرسل (Sender Name)" required>
-    <input type="text" name="receiver" placeholder="اسم المستلم (Receiver Name)" required>
-    <input type="tel" name="phone" placeholder="رقم الهاتف (Phone Number)" required>
-    
+  <form action="https://formspree.io/f/xnqepqyk" method="POST">
+    <h3 id="local-title">شحن داخل مصر</h3>
+    <input type="text" name="sender" placeholder="اسم الراسل" required>
+    <input type="text" name="receiver" placeholder="اسم المرسل إليه" required>
+    <input type="tel" name="phone" placeholder="رقم الهاتف" required>
     <select name="service" id="local-service">
-        <option value="fast">خدمة سريعة (Fast Service)</option>
-        <option value="normal">خدمة عادية (Normal Service)</option>
+      <option value="fast">سريعة</option>
+      <option value="normal">عادية</option>
     </select>
-    
-    <input type="text" name="address" placeholder="العنوان (Address)" required>
-    <textarea name="details" placeholder="تفاصيل الطلب (Request Details)" required></textarea>
-    
-    <button type="submit">إرسال (Submit)</button>
-</form>
+    <input type="text" name="address" placeholder="العنوان" required>
+    <textarea name="details" placeholder="وصف الشحنة" required></textarea>
+    <button type="submit" id="submit-btn1">أرسل</button>
+  </form>
 
   <form action="https://formspree.io/f/xnqepqyk" method="POST">
     <h3 id="intl-title">استيراد من خارج مصر</h3>
@@ -220,15 +201,32 @@
     <input type="text" name="country" placeholder="الدولة المُرسِل منها" required>
     <input type="text" name="delivery-address" placeholder="العنوان في مصر" required>
     <textarea name="description" placeholder="تفاصيل إضافية"></textarea>
-    <button type="submit">أرسل</button>
+    <button type="submit" id="submit-btn2">أرسل</button>
   </form>
+
+  <div class="rating">
+    <div class="stars" id="stars">
+      <span data-val="1">★</span>
+      <span data-val="2">★</span>
+      <span data-val="3">★</span>
+      <span data-val="4">★</span>
+      <span data-val="5">★</span>
+    </div>
+    <p id="rating-text">تقييم <strong>4.5/5</strong> من <strong>324,344</strong> مستخدم</p>
+  </div>
+
+  <div id="feedbackModal">
+    <p id="feedback-title">اكتب تعليقك أو نصيحتك:</p>
+    <textarea id="feedbackText"></textarea>
+    <button onclick="submitFeedback()" id="feedback-btn">إرسال</button>
+  </div>
 
   <footer>
     <div class="info" id="info-text">
-      Established: 26/1/2020 | Commercial Reg. No.: 54645612<br>
-      Mahmoud Medhat Sadeq - Sole Owner of the Company
+      تأسست: 26/1/2020 | رقم السجل التجاري: 54645612<br>
+      محمود مدحت صادق - المالك الوحيد للشركة
     </div>
-    <a id="email-link" href="mailto:mahway.contact@gmail.com?subject=Service Inquiry&body=Hello MahWay, I have a question about..." style="color:white;text-decoration:underline;">
+    <a id="email-link" href="mailto:mahway.contact@gmail.com?subject=استفسار عن خدمة&body=مرحباً ماه واي، لدي سؤال بخصوص..." style="color:white;text-decoration:underline;">
       mahway.contact@gmail.com
     </a>
     <br>
@@ -289,44 +287,94 @@
       modal.innerHTML = '<p>شكراً لتقييمك وتعليقك!</p>';
       setTimeout(() => {
         modal.style.display = 'none';
-        modal.innerHTML = '<p>اكتب تعليقك أو نصيحتك:</p><textarea id="feedbackText"></textarea><button onclick="submitFeedback()">إرسال</button>';
+        modal.innerHTML = '<p id="feedback-title">اكتب تعليقك أو نصيحتك:</p><textarea id="feedbackText"></textarea><button onclick="submitFeedback()" id="feedback-btn">إرسال</button>';
       }, 3000);
     }
 
     function changeLang(lang) {
       const en = {
-        title: "MahWay",
         rating: "Rated <strong>4.5/5</strong> by <strong>324,344</strong> users",
         info: "Established: 26/1/2020 | Commercial Reg. No.: 54645612<br>Mahmoud Medhat Sadeq - Sole Owner of the Company",
         email: "mailto:mahway.contact@gmail.com?subject=Service Inquiry&body=Hello MahWay, I have a question about...",
         localTitle: "Local Shipping",
         intlTitle: "International Shipping",
         fast: "Fast",
-        normal: "Normal"
+        normal: "Normal",
+        sender: "Sender Name",
+        receiver: "Receiver Name",
+        phone: "Phone Number",
+        address: "Address",
+        details: "Shipment Description",
+        name: "Customer Name",
+        cargo: "Cargo Type",
+        weight: "Estimated Weight",
+        country: "Shipping Country",
+        deliveryAddress: "Delivery Address in Egypt",
+        description: "Additional Details",
+        submit: "Submit",
+        feedbackTitle: "Write your comment or advice:",
+        feedbackBtn: "Send"
       };
 
       const ar = {
-        title: "ماه واي",
         rating: "تقييم <strong>4.5/5</strong> من <strong>324,344</strong> مستخدم",
         info: "تأسست: 26/1/2020 | رقم السجل التجاري: 54645612<br>محمود مدحت صادق - المالك الوحيد للشركة",
         email: "mailto:mahway.contact@gmail.com?subject=استفسار عن خدمة&body=مرحباً ماه واي، لدي سؤال بخصوص...",
         localTitle: "شحن داخل مصر",
         intlTitle: "استيراد من خارج مصر",
         fast: "سريعة",
-        normal: "عادية"
+        normal: "عادية",
+        sender: "اسم الراسل",
+        receiver: "اسم المرسل إليه",
+        phone: "رقم الهاتف",
+        address: "العنوان",
+        details: "وصف الشحنة",
+        name: "اسم العميل",
+        cargo: "نوع الحمولة",
+        weight: "الوزن المتوقع",
+        country: "الدولة المُرسِل منها",
+        deliveryAddress: "العنوان في مصر",
+        description: "تفاصيل إضافية",
+        submit: "أرسل",
+        feedbackTitle: "اكتب تعليقك أو نصيحتك:",
+        feedbackBtn: "إرسال"
       };
 
       const content = lang === "ar" ? ar : en;
-      document.getElementById("title").innerHTML = content.title;
+      
+      // لا نغير اسم الشركة (MahWay يبقى كما هو)
       document.getElementById("rating-text").innerHTML = content.rating;
       document.getElementById("info-text").innerHTML = content.info;
       document.getElementById("email-link").setAttribute("href", content.email);
       document.getElementById("local-title").innerText = content.localTitle;
       document.getElementById("intl-title").innerText = content.intlTitle;
+      
+      // تحديث حقول النموذج الأول
+      document.querySelector('input[name="sender"]').placeholder = content.sender;
+      document.querySelector('input[name="receiver"]').placeholder = content.receiver;
+      document.querySelector('input[name="phone"]').placeholder = content.phone;
+      document.querySelector('input[name="address"]').placeholder = content.address;
+      document.querySelector('textarea[name="details"]').placeholder = content.details;
+      document.getElementById("submit-btn1").innerText = content.submit;
+      
+      // تحديث حقول النموذج الثاني
+      document.querySelector('input[name="name"]').placeholder = content.name;
+      document.querySelector('input[name="cargo"]').placeholder = content.cargo;
+      document.querySelector('input[name="weight"]').placeholder = content.weight;
+      document.querySelector('input[name="country"]').placeholder = content.country;
+      document.querySelector('input[name="delivery-address"]').placeholder = content.deliveryAddress;
+      document.querySelector('textarea[name="description"]').placeholder = content.description;
+      document.getElementById("submit-btn2").innerText = content.submit;
+      
+      // تحديث خيارات الخدمة
       document.getElementById("local-service").options[0].text = content.fast;
       document.getElementById("local-service").options[1].text = content.normal;
       document.getElementById("intl-service").options[0].text = content.fast;
       document.getElementById("intl-service").options[1].text = content.normal;
+      
+      // تحديث نموذج التقييم
+      document.getElementById("feedback-title").innerText = content.feedbackTitle;
+      document.getElementById("feedback-btn").innerText = content.feedbackBtn;
     }
   </script>
 </body>

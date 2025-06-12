@@ -1,0 +1,49 @@
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fefefe;
+  color: #222;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #121212;
+    color: #eee;
+  }
+  input, select {
+    background-color: #222;
+    color: #eee;
+    border: 1px solid #555;
+  }
+}
+header, footer {
+  background-color: #004080;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+}
+.about, .services, .form-section {
+  padding: 1rem 2rem;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+}
+input, select, button {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+button {
+  background-color: #007acc;
+  color: white;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #005fa3;
+}

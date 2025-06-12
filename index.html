@@ -340,45 +340,6 @@
         feedbackBtn: "إرسال"
       };
 
-    // تعديل حدث النقر على النجوم
-    stars.forEach((star, idx) => {
-      star.addEventListener("click", () => {
-        if (hasRated) return; // إذا كان قد قام بالتقييم من قبل، لا تفعل شيئاً
-        
-        currentRating = idx + 1;
-        modal.style.display = "block";
-        feedbackText.focus();
-      });
-
-    // ... (ابقى على باقي الدوال كما هي) ...
-
-    // تعديل دالة تغيير اللغة لإصلاح مشكلة "سريع" و"عادي"
-    function changeLang(lang) {
-      currentLang = lang;
-      const en = {
-        // ... (ابقى على باقي الترجمات كما هي) ...
-        fast: "Fast",
-        normal: "Normal",
-        // ... (ابقى على باقي الترجمات كما هي) ...
-      };
-
-      const ar = {
-        // ... (ابقى على باقي الترجمات كما هي) ...
-        fast: "سريعة",
-        normal: "عادية",
-        // ... (ابقى على باقي الترجمات كما هي) ...
-      };
-
-      const content = lang === "ar" ? ar : en;
-      
-      // تحديث خيارات الخدمة في كلا النموذجين
-      document.getElementById("local-service").options[0].text = content.fast;
-      document.getElementById("local-service").options[1].text = content.normal;
-      document.getElementById("intl-service").options[0].text = content.fast;
-      document.getElementById("intl-service").options[1].text = content.normal;
-      
-      // ... (ابقى على باقي التحديثات كما هي) ...
-
       const content = lang === "ar" ? ar : en;
       
       // لا نغير اسم الشركة (MahWay يبقى كما هو)

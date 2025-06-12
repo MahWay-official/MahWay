@@ -339,6 +339,111 @@
         feedbackTitle: "اكتب تعليقك أو نصيحتك:",
         feedbackBtn: "إرسال"
       };
+      <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MahWay</title>
+  <style>
+    /* ... (ابقى على أنماط CSS السابقة كما هي) ... */
+
+    /* أضف هذه الأنماط الجديدة */
+    .rated {
+      pointer-events: none;
+      opacity: 0.7;
+    }
+    
+    .submitted {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- ... (ابقى على باقي HTML كما هو) ... -->
+
+  <script>
+    // ... (ابقى على المتغيرات والدوال الأخرى كما هي) ...
+
+    let hasRated = false; // متغير لتتبع إذا كان المستخدم قد قام بالتقييم
+
+    // تعديل دالة التقييم
+    document.getElementById("submitFeedback").addEventListener("click", function() {
+      const feedbackText = document.getElementById("feedbackText");
+      const feedbackError = document.getElementById("feedbackError");
+
+      if (feedbackText.value.trim() === "") {
+        feedbackError.style.display = "block";
+        return;
+      }
+      
+      feedbackError.style.display = "none";
+      
+      // إرسال التقييم
+      const feedbackData = new FormData();
+      feedbackData.append("feedback", feedbackText.value);
+      feedbackData.append("rating", currentRating);
+      
+      fetch("https://formspree.io/f/xnqepqyk", {
+        method: "POST",
+        body: feedbackData,
+      })
+      .then(response => {
+        if (response.ok) {
+          // إغلاق النافذة بعد الإرسال
+          document.getElementById("feedbackModal").style.display = "none";
+          
+          // تعطيل إمكانية التقييم مرة أخرى
+          hasRated = true;
+          document.getElementById("stars").classList.add("rated");
+          document.querySelectorAll(".stars span").forEach(star => {
+            star.style.cursor = "default";
+          });
+          
+          // إظهار رسالة النجاح
+          showSuccessModal(currentLang === 'ar' ? 'شكراً لتقييمك!' : 'Thank you for your rating!');
+        }
+      });
+    });
+
+    // تعديل حدث النقر على النجوم
+    stars.forEach((star, idx) => {
+      star.addEventListener("click", () => {
+        if (hasRated) return; // إذا كان قد قام بالتقييم من قبل، لا تفعل شيئاً
+        
+        currentRating = idx + 1;
+        modal.style.display = "block";
+        feedbackText.focus();
+      });
+
+    // ... (ابقى على باقي الدوال كما هي) ...
+
+    // تعديل دالة تغيير اللغة لإصلاح مشكلة "سريع" و"عادي"
+    function changeLang(lang) {
+      currentLang = lang;
+      const en = {
+        // ... (ابقى على باقي الترجمات كما هي) ...
+        fast: "Fast",
+        normal: "Normal",
+        // ... (ابقى على باقي الترجمات كما هي) ...
+      };
+
+      const ar = {
+        // ... (ابقى على باقي الترجمات كما هي) ...
+        fast: "سريعة",
+        normal: "عادية",
+        // ... (ابقى على باقي الترجمات كما هي) ...
+      };
+
+      const content = lang === "ar" ? ar : en;
+      
+      // تحديث خيارات الخدمة في كلا النموذجين
+      document.getElementById("local-service").options[0].text = content.fast;
+      document.getElementById("local-service").options[1].text = content.normal;
+      document.getElementById("intl-service").options[0].text = content.fast;
+      document.getElementById("intl-service").options[1].text = content.normal;
+      
+      // ... (ابقى على باقي التحديثات كما هي) ...
 
       const content = lang === "ar" ? ar : en;
       

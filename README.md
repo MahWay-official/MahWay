@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MahWay</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      color: white;
+      text-align: center;
+      background: url('https://cdn.pixabay.com/photo/2022/11/01/17/55/truck-7561543_1280.jpg') no-repeat center center fixed;
+      background-size: cover;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    header {
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background-color: rgba(0,0,0,0.6);
+    }
+
+    header img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    form {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      border-radius: 10px;
+      display: block;
+      margin: 20px auto;
+      max-width: 320px;
+    }
+
+    input, select, textarea, button {
+      display: block;
+      width: 90%;
+      margin: 10px auto;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .rating {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      background-color: rgba(0,0,0,0.6);
+      display: inline-block;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    .stars {
+      font-size: 2rem;
+      color: gray;
+      cursor: pointer;
+    }
+
+    .stars span.active {
+      color: gold;
+      text-shadow: 0 0 5px gold;
+    }
+
+    footer {
+      margin-top: 30px;
+      background-color: rgba(0,0,0,0.6);
+      padding: 10px;
+    }
+
+    .lang-switcher {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+    }
+
+    .info {
+      margin-top: 10px;
+      font-size: 0.9rem;
+    }
+
+    .floating-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #007bff;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      font-size: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      z-index: 1000;
+    }
+
+    .social-links {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      background: rgba(0,0,0,0.7);
+      border-radius: 10px;
+      padding: 10px;
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 999;
+    }
+
+    .social-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+    }
+
+    #feedbackModal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.9);
+      padding: 20px;
+      border-radius: 10px;
+      z-index: 2000;
+      color: white;
+    }
+    #feedbackModal textarea {
+      width: 100%;
+      height: 100px;
+      margin-top: 10px;
+    }
+    #feedbackModal button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: gold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="lang-switcher">
+    <select onchange="changeLang(this.value)">
+      <option value="en">English</option>
+      <option value="ar">العربية</option>
+    </select>
+  </div>
+
+  <header>
+    <img src="https://mahway26.github.io/MahWay/assets/logo.png" alt="logo">
+    <h1 id="title">MahWay</h1>
+  </header>
+
+  <div class="rating">
+    <div class="stars" id="stars">
+      <span data-val="1">★</span>
+      <span data-val="2">★</span>
+      <span data-val="3">★</span>
+      <span data-val="4">★</span>
+      <span data-val="5">★</span>
+    </div>
+    <p id="rating-text">Rated <strong>4.5/5</strong> by <strong>324,344</strong> users</p>
+  </div>
+
+  <div id="feedbackModal">
+    <p>اكتب تعليقك أو نصيحتك:</p>
+    <textarea id="feedbackText"></textarea>
+    <button onclick="submitFeedback()">إرسال</button>
+  </div>
+
+  <form action="https://formspree.io/f/xnqepqyk" method="POST">
+    <h3 id="local-title">شحن داخل مصر</h3>
+    <input type="text" name="sender" placeholder="اسم الراسل" required>
+    <input type="text" name="receiver" placeholder="اسم المرسل إليه" required>
+    <input type="tel" name="phone" placeholder="رقم الهاتف" required>
+    <select name="service" id="local-service">
+      <option value="fast">سريعة</option>
+      <option value="normal">عادية</option>
+    </select>
+    <input type="text" name="address" placeholder="العنوان" required>
+    <textarea name="details" placeholder="وصف الشحنة" required></textarea>
+    <button type="submit">أرسل</button>
+  </form>
+
+  <form action="https://formspree.io/f/xnqepqyk" method="POST">
+    <h3 id="intl-title">استيراد من خارج مصر</h3>
+    <input type="text" name="name" placeholder="اسم العميل" required>
+    <input type="tel" name="phone" placeholder="رقم الهاتف" required>
+    <input type="text" name="cargo" placeholder="نوع الحمولة" required>
+    <input type="text" name="weight" placeholder="الوزن المتوقع" required>
+    <select name="service" id="intl-service">
+      <option value="fast">سريعة</option>
+      <option value="normal">عادية</option>
+    </select>
+    <input type="text" name="country" placeholder="الدولة المُرسِل منها" required>
+    <input type="text" name="delivery-address" placeholder="العنوان في مصر" required>
+    <textarea name="description" placeholder="تفاصيل إضافية"></textarea>
+    <button type="submit">أرسل</button>
+  </form>
+
+  <footer>
+    <div class="info" id="info-text">
+      Established: 26/1/2020 | Commercial Reg. No.: 54645612<br>
+      Mahmoud Medhat Sadeq - Sole Owner of the Company
+    </div>
+    <a id="email-link" href="mailto:mahway.contact@gmail.com?subject=Service Inquiry&body=Hello MahWay, I have a question about..." style="color:white;text-decoration:underline;">
+      mahway.contact@gmail.com
+    </a>
+    <br>
+    <a href="https://drive.google.com/file/d/1-JnfsJEBhMgMnPhLqWDFR9lN9tHpNZcd/view?usp=sharing" target="_blank" style="color: gold; font-weight: bold; display: inline-block; margin-top: 10px;">
+      Company Documents
+    </a>
+    <br>
+    <a href="https://mahway.com.tr" target="_blank" style="color: lightblue; display: inline-block; margin-top: 10px; font-weight: bold;">
+      Our Website in Turkey 🇹🇷
+    </a>
+  </footer>
+
+  <button class="floating-btn" onclick="toggleSocialLinks()">+</button>
+  <div class="social-links" id="socialLinks">
+    <a href="https://facebook.com" target="_blank">Facebook</a>
+    <a href="https://wa.me/201234567890" target="_blank">WhatsApp</a>
+    <a href="https://t.me/username" target="_blank">Telegram</a>
+  </div>
+
+  <script>
+    function toggleSocialLinks() {
+      const menu = document.getElementById("socialLinks");
+      menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+    }
+
+    document.addEventListener("click", function (e) {
+      const menu = document.getElementById("socialLinks");
+      const btn = document.querySelector(".floating-btn");
+      if (!btn.contains(e.target) && !menu.contains(e.target)) {
+        menu.style.display = "none";
+      }
+    });
+
+    const stars = document.querySelectorAll(".stars span");
+    const modal = document.getElementById("feedbackModal");
+
+    stars.forEach((star, idx) => {
+      star.addEventListener("mouseover", () => {
+        stars.forEach((s, i) => {
+          s.classList.toggle("active", i <= idx);
+        });
+      });
+      star.addEventListener("click", () => {
+        modal.style.display = "block";
+      });
+    });
+
+    function submitFeedback() {
+      const text = document.getElementById("feedbackText").value;
+      const feedbackData = new FormData();
+      feedbackData.append("feedback", text);
+
+      fetch("https://formspree.io/f/xnqepqyk", {
+        method: "POST",
+        body: feedbackData,
+      });
+
+      modal.innerHTML = '<p>شكراً لتقييمك وتعليقك!</p>';
+      setTimeout(() => {
+        modal.style.display = 'none';
+        modal.innerHTML = '<p>اكتب تعليقك أو نصيحتك:</p><textarea id="feedbackText"></textarea><button onclick="submitFeedback()">إرسال</button>';
+      }, 3000);
+    }
+
+    function changeLang(lang) {
+      const en = {
+        title: "MahWay",
+        rating: "Rated <strong>4.5/5</strong> by <strong>324,344</strong> users",
+        info: "Established: 26/1/2020 | Commercial Reg. No.: 54645612<br>Mahmoud Medhat Sadeq - Sole Owner of the Company",
+        email: "mailto:mahway.contact@gmail.com?subject=Service Inquiry&body=Hello MahWay, I have a question about...",
+        localTitle: "Local Shipping",
+        intlTitle: "International Shipping",
+        fast: "Fast",
+        normal: "Normal"
+      };
+
+      const ar = {
+        title: "ماه واي",
+        rating: "تقييم <strong>4.5/5</strong> من <strong>324,344</strong> مستخدم",
+        info: "تأسست: 26/1/2020 | رقم السجل التجاري: 54645612<br>محمود مدحت صادق - المالك الوحيد للشركة",
+        email: "mailto:mahway.contact@gmail.com?subject=استفسار عن خدمة&body=مرحباً ماه واي، لدي سؤال بخصوص...",
+        localTitle: "شحن داخل مصر",
+        intlTitle: "استيراد من خارج مصر",
+        fast: "سريعة",
+        normal: "عادية"
+      };
+
+      const content = lang === "ar" ? ar : en;
+      document.getElementById("title").innerHTML = content.title;
+      document.getElementById("rating-text").innerHTML = content.rating;
+      document.getElementById("info-text").innerHTML = content.info;
+      document.getElementById("email-link").setAttribute("href", content.email);
+      document.getElementById("local-title").innerText = content.localTitle;
+      document.getElementById("intl-title").innerText = content.intlTitle;
+      document.getElementById("local-service").options[0].text = content.fast;
+      document.getElementById("local-service").options[1].text = content.normal;
+      document.getElementById("intl-service").options[0].text = content.fast;
+      document.getElementById("intl-service").options[1].text = content.normal;
+    }
+  </script>
+</body>
+</html>

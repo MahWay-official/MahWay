@@ -60,26 +60,42 @@
       border-radius: 5px;
     }
 
-    .rating {
+    .rating-container {
       margin: 30px auto;
-      font-size: 1.2rem;
       background-color: rgba(0,0,0,0.6);
-      display: inline-block;
-      padding: 10px;
       border-radius: 10px;
-      width: 90%;
-      max-width: 320px;
+      padding: 20px;
+      max-width: 350px;
+    }
+
+    .rating {
+      font-size: 1.2rem;
+      margin-bottom: 15px;
     }
 
     .stars {
       font-size: 2rem;
       color: gray;
       cursor: pointer;
+      margin: 10px 0;
     }
 
     .stars span.active {
       color: gold;
       text-shadow: 0 0 5px gold;
+    }
+
+    .stars span.disabled {
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    .last-rating {
+      margin-top: 15px;
+      padding: 10px;
+      background: rgba(255,215,0,0.2);
+      border-radius: 5px;
+      display: none;
     }
 
     footer {
@@ -145,19 +161,65 @@
       border-radius: 10px;
       z-index: 2000;
       color: white;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
     }
+    
+    #feedbackModal h3 {
+      margin-top: 0;
+      color: gold;
+    }
+    
     #feedbackModal textarea {
       width: 100%;
-      height: 100px;
-      margin-top: 10px;
+      height: 120px;
+      margin: 15px 0;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #444;
+      background: rgba(255,255,255,0.1);
+      color: white;
     }
+    
+    #feedbackModal .modal-buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+    
     #feedbackModal button {
-      margin-top: 10px;
       padding: 10px 20px;
-      background: gold;
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      font-weight: bold;
+    }
+    
+    #feedbackModal .submit-btn {
+      background: gold;
+      color: #333;
+    }
+    
+    #feedbackModal .cancel-btn {
+      background: #555;
+      color: white;
+    }
+    
+    .thank-you-message {
+      text-align: center;
+      padding: 20px;
+      display: none;
+    }
+    
+    .thank-you-message p {
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+    }
+    
+    .thank-you-message .rating-display {
+      font-size: 1.5rem;
+      color: gold;
+      margin: 10px 0;
     }
   </style>
 </head>
@@ -178,7 +240,7 @@
     <h3 id="local-title">شحن داخل مصر</h3>
     <input type="text" name="sender" placeholder="اسم الراسل" required>
     <input type="text" name="receiver" placeholder="اسم المرسل إليه" required>
-    <input type="tel" name="phone" placeholder="رقم الهاتف" required>
+    <input type="tel" name="phone" id="phone1" placeholder="رقم الهاتف" required>
     <select name="service" id="local-service">
       <option value="fast">سريعة</option>
       <option value="normal">عادية</option>
@@ -191,7 +253,7 @@
   <form action="https://formspree.io/f/xnqepqyk" method="POST">
     <h3 id="intl-title">استيراد من خارج مصر</h3>
     <input type="text" name="name" placeholder="اسم العميل" required>
-    <input type="tel" name="phone" placeholder="رقم الهاتف" required>
+    <input type="tel" name="phone" id="phone2" placeholder="رقم الهاتف" required>
     <input type="text" name="cargo" placeholder="نوع الحمولة" required>
     <input type="text" name="weight" placeholder="الوزن المتوقع" required>
     <select name="service" id="intl-service">
@@ -204,7 +266,11 @@
     <button type="submit" id="submit-btn2">أرسل</button>
   </form>
 
-  <div class="rating">
+  <div class="rating-container">
+    <div class="rating">
+      <p id="rating-text">تقييم <strong>4.5/5</strong> من <strong>324,344</strong> مستخدم</p>
+    </div>
+    
     <div class="stars" id="stars">
       <span data-val="1">★</span>
       <span data-val="2">★</span>
@@ -212,13 +278,29 @@
       <span data-val="4">★</span>
       <span data-val="5">★</span>
     </div>
-    <p id="rating-text">تقييم <strong>4.5/5</strong> من <strong>324,344</strong> مستخدم</p>
+    
+    <div class="last-rating" id="lastRating">
+      <p id="last-rating-text">آخر تقييم لك: <span id="user-rating"></span></p>
+    </div>
   </div>
 
   <div id="feedbackModal">
-    <p id="feedback-title">اكتب تعليقك أو نصيحتك:</p>
-    <textarea id="feedbackText"></textarea>
-    <button onclick="submitFeedback()" id="feedback-btn">إرسال</button>
+    <div id="feedbackForm">
+      <h3 id="feedback-title">اكتب تعليقك أو نصيحتك:</h3>
+      <textarea id="feedbackText" placeholder="شاركنا بتجربتك معنا..."></textarea>
+      <div class="modal-buttons">
+        <button class="cancel-btn" onclick="closeModal()" id="cancel-btn">إلغاء</button>
+        <button class="submit-btn" onclick="submitFeedback()" id="feedback-btn">إرسال</button>
+      </div>
+    </div>
+    
+    <div class="thank-you-message" id="thankYouMessage">
+      <p>شكراً لتقييمك وتعليقك!</p>
+      <div class="rating-display">
+        تقييمك: <span id="submittedRating"></span>
+      </div>
+      <button class="submit-btn" onclick="closeModal()">حسناً</button>
+    </div>
   </div>
 
   <footer>
@@ -247,6 +329,11 @@
   </div>
 
   <script>
+    // تحميل حالة التقييم عند فتح الصفحة
+    document.addEventListener('DOMContentLoaded', function() {
+      checkRatingStatus();
+    });
+
     function toggleSocialLinks() {
       const menu = document.getElementById("socialLinks");
       menu.style.display = menu.style.display === "flex" ? "none" : "flex";
@@ -262,33 +349,86 @@
 
     const stars = document.querySelectorAll(".stars span");
     const modal = document.getElementById("feedbackModal");
+    let currentRating = 0;
 
     stars.forEach((star, idx) => {
       star.addEventListener("mouseover", () => {
+        // لا تفعل شيئا إذا كان المستخدم قد قام بالتقييم بالفعل
+        if (localStorage.getItem('hasRated')) return;
+        
         stars.forEach((s, i) => {
           s.classList.toggle("active", i <= idx);
         });
       });
+      
+      star.addEventListener("mouseout", () => {
+        // لا تفعل شيئا إذا كان المستخدم قد قام بالتقييم بالفعل
+        if (localStorage.getItem('hasRated')) return;
+        
+        stars.forEach((s, i) => {
+          s.classList.toggle("active", i < currentRating);
+        });
+      });
+      
       star.addEventListener("click", () => {
+        // منع التقييم إذا كان المستخدم قد قام به بالفعل
+        if (localStorage.getItem('hasRated')) return;
+        
+        currentRating = idx + 1;
+        stars.forEach((s, i) => {
+          s.classList.toggle("active", i <= idx);
+        });
         modal.style.display = "block";
       });
     });
+
+    function checkRatingStatus() {
+      if (localStorage.getItem('hasRated')) {
+        // إذا كان المستخدم قد قام بالتقييم، عرض تقييمه الأخير
+        const lastRating = localStorage.getItem('lastRating');
+        if (lastRating) {
+          document.getElementById('lastRating').style.display = 'block';
+          document.getElementById('user-rating').textContent = lastRating + ' ★';
+        }
+        
+        // تعطيل النجوم
+        stars.forEach(star => {
+          star.classList.add('disabled');
+        });
+      }
+    }
 
     function submitFeedback() {
       const text = document.getElementById("feedbackText").value;
       const feedbackData = new FormData();
       feedbackData.append("feedback", text);
+      feedbackData.append("rating", currentRating);
 
       fetch("https://formspree.io/f/xnqepqyk", {
         method: "POST",
         body: feedbackData,
       });
 
-      modal.innerHTML = '<p>شكراً لتقييمك وتعليقك!</p>';
+      // حفظ حالة التقييم
+      localStorage.setItem('hasRated', 'true');
+      localStorage.setItem('lastRating', currentRating);
+      
+      // عرض رسالة الشكر
+      document.getElementById('feedbackForm').style.display = 'none';
+      document.getElementById('thankYouMessage').style.display = 'block';
+      document.getElementById('submittedRating').textContent = currentRating + ' ★';
+      
+      // تحديث الصفحة لعرض التقييم الأخير
       setTimeout(() => {
-        modal.style.display = 'none';
-        modal.innerHTML = '<p id="feedback-title">اكتب تعليقك أو نصيحتك:</p><textarea id="feedbackText"></textarea><button onclick="submitFeedback()" id="feedback-btn">إرسال</button>';
-      }, 3000);
+        checkRatingStatus();
+      }, 500);
+    }
+
+    function closeModal() {
+      modal.style.display = 'none';
+      document.getElementById('feedbackForm').style.display = 'block';
+      document.getElementById('thankYouMessage').style.display = 'none';
+      document.getElementById("feedbackText").value = '';
     }
 
     function changeLang(lang) {
@@ -313,7 +453,10 @@
         description: "Additional Details",
         submit: "Submit",
         feedbackTitle: "Write your comment or advice:",
-        feedbackBtn: "Send"
+        feedbackBtn: "Send",
+        cancelBtn: "Cancel",
+        feedbackPlaceholder: "Share your experience with us...",
+        lastRating: "Your last rating:"
       };
 
       const ar = {
@@ -337,12 +480,14 @@
         description: "تفاصيل إضافية",
         submit: "أرسل",
         feedbackTitle: "اكتب تعليقك أو نصيحتك:",
-        feedbackBtn: "إرسال"
+        feedbackBtn: "إرسال",
+        cancelBtn: "إلغاء",
+        feedbackPlaceholder: "شاركنا بتجربتك معنا...",
+        lastRating: "آخر تقييم لك:"
       };
 
       const content = lang === "ar" ? ar : en;
       
-      // لا نغير اسم الشركة (MahWay يبقى كما هو)
       document.getElementById("rating-text").innerHTML = content.rating;
       document.getElementById("info-text").innerHTML = content.info;
       document.getElementById("email-link").setAttribute("href", content.email);
@@ -352,13 +497,14 @@
       // تحديث حقول النموذج الأول
       document.querySelector('input[name="sender"]').placeholder = content.sender;
       document.querySelector('input[name="receiver"]').placeholder = content.receiver;
-      document.querySelector('input[name="phone"]').placeholder = content.phone;
+      document.getElementById("phone1").placeholder = content.phone;
       document.querySelector('input[name="address"]').placeholder = content.address;
       document.querySelector('textarea[name="details"]').placeholder = content.details;
       document.getElementById("submit-btn1").innerText = content.submit;
       
       // تحديث حقول النموذج الثاني
       document.querySelector('input[name="name"]').placeholder = content.name;
+      document.getElementById("phone2").placeholder = content.phone;
       document.querySelector('input[name="cargo"]').placeholder = content.cargo;
       document.querySelector('input[name="weight"]').placeholder = content.weight;
       document.querySelector('input[name="country"]').placeholder = content.country;
@@ -375,6 +521,9 @@
       // تحديث نموذج التقييم
       document.getElementById("feedback-title").innerText = content.feedbackTitle;
       document.getElementById("feedback-btn").innerText = content.feedbackBtn;
+      document.getElementById("cancel-btn").innerText = content.cancelBtn;
+      document.getElementById("feedbackText").placeholder = content.feedbackPlaceholder;
+      document.getElementById("last-rating-text").innerHTML = content.lastRating + ' <span id="user-rating"></span>';
     }
   </script>
 </body>

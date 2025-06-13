@@ -23,6 +23,7 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      padding-top: 100px;
     }
 
     @keyframes fadeIn {
@@ -30,27 +31,125 @@
       to {opacity: 1;}
     }
 
-    header {
-      padding: 20px;
+    /* الشريط الثابت الجديد الذي يضم الشعار وشريط اللغة */
+    .fixed-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 15px 20px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 10px;
-      background-color: rgba(0,0,0,0.6);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      justify-content: space-between;
+      background-color: rgba(0,0,0,0.95);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      z-index: 3000;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+      border-bottom: 1px solid rgba(255,215,0,0.5);
+      transform: translateY(0);
+    }
+    
+    .fixed-header.hide {
+      transform: translateY(-100%);
     }
 
-    header img {
+    .fixed-header.scrolled {
+      padding: 10px 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .header-left.scrolled {
+      transform: scale(0.95);
+    }
+
+    .header-left img {
       width: 50px;
       height: 50px;
       border-radius: 50%;
       border: 2px solid gold;
+      transition: all 0.3s ease;
     }
 
-    h1 {
+    .header-left.scrolled img {
+      width: 40px;
+      height: 40px;
+    }
+
+    .header-left h1 {
       font-size: 2rem;
       margin: 0;
       text-shadow: 0 0 10px rgba(255,215,0,0.5);
+      transition: all 0.3s ease;
+    }
+
+    .header-left.scrolled h1 {
+      font-size: 1.7rem;
+    }
+
+    .lang-switcher {
+      background: rgba(0,0,0,0.7);
+      padding: 8px 15px;
+      border-radius: 50px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,215,0,0.3);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+    
+    .lang-switcher:hover {
+      background: rgba(0,0,0,0.9);
+      border-color: gold;
+    }
+
+    .lang-switcher.scrolled {
+      padding: 6px 12px;
+      font-size: 0.9rem;
+    }
+    
+    .lang-icon {
+      color: gold;
+      font-size: 1.2rem;
+    }
+
+    .lang-switcher select {
+      padding: 8px 15px;
+      border-radius: 8px;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      border: 1px solid rgba(255,215,0,0.5);
+      cursor: pointer;
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      appearance: none;
+      background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M7 10l5 5 5-5z"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 12px;
+      padding-right: 35px;
+    }
+    
+    .lang-switcher select:focus {
+      outline: none;
+      border-color: gold;
+      box-shadow: 0 0 8px rgba(255,215,0,0.5);
+    }
+
+    .lang-switcher.scrolled select {
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      padding-right: 30px;
+      background-position: right 8px center;
     }
 
     .forms-container {
@@ -122,6 +221,13 @@
       box-shadow: 0 6px 15px rgba(0,0,0,0.4);
     }
 
+    button:disabled {
+      background: #555;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
     .rating-container {
       margin: 30px auto;
       background-color: rgba(0,0,0,0.7);
@@ -150,6 +256,7 @@
 
     .stars span {
       transition: all 0.2s ease;
+      position: relative;
     }
 
     .stars span.active {
@@ -168,6 +275,33 @@
       opacity: 0.7;
     }
 
+    .rating-numbers {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin-top: -10px;
+      margin-bottom: 15px;
+    }
+
+    .rating-number {
+      font-size: 1.1rem;
+      font-weight: bold;
+      width: 25px;
+      height: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.7);
+      transition: all 0.3s ease;
+    }
+
+    .rating-number.active {
+      color: gold;
+      background: rgba(255,215,0,0.2);
+      border-radius: 50%;
+      transform: scale(1.2);
+    }
+
     .last-rating {
       margin-top: 20px;
       padding: 15px;
@@ -183,28 +317,6 @@
       background-color: rgba(0,0,0,0.7);
       padding: 20px;
       box-shadow: 0 -4px 12px rgba(0,0,0,0.2);
-    }
-
-    .lang-switcher {
-      position: fixed;
-      top: 15px;
-      right: 15px;
-      z-index: 100;
-    }
-
-    .lang-switcher select {
-      padding: 8px 15px;
-      border-radius: 8px;
-      background: rgba(0,0,0,0.7);
-      color: white;
-      border: 1px solid rgba(255,215,0,0.5);
-      cursor: pointer;
-    }
-
-    .info {
-      margin-top: 10px;
-      font-size: 0.95rem;
-      line-height: 1.6;
     }
 
     .floating-btn {
@@ -264,7 +376,7 @@
       transform: translateX(-5px);
     }
 
-    #feedbackModal {
+    .modal {
       display: none;
       position: fixed;
       top: 50%;
@@ -283,7 +395,7 @@
       direction: rtl;
     }
     
-    #feedbackModal h3 {
+    .modal h3 {
       margin-top: 0;
       color: gold;
       font-size: 1.5rem;
@@ -293,7 +405,7 @@
       border-bottom: 2px solid rgba(255,215,0,0.5);
     }
     
-    #feedbackModal textarea {
+    .modal textarea {
       width: 100%;
       height: 150px;
       margin: 15px 0 25px;
@@ -308,19 +420,19 @@
       transition: all 0.3s ease;
     }
     
-    #feedbackModal textarea:focus {
+    .modal textarea:focus {
       outline: none;
       border-color: gold;
       box-shadow: 0 0 10px rgba(255,215,0,0.3);
     }
     
-    #feedbackModal .modal-buttons {
+    .modal .modal-buttons {
       display: flex;
       justify-content: space-between;
       gap: 15px;
     }
     
-    #feedbackModal button {
+    .modal button {
       padding: 12px 25px;
       border: none;
       border-radius: 8px;
@@ -330,20 +442,20 @@
       transition: all 0.3s ease;
     }
     
-    #feedbackModal .submit-btn {
+    .modal .submit-btn {
       background: linear-gradient(to right, #ffb700, #ff8c00);
       color: #222;
       flex: 1;
     }
     
-    #feedbackModal .cancel-btn {
+    .modal .cancel-btn {
       background: rgba(255,255,255,0.1);
       color: white;
       border: 1px solid rgba(255,255,255,0.3);
       flex: 1;
     }
     
-    #feedbackModal .cancel-btn:hover {
+    .modal .cancel-btn:hover {
       background: rgba(255,255,255,0.2);
     }
     
@@ -394,6 +506,32 @@
       font-size: 1.8rem;
     }
     
+    .confirmation-modal-content {
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .confirmation-modal-content i {
+      font-size: 3.5rem;
+      color: gold;
+      margin-bottom: 20px;
+    }
+    
+    .confirmation-modal-content p {
+      font-size: 1.4rem;
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+    
+    .countdown-display {
+      font-size: 1.2rem;
+      background: rgba(255,215,0,0.1);
+      padding: 8px 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+      border: 1px solid rgba(255,215,0,0.2);
+    }
+    
     @media (max-width: 768px) {
       .forms-container {
         flex-direction: column;
@@ -411,24 +549,72 @@
       .rating {
         font-size: 1.1rem;
       }
+      
+      .rating-number {
+        font-size: 0.95rem;
+        gap: 12px;
+      }
+      
+      .fixed-header {
+        flex-direction: column;
+        padding: 10px;
+      }
+      
+      .header-left {
+        margin-bottom: 10px;
+      }
+      
+      .lang-switcher {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .fixed-header.scrolled {
+        padding: 8px 15px;
+      }
+      
+      .header-left.scrolled img {
+        width: 35px;
+        height: 35px;
+      }
+      
+      .header-left.scrolled h1 {
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="lang-switcher">
-    <select onchange="changeLang(this.value)">
-      <option value="en">English</option>
-      <option value="ar" selected>العربية</option>
-    </select>
+  <!-- الشريط الثابت الجديد الذي يضم الشعار وشريط اللغة -->
+  <div class="fixed-header" id="fixedHeader">
+    <div class="header-left" id="headerLeft">
+      <img src="https://raw.githubusercontent.com/MahWay26/MahWay/refs/heads/main/027187e0-e47c-4b04-b0fc-4104a213cc6b.png" alt="logo">
+      <h1>MahWay</h1>
+    </div>
+    
+    <div class="lang-switcher" id="langSwitcher">
+      <i class="fas fa-globe lang-icon"></i>
+      <select onchange="changeLang(this.value)">
+        <option value="en">English</option>
+        <option value="ar" selected>العربية</option>
+      </select>
+    </div>
   </div>
 
-  <header>
-    <img src="https://raw.githubusercontent.com/MahWay26/MahWay/refs/heads/main/027187e0-e47c-4b04-b0fc-4104a213cc6b.png" alt="logo">
-    <h1>MahWay</h1>
-  </header>
 
+
+
+
+
+
+
+
+
+
+  
+  <!-- بقية المحتوى كما هو -->
   <div class="forms-container">
-    <form action="https://formspree.io/f/xnqepqyk" method="POST">
+    <form id="localForm" action="https://formspree.io/f/xnqepqyk" method="POST">
       <div class="form-title">
         <i class="fas fa-truck"></i>
         <h3 id="local-title">شحن داخل مصر</h3>
@@ -443,9 +629,10 @@
       <input type="text" name="address" placeholder="العنوان" required>
       <textarea name="details" placeholder="وصف الشحنة" required></textarea>
       <button type="submit" id="submit-btn1">أرسل</button>
+      <div id="local-countdown" class="countdown-display" style="display:none;"></div>
     </form>
 
-    <form action="https://formspree.io/f/xnqepqyk" method="POST">
+    <form id="intlForm" action="https://formspree.io/f/xnqepqyk" method="POST">
       <div class="form-title">
         <i class="fas fa-globe-africa"></i>
         <h3 id="intl-title">استيراد من خارج مصر</h3>
@@ -462,6 +649,7 @@
       <input type="text" name="delivery-address" placeholder="العنوان في مصر" required>
       <textarea name="description" placeholder="تفاصيل إضافية"></textarea>
       <button type="submit" id="submit-btn2">أرسل</button>
+      <div id="intl-countdown" class="countdown-display" style="display:none;"></div>
     </form>
   </div>
 
@@ -478,12 +666,20 @@
       <span data-val="5">★</span>
     </div>
     
+    <div class="rating-numbers" id="ratingNumbers">
+      <span class="rating-number" data-val="1">1</span>
+      <span class="rating-number" data-val="2">2</span>
+      <span class="rating-number" data-val="3">3</span>
+      <span class="rating-number" data-val="4">4</span>
+      <span class="rating-number" data-val="5">5</span>
+    </div>
+    
     <div class="last-rating" id="lastRating">
       <p id="last-rating-text">آخر تقييم لك: <span id="user-rating"></span></p>
     </div>
   </div>
 
-  <div id="feedbackModal">
+  <div id="feedbackModal" class="modal">
     <div id="error-message">الرجاء كتابة تعليق قبل الإرسال</div>
     
     <div id="feedbackForm">
@@ -504,6 +700,14 @@
     </div>
   </div>
 
+  <div id="confirmationModal" class="modal">
+    <div class="confirmation-modal-content">
+      <i class="fas fa-check-circle"></i>
+      <p id="confirmation-text">سيتم التواصل معك قريباً</p>
+      <button class="submit-btn" onclick="closeConfirmationModal()" id="confirmation-btn">حسناً</button>
+    </div>
+  </div>
+
   <footer>
     <div class="info" id="info-text">
       تأسست: 26/1/2020 | رقم السجل التجاري: 54645612<br>
@@ -518,7 +722,7 @@
     </a>
     <br>
     <a href="https://maps.app.goo.gl/fUWsV66ZYTRNYumQ8" target="_blank" style="color: #00bfff; display: inline-block; margin-top: 10px; font-weight: bold;">
-      <i class="fas fa-map-marker-alt"></i> Our locatie in Egypt
+      <i class="fas fa-map-marker-alt"></i> Our location in Egypt
     </a>
   </footer>
 
@@ -539,7 +743,57 @@
     // تحميل حالة التقييم عند فتح الصفحة
     document.addEventListener('DOMContentLoaded', function() {
       checkRatingStatus();
+      checkFormTimers();
+      setupHeaderScroll();
+      setupAutoHideHeader();
     });
+
+    // إضافة تأثير التمرير للشريط العلوي
+    function setupHeaderScroll() {
+      const fixedHeader = document.getElementById('fixedHeader');
+      const headerLeft = document.getElementById('headerLeft');
+      const langSwitcher = document.getElementById('langSwitcher');
+      
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+          fixedHeader.classList.add('scrolled');
+          headerLeft.classList.add('scrolled');
+          langSwitcher.classList.add('scrolled');
+        } else {
+          fixedHeader.classList.remove('scrolled');
+          headerLeft.classList.remove('scrolled');
+          langSwitcher.classList.remove('scrolled');
+        }
+      });
+    }
+    
+    // إخفاء الشريط عند التمرير لأسفل وإظهاره عند التمرير لأعلى
+    function setupAutoHideHeader() {
+      let lastScrollTop = 0;
+      const fixedHeader = document.getElementById('fixedHeader');
+      const delta = 10; // الحد الأدنى للتغير في التمرير
+      
+      window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // إظهار الشريط عند الوصول لأعلى الصفحة
+        if (scrollTop <= 10) {
+          fixedHeader.classList.remove('hide');
+          lastScrollTop = scrollTop;
+          return;
+        }
+        
+        // إخفاء الشريط عند التمرير لأسفل
+        if (Math.abs(lastScrollTop - scrollTop) > delta) {
+          if (scrollTop > lastScrollTop) {
+            fixedHeader.classList.add('hide');
+          } else {
+            fixedHeader.classList.remove('hide');
+          }
+          lastScrollTop = scrollTop;
+        }
+      });
+    }
 
     function toggleSocialLinks() {
       const menu = document.getElementById("socialLinks");
@@ -555,7 +809,9 @@
     });
 
     const stars = document.querySelectorAll(".stars span");
+    const numbers = document.querySelectorAll(".rating-number");
     const modal = document.getElementById("feedbackModal");
+    const confirmationModal = document.getElementById("confirmationModal");
     const errorMessage = document.getElementById("error-message");
     let currentRating = 0;
 
@@ -563,30 +819,57 @@
       star.addEventListener("mouseover", () => {
         if (localStorage.getItem('hasRated')) return;
         
-        stars.forEach((s, i) => {
-          s.classList.toggle("active", i <= idx);
-        });
+        highlightRating(idx + 1);
       });
       
       star.addEventListener("mouseout", () => {
         if (localStorage.getItem('hasRated')) return;
         
-        stars.forEach((s, i) => {
-          s.classList.toggle("active", i < currentRating);
-        });
+        highlightRating(currentRating);
       });
       
       star.addEventListener("click", () => {
         if (localStorage.getItem('hasRated')) return;
         
         currentRating = idx + 1;
-        stars.forEach((s, i) => {
-          s.classList.toggle("active", i <= idx);
-        });
+        highlightRating(currentRating);
         modal.style.display = "block";
         errorMessage.style.display = "none";
       });
     });
+
+    numbers.forEach((number, idx) => {
+      number.addEventListener("mouseover", () => {
+        if (localStorage.getItem('hasRated')) return;
+        
+        highlightRating(idx + 1);
+      });
+      
+      number.addEventListener("mouseout", () => {
+        if (localStorage.getItem('hasRated')) return;
+        
+        highlightRating(currentRating);
+      });
+      
+      number.addEventListener("click", () => {
+        if (localStorage.getItem('hasRated')) return;
+        
+        currentRating = idx + 1;
+        highlightRating(currentRating);
+        modal.style.display = "block";
+        errorMessage.style.display = "none";
+      });
+    });
+
+    function highlightRating(rating) {
+      stars.forEach((star, index) => {
+        star.classList.toggle("active", index < rating);
+      });
+      
+      numbers.forEach((number, index) => {
+        number.classList.toggle("active", index < rating);
+      });
+    }
 
     function checkRatingStatus() {
       if (localStorage.getItem('hasRated')) {
@@ -594,10 +877,15 @@
         if (lastRating) {
           document.getElementById('lastRating').style.display = 'block';
           document.getElementById('user-rating').textContent = lastRating + ' ★';
+          highlightRating(parseInt(lastRating));
         }
         
         stars.forEach(star => {
           star.classList.add('disabled');
+        });
+        
+        numbers.forEach(number => {
+          number.classList.add('disabled');
         });
       }
     }
@@ -636,6 +924,116 @@
       errorMessage.style.display = "none";
     }
 
+    function showConfirmationModal() {
+      const lang = document.querySelector('.lang-switcher select').value;
+      const text = lang === 'ar' ? 'سيتم التواصل معك قريباً' : 'We will contact you soon';
+      document.getElementById('confirmation-text').textContent = text;
+      confirmationModal.style.display = 'block';
+    }
+
+    function closeConfirmationModal() {
+      confirmationModal.style.display = 'none';
+    }
+
+    // إضافة معالجة إرسال النموذج
+    document.getElementById('localForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // مسح محتوى النموذج
+      this.reset();
+      
+      // تعطيل الزر لمدة 5 دقائق
+      disableForm('localForm', 'submit-btn1', 'local-countdown', 300);
+      
+      // عرض رسالة التأكيد
+      showConfirmationModal();
+    });
+
+    document.getElementById('intlForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // مسح محتوى النموذج
+      this.reset();
+      
+      // تعطيل الزر لمدة 5 دقائق
+      disableForm('intlForm', 'submit-btn2', 'intl-countdown', 300);
+      
+      // عرض رسالة التأكيد
+      showConfirmationModal();
+    });
+
+    // تعطيل النموذج وبدء العداد التنازلي
+    function disableForm(formId, buttonId, countdownId, seconds) {
+      const button = document.getElementById(buttonId);
+      const countdownElement = document.getElementById(countdownId);
+      
+      // تعطيل الزر
+      button.disabled = true;
+      
+      // إظهار العداد
+      countdownElement.style.display = 'block';
+      
+      // حفظ وقت الانتهاء في التخزين المحلي
+      const endTime = Date.now() + seconds * 1000;
+      localStorage.setItem(`${formId}_endTime`, endTime.toString());
+      
+      // بدء العداد التنازلي
+      startCountdown(button, countdownElement, seconds, formId);
+    }
+
+    // بدء العداد التنازلي
+    function startCountdown(button, countdownElement, seconds, formId) {
+      let remaining = seconds;
+      
+      // تحديث العداد كل ثانية
+      const countdownInterval = setInterval(() => {
+        const minutes = Math.floor(remaining / 60);
+        const secs = remaining % 60;
+        
+        // تحديث النص بناءً على اللغة
+        const lang = document.querySelector('.lang-switcher select').value;
+        countdownElement.textContent = lang === 'ar' 
+          ? `يمكنك إعادة الإرسال بعد ${minutes}:${secs.toString().padStart(2, '0')}`
+          : `Resend available in ${minutes}:${secs.toString().padStart(2, '0')}`;
+        
+        remaining--;
+        
+        // عند انتهاء الوقت
+        if (remaining < 0) {
+          clearInterval(countdownInterval);
+          button.disabled = false;
+          countdownElement.style.display = 'none';
+          localStorage.removeItem(`${formId}_endTime`);
+        }
+      }, 1000);
+    }
+
+    // التحقق من وجود توقيتات سابقة عند تحميل الصفحة
+    function checkFormTimers() {
+      const forms = [
+        { id: 'localForm', buttonId: 'submit-btn1', countdownId: 'local-countdown' },
+        { id: 'intlForm', buttonId: 'submit-btn2', countdownId: 'intl-countdown' }
+      ];
+      
+      forms.forEach(form => {
+        const endTime = localStorage.getItem(`${form.id}_endTime`);
+        if (endTime) {
+          const remainingSeconds = Math.max(0, Math.ceil((parseInt(endTime) - Date.now()) / 1000));
+          
+          if (remainingSeconds > 0) {
+            const button = document.getElementById(form.buttonId);
+            const countdownElement = document.getElementById(form.countdownId);
+            
+            button.disabled = true;
+            countdownElement.style.display = 'block';
+            startCountdown(button, countdownElement, remainingSeconds, form.id);
+          } else {
+            localStorage.removeItem(`${form.id}_endTime`);
+          }
+        }
+      });
+    }
+
     function changeLang(lang) {
       const en = {
         rating: "Rated <strong>4.5/5</strong> by <strong>324,344</strong> users",
@@ -662,7 +1060,8 @@
         cancelBtn: "Cancel",
         feedbackPlaceholder: "Share your experience with us...",
         lastRating: "Your last rating:",
-        errorMsg: "Please write a comment before sending (at least one character)"
+        errorMsg: "Please write a comment before sending (at least one character)",
+        confirmation: "We will contact you soon"
       };
 
       const ar = {
@@ -690,7 +1089,8 @@
         cancelBtn: "إلغاء",
         feedbackPlaceholder: "شاركنا بتجربتك معنا...",
         lastRating: "آخر تقييم لك:",
-        errorMsg: "الرجاء كتابة تعليق قبل الإرسال (حرف واحد على الأقل)"
+        errorMsg: "الرجاء كتابة تعليق قبل الإرسال (حرف واحد على الأقل)",
+        confirmation: "سيتم التواصل معك قريباً"
       };
 
       const content = lang === "ar" ? ar : en;
@@ -700,23 +1100,24 @@
       document.getElementById("email-link").setAttribute("href", content.email);
       document.getElementById("local-title").innerText = content.localTitle;
       document.getElementById("intl-title").innerText = content.intlTitle;
+      document.getElementById("confirmation-text").innerText = content.confirmation;
       
       // تحديث حقول النموذج الأول
-      document.querySelector('input[name="sender"]').placeholder = content.sender;
-      document.querySelector('input[name="receiver"]').placeholder = content.receiver;
+      document.querySelector('#localForm input[name="sender"]').placeholder = content.sender;
+      document.querySelector('#localForm input[name="receiver"]').placeholder = content.receiver;
       document.getElementById("phone1").placeholder = content.phone;
-      document.querySelector('input[name="address"]').placeholder = content.address;
-      document.querySelector('textarea[name="details"]').placeholder = content.details;
+      document.querySelector('#localForm input[name="address"]').placeholder = content.address;
+      document.querySelector('#localForm textarea[name="details"]').placeholder = content.details;
       document.getElementById("submit-btn1").innerText = content.submit;
       
       // تحديث حقول النموذج الثاني
-      document.querySelector('input[name="name"]').placeholder = content.name;
+      document.querySelector('#intlForm input[name="name"]').placeholder = content.name;
       document.getElementById("phone2").placeholder = content.phone;
-      document.querySelector('input[name="cargo"]').placeholder = content.cargo;
-      document.querySelector('input[name="weight"]').placeholder = content.weight;
-      document.querySelector('input[name="country"]').placeholder = content.country;
-      document.querySelector('input[name="delivery-address"]').placeholder = content.deliveryAddress;
-      document.querySelector('textarea[name="description"]').placeholder = content.description;
+      document.querySelector('#intlForm input[name="cargo"]').placeholder = content.cargo;
+      document.querySelector('#intlForm input[name="weight"]').placeholder = content.weight;
+      document.querySelector('#intlForm input[name="country"]').placeholder = content.country;
+      document.querySelector('#intlForm input[name="delivery-address"]').placeholder = content.deliveryAddress;
+      document.querySelector('#intlForm textarea[name="description"]').placeholder = content.description;
       document.getElementById("submit-btn2").innerText = content.submit;
       
       // تحديث خيارات الخدمة
@@ -732,6 +1133,7 @@
       document.getElementById("feedbackText").placeholder = content.feedbackPlaceholder;
       document.getElementById("last-rating-text").innerHTML = content.lastRating + ' <span id="user-rating"></span>';
       document.getElementById("error-message").innerText = content.errorMsg;
+      document.getElementById("confirmation-btn").innerText = lang === "ar" ? "حسناً" : "OK";
     }
   </script>
 </body>

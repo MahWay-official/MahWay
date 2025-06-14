@@ -532,6 +532,42 @@
       border: 1px solid rgba(255,215,0,0.2);
     }
     
+    /* أعلام الدول */
+    .flags-container {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .flag-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    
+    .flag-btn:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    
+    .flag-btn.active {
+      background: rgba(255,215,0,0.3);
+      border: 2px solid gold;
+    }
+    
+    .flag-img {
+      width: 30px;
+      height: 20px;
+      object-fit: cover;
+      border-radius: 3px;
+    }
+    
     @media (max-width: 768px) {
       .forms-container {
         flex-direction: column;
@@ -581,6 +617,20 @@
       .header-left.scrolled h1 {
         font-size: 1.5rem;
       }
+      
+      .flags-container {
+        gap: 5px;
+      }
+      
+      .flag-btn {
+        width: 35px;
+        height: 35px;
+      }
+      
+      .flag-img {
+        width: 25px;
+        height: 17px;
+      }
     }
   </style>
 </head>
@@ -593,26 +643,17 @@
     </div>
     
     <div class="lang-switcher" id="langSwitcher">
-      <i class="fas fa-globe lang-icon"></i>
-      <select onchange="changeLang(this.value)">
-        <option value="en">English</option>
-        <option value="ar" selected>العربية</option>
-      </select>
+      <div class="flags-container">
+        <button class="flag-btn active" data-lang="ar" title="العربية">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg" alt="علم مصر" class="flag-img">
+        </button>
+        <button class="flag-btn" data-lang="en" title="English">
+          <img src="https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg" alt="علم بريطانيا" class="flag-img">
+        </button>
+      </div>
     </div>
   </div>
 
-
-
-
-
-
-
-
-
-
-
-  
-  <!-- بقية المحتوى كما هو -->
   <div class="forms-container">
     <form id="localForm" action="https://formspree.io/f/xnqepqyk" method="POST">
       <div class="form-title">
@@ -746,6 +787,20 @@
       checkFormTimers();
       setupHeaderScroll();
       setupAutoHideHeader();
+      
+      // إضافة مستمعين لأزرار الأعلام
+      document.querySelectorAll('.flag-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const lang = this.getAttribute('data-lang');
+          changeLang(lang);
+          
+          // تحديث حالة الأزرار النشطة
+          document.querySelectorAll('.flag-btn').forEach(b => {
+            b.classList.remove('active');
+          });
+          this.classList.add('active');
+        });
+      });
     });
 
     // إضافة تأثير التمرير للشريط العلوي
@@ -925,7 +980,7 @@
     }
 
     function showConfirmationModal() {
-      const lang = document.querySelector('.lang-switcher select').value;
+      const lang = document.querySelector('.flag-btn.active').getAttribute('data-lang');
       const text = lang === 'ar' ? 'سيتم التواصل معك قريباً' : 'We will contact you soon';
       document.getElementById('confirmation-text').textContent = text;
       confirmationModal.style.display = 'block';
@@ -991,7 +1046,7 @@
         const secs = remaining % 60;
         
         // تحديث النص بناءً على اللغة
-        const lang = document.querySelector('.lang-switcher select').value;
+        const lang = document.querySelector('.flag-btn.active').getAttribute('data-lang');
         countdownElement.textContent = lang === 'ar' 
           ? `يمكنك إعادة الإرسال بعد ${minutes}:${secs.toString().padStart(2, '0')}`
           : `Resend available in ${minutes}:${secs.toString().padStart(2, '0')}`;

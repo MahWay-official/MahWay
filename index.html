@@ -31,23 +31,24 @@
       to {opacity: 1;}
     }
 
-    /* الشريط الثابت الجديد الذي يضم الشعار وشريط اللغة */
+    /* الشريط الثابت المحسن */
     .fixed-header {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      padding: 15px 20px;
+      padding: 8px 15px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background-color: rgba(0,0,0,0.95);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      background: linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(30,30,30,0.95) 100%);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 1px 0 rgba(255,215,0,0.1) inset;
       z-index: 3000;
       transition: all 0.3s ease;
-      backdrop-filter: blur(5px);
-      border-bottom: 1px solid rgba(255,215,0,0.5);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255,215,0,0.3);
       transform: translateY(0);
+      height: 65px;
     }
     
     .fixed-header.hide {
@@ -55,15 +56,16 @@
     }
 
     .fixed-header.scrolled {
-      padding: 10px 20px;
+      padding: 6px 15px;
+      height: 55px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.4);
     }
 
     .header-left {
       display: flex;
       align-items: center;
-      gap: 10px;
-      transition: transform 0.3s ease;
+      gap: 12px;
+      transition: all 0.3s ease;
     }
 
     .header-left.scrolled {
@@ -71,32 +73,38 @@
     }
 
     .header-left img {
-      width: 50px;
-      height: 50px;
+      width: 45px;
+      height: 45px;
       border-radius: 50%;
       border: 2px solid gold;
       transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(255,215,0,0.3);
     }
 
     .header-left.scrolled img {
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
     }
 
     .header-left h1 {
-      font-size: 2rem;
+      font-size: 1.7rem;
       margin: 0;
       text-shadow: 0 0 10px rgba(255,215,0,0.5);
       transition: all 0.3s ease;
+      background: linear-gradient(to right, #ffd700, #ffb700);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+      letter-spacing: 0.5px;
     }
 
     .header-left.scrolled h1 {
-      font-size: 1.7rem;
+      font-size: 1.5rem;
     }
 
     .lang-switcher {
-      background: rgba(0,0,0,0.7);
-      padding: 8px 15px;
+      background: rgba(20,20,20,0.8);
+      padding: 6px 12px;
       border-radius: 50px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
       border: 1px solid rgba(255,215,0,0.3);
@@ -104,54 +112,70 @@
       align-items: center;
       gap: 8px;
       transition: all 0.3s ease;
+      height: 40px;
     }
     
     .lang-switcher:hover {
-      background: rgba(0,0,0,0.9);
+      background: rgba(30,30,30,0.9);
       border-color: gold;
+      box-shadow: 0 0 15px rgba(255,215,0,0.2);
     }
 
     .lang-switcher.scrolled {
-      padding: 6px 12px;
-      font-size: 0.9rem;
+      padding: 5px 10px;
+      height: 36px;
     }
     
-    .lang-icon {
-      color: gold;
-      font-size: 1.2rem;
+    .flags-container {
+      display: flex;
+      gap: 8px;
     }
-
-    .lang-switcher select {
-      padding: 8px 15px;
-      border-radius: 8px;
-      background: rgba(0,0,0,0.7);
-      color: white;
-      border: 1px solid rgba(255,215,0,0.5);
+    
+    .flag-btn {
+      background: none;
+      border: none;
       cursor: pointer;
-      font-family: 'Cairo', sans-serif;
-      font-size: 0.95rem;
+      padding: 5px;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       transition: all 0.3s ease;
-      appearance: none;
-      background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M7 10l5 5 5-5z"/></svg>');
-      background-repeat: no-repeat;
-      background-position: right 10px center;
-      background-size: 12px;
-      padding-right: 35px;
+      position: relative;
+      overflow: hidden;
     }
     
-    .lang-switcher select:focus {
-      outline: none;
+    .flag-btn:hover {
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-2px);
+    }
+    
+    .flag-btn.active {
+      background: rgba(255,215,0,0.2);
+      box-shadow: 0 0 0 2px gold;
+      transform: scale(1.05);
+    }
+    
+    .flag-img {
+      width: 26px;
+      height: 18px;
+      object-fit: cover;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .flag-btn:hover .flag-img {
+      transform: scale(1.1);
+    }
+    
+    .flag-btn.active .flag-img {
       border-color: gold;
-      box-shadow: 0 0 8px rgba(255,215,0,0.5);
     }
 
-    .lang-switcher.scrolled select {
-      padding: 6px 12px;
-      font-size: 0.85rem;
-      padding-right: 30px;
-      background-position: right 8px center;
-    }
-
+    /* بقية الأنماط تبقى كما هي */
     .forms-container {
       display: flex;
       flex-wrap: wrap;
@@ -532,42 +556,6 @@
       border: 1px solid rgba(255,215,0,0.2);
     }
     
-    /* أعلام الدول */
-    .flags-container {
-      display: flex;
-      gap: 10px;
-    }
-    
-    .flag-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 5px;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-    }
-    
-    .flag-btn:hover {
-      background: rgba(255,255,255,0.1);
-    }
-    
-    .flag-btn.active {
-      background: rgba(255,215,0,0.3);
-      border: 2px solid gold;
-    }
-    
-    .flag-img {
-      width: 30px;
-      height: 20px;
-      object-fit: cover;
-      border-radius: 3px;
-    }
-    
     @media (max-width: 768px) {
       .forms-container {
         flex-direction: column;
@@ -594,6 +582,7 @@
       .fixed-header {
         flex-direction: column;
         padding: 10px;
+        height: auto;
       }
       
       .header-left {
@@ -603,6 +592,7 @@
       .lang-switcher {
         width: 100%;
         justify-content: center;
+        margin-top: 5px;
       }
       
       .fixed-header.scrolled {
@@ -635,7 +625,7 @@
   </style>
 </head>
 <body>
-  <!-- الشريط الثابت الجديد الذي يضم الشعار وشريط اللغة -->
+  <!-- الشريط الثابت المحسن -->
   <div class="fixed-header" id="fixedHeader">
     <div class="header-left" id="headerLeft">
       <img src="https://raw.githubusercontent.com/MahWay26/MahWay/refs/heads/main/027187e0-e47c-4b04-b0fc-4104a213cc6b.png" alt="logo">

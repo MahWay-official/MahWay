@@ -1,397 +1,70 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MahWay</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: 'Cairo', sans-serif;
-      color: white;
-      text-align: center;
-      background: url('https://eetaeyba365.exactdn.com/wp-content/uploads/2022/02/b09f8c8f-41b6-4cdb-8724-aba38d7a987c.jpg?strip=all&lossy=1&ssl=1') no-repeat center center fixed;
-      background-size: cover;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      padding-top: 100px;
-    }
-
-    /* existing styles omitted for brevity... (you can keep the original CSS from your file) */
-
-    /* BLUR OVERLAY */
-    .page-blur-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.45);
-      backdrop-filter: blur(6px);
-      z-index: 4000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    /* UPDATE MODAL */
-    .update-modal {
-      width: 100%;
-      max-width: 700px;
-      background: linear-gradient(180deg, rgba(10,10,10,0.98), rgba(5,5,5,0.98));
-      border-radius: 14px;
-      padding: 22px;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.6);
-      border: 1px solid rgba(255,215,0,0.12);
-      color: #fff;
-      z-index: 4100;
-      direction: rtl;
-      text-align: center;
-    }
-
-    .update-header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      margin-bottom: 10px;
-    }
-
-    .flag-inline {
-      display: inline-flex;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .flag-inline img {
-      width: 28px;
-      height: 18px;
-      object-fit: cover;
-      border-radius: 3px;
-      cursor: pointer;
-      border: 1px solid rgba(255,255,255,0.12);
-      transition: transform .15s ease;
-    }
-
-    .flag-inline img:hover { transform: translateY(-3px); }
-
-    .update-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: gold;
-      text-shadow: 0 0 8px rgba(255,215,0,0.25);
-    }
-
-    .update-text {
-      margin: 10px 0 18px;
-      font-size: 1.05rem;
-      line-height: 1.35;
-    }
-
-    .countdown-box {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      margin: 12px 0 18px;
-      flex-wrap: wrap;
-    }
-
-    .countdown-segment {
-      background: rgba(255,255,255,0.06);
-      padding: 10px 12px;
-      border-radius: 10px;
-      min-width: 90px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.4);
-      border: 1px solid rgba(255,215,0,0.06);
-    }
-
-    .countdown-number {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .countdown-label {
-      display: block;
-      margin-top: 6px;
-      font-size: 0.85rem;
-      color: rgba(255,255,255,0.7);
-    }
-
-    .comments-area {
-      margin-top: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .comments-area textarea {
-      width: 100%;
-      max-width: 600px;
-      min-height: 90px;
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.03);
-      color: white;
-      resize: vertical;
-    }
-
-    .comments-area .btns {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      width: 100%;
-    }
-
-    .btn {
-      padding: 10px 16px;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      font-weight: 700;
-    }
-
-    .btn-primary {
-      background: linear-gradient(90deg,#ffb700,#ff8c00);
-      color: #222;
-    }
-
-    .btn-secondary {
-      background: rgba(255,255,255,0.06);
-      color: white;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      background: rgba(255,255,255,0.05);
-      color: white;
-      border: 0;
-      padding: 8px 10px;
-      border-radius: 8px;
-      cursor: pointer;
-      z-index: 4200;
-    }
-
-    @media (max-width: 600px) {
-      .countdown-segment { min-width: 70px; }
-      .update-modal { padding: 16px; }
-      .flag-inline img { width: 24px; height: 16px; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شركة الشحن - النقل السريع</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- ========== (keep your original page content here) ========== -->
-  <!-- for brevity I've omitted duplicating the whole previous HTML page sections -->
-  <!-- ... (your existing header, forms, rating container, footer, etc.) ... -->
+    <!-- الهيدر -->
+    <header>
+        <nav>
+            <div class="logo">
+                <h2>شركة الشحن</h2>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="#services">خدماتنا</a></li>
+                <li><a href="#about">من نحن</a></li>
+                <li><a href="#contact">اتصل بنا</a></li>
+            </ul>
+        </nav>
+    </header>
 
-  <!-- BLUR OVERLAY + UPDATE MODAL (inserted at the end of body) -->
-  <div id="pageBlur" class="page-blur-overlay" style="display:flex;">
-    <div class="update-modal" role="dialog" aria-modal="true" aria-labelledby="updateTitle">
-      <button class="modal-close" id="closeUpdateBtn" title="إغلاق">✕</button>
-
-      <div class="update-header">
-        <div class="flag-inline" style="margin-left:8px;">
-          <!-- Flags inside the modal to switch modal language -->
-          <img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg" id="modalFlagAr" alt="مصر" title="العربية">
-          <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" id="modalFlagEn" alt="USA" title="English">
+    <!-- القسم الرئيسي -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>شركة الشحن السريع</h1>
+            <p>نقل آمن وسريع لشحناتك في جميع أنحاء مصر</p>
+            <button class="cta-button">اطلب خدمة</button>
         </div>
-        <div id="updateTitle" class="update-title">تحديث سجل تجاري + تحديث منظومه تشغل</div>
-      </div>
+    </section>
 
-      <div id="updateText" class="update-text">
-        سيتم إجراء تحديثات مهمة في النظام. الرجاء متابعة البيانات وترك تعليق إن رغبت بالمساعدة أو كانت لديك ملاحظات.
-      </div>
-
-      <div class="countdown-box" aria-hidden="false">
-        <div class="countdown-segment">
-          <div id="cd-days" class="countdown-number">0</div>
-          <div id="cd-days-label" class="countdown-label">يوم</div>
+    <!-- خدماتنا -->
+    <section id="services" class="services">
+        <h2>خدماتنا</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>شحن محلي</h3>
+                <p>شحن داخل المحافظات بأسعار تنافسية</p>
+            </div>
+            <div class="service-card">
+                <h3>شحن دولي</h3>
+                <p>شحن إلى جميع دول العالم</p>
+            </div>
+            <div class="service-card">
+                <h3>تتبع الشحنات</h3>
+                <p>تتبع شحنتك خطوة بخطوة</p>
+            </div>
         </div>
-        <div class="countdown-segment">
-          <div id="cd-hours" class="countdown-number">00</div>
-          <div id="cd-hours-label" class="countdown-label">ساعة</div>
+    </section>
+
+    <!-- اتصل بنا -->
+    <section id="contact" class="contact">
+        <h2>اتصل بنا</h2>
+        <div class="contact-info">
+            <p>📞 الهاتف: 0123456789</p>
+            <p>📧 البريد: info@shipping.com</p>
+            <p>📍 العنوان: القاهرة، مصر</p>
         </div>
-        <div class="countdown-segment">
-          <div id="cd-mins" class="countdown-number">00</div>
-          <div id="cd-mins-label" class="countdown-label">دقيقة</div>
-        </div>
-        <div class="countdown-segment">
-          <div id="cd-secs" class="countdown-number">00</div>
-          <div id="cd-secs-label" class="countdown-label">ثانية</div>
-        </div>
-      </div>
+    </section>
 
-      <div class="comments-area">
-        <textarea id="updateComment" placeholder="اكتب تعليقك هنا..."></textarea>
-        <div class="btns">
-          <button id="submitComment" class="btn btn-primary">إرسال تعليق</button>
-          <button id="dismissBtn" class="btn btn-secondary">تم</button>
-        </div>
-        <div id="commentConfirmation" style="display:none;color:gold;margin-top:8px;font-weight:700;">تم حفظ تعليقك — شكراً!</div>
-      </div>
-    </div>
-  </div>
+    <!-- الفوتر -->
+    <footer>
+        <p>© 2024 شركة الشحن. جميع الحقوق محفوظة.</p>
+    </footer>
 
-  <!-- include your site's scripts here (or keep original) -->
-  <script>
-    // ---------- INITIALIZATION ----------
-    document.addEventListener('DOMContentLoaded', () => {
-      // show the overlay/modal on page load (it's already visible by default in markup)
-      initUpdateModal();
-    });
-
-    // ---------- COUNTDOWN LOGIC ----------
-    // 19 days from now
-    const NINETEEN_DAYS_MS = 19 * 24 * 60 * 60 * 1000;
-    let countdownTarget = Date.now() + NINETEEN_DAYS_MS;
-    let countdownInterval = null;
-
-    function initUpdateModal() {
-      // start countdown
-      startCountdownTo(countdownTarget);
-
-      // modal flag clicks
-      document.getElementById('modalFlagAr').addEventListener('click', () => setModalLang('ar'));
-      document.getElementById('modalFlagEn').addEventListener('click', () => setModalLang('en'));
-
-      // comment submit
-      document.getElementById('submitComment').addEventListener('click', saveComment);
-      document.getElementById('dismissBtn').addEventListener('click', closeUpdateModal);
-      document.getElementById('closeUpdateBtn').addEventListener('click', closeUpdateModal);
-
-      // optionally if you want header flags to sync language with modal,
-      // your page already has .flag-btn in header - add event to keep them consistent
-      document.querySelectorAll('.flag-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const lang = this.getAttribute('data-lang') || 'ar';
-          setModalLang(lang);
-        });
-      });
-
-      // restore any saved comment preview (optional)
-      const saved = localStorage.getItem('mahway_update_comment');
-      if (saved) {
-        document.getElementById('updateComment').value = saved;
-      }
-    }
-
-    function startCountdownTo(targetTimestamp) {
-      // clear any previous interval
-      if (countdownInterval) clearInterval(countdownInterval);
-
-      function update() {
-        const now = Date.now();
-        let diff = Math.max(0, targetTimestamp - now);
-
-        const days = Math.floor(diff / (24*60*60*1000));
-        diff -= days * (24*60*60*1000);
-        const hours = Math.floor(diff / (60*60*1000));
-        diff -= hours * (60*60*1000);
-        const mins = Math.floor(diff / (60*1000));
-        diff -= mins * (60*1000);
-        const secs = Math.floor(diff / 1000);
-
-        // set numbers with padding
-        document.getElementById('cd-days').textContent = days;
-        document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
-        document.getElementById('cd-mins').textContent = String(mins).padStart(2,'0');
-        document.getElementById('cd-secs').textContent = String(secs).padStart(2,'0');
-
-        // when reaches zero, show message and stop interval
-        if (targetTimestamp - now <= 0) {
-          clearInterval(countdownInterval);
-          document.getElementById('updateText').textContent = currentLang === 'ar' ? 'اكتمل التحديث' : 'Update completed';
-        }
-      }
-
-      update(); // initial
-      countdownInterval = setInterval(update, 1000);
-    }
-
-    // ---------- LANGUAGE HANDLING FOR THE MODAL ----------
-    let currentLang = 'ar'; // default Arabic
-
-    function setModalLang(lang) {
-      currentLang = lang === 'en' ? 'en' : 'ar';
-
-      if (currentLang === 'ar') {
-        document.getElementById('updateTitle').textContent = 'تحديث سجل تجاري + تحديث منظومه تشغل';
-        document.getElementById('updateText').textContent = 'سيتم إجراء تحديثات مهمة في النظام. الرجاء متابعة البيانات وترك تعليق إن رغبت بالمساعدة أو كانت لديك ملاحظات.';
-        document.getElementById('cd-days-label').textContent = 'يوم';
-        document.getElementById('cd-hours-label').textContent = 'ساعة';
-        document.getElementById('cd-mins-label').textContent = 'دقيقة';
-        document.getElementById('cd-secs-label').textContent = 'ثانية';
-        document.getElementById('updateComment').placeholder = 'اكتب تعليقك هنا...';
-        document.getElementById('submitComment').textContent = 'إرسال تعليق';
-        document.getElementById('dismissBtn').textContent = 'تم';
-      } else {
-        document.getElementById('updateTitle').textContent = 'Commercial Reg Update + System Activation Update';
-        document.getElementById('updateText').textContent = 'Important system updates will be applied. Please follow details and leave a comment if you have feedback.';
-        document.getElementById('cd-days-label').textContent = 'Days';
-        document.getElementById('cd-hours-label').textContent = 'Hours';
-        document.getElementById('cd-mins-label').textContent = 'Minutes';
-        document.getElementById('cd-secs-label').textContent = 'Seconds';
-        document.getElementById('updateComment').placeholder = 'Write your comment here...';
-        document.getElementById('submitComment').textContent = 'Send comment';
-        document.getElementById('dismissBtn').textContent = 'OK';
-      }
-
-      // also sync active state on modal flags visuals (simple border)
-      document.getElementById('modalFlagAr').style.outline = currentLang === 'ar' ? '2px solid gold' : 'none';
-      document.getElementById('modalFlagEn').style.outline = currentLang === 'en' ? '2px solid gold' : 'none';
-    }
-
-    // ---------- COMMENTS HANDLING ----------
-    function saveComment() {
-      const txt = document.getElementById('updateComment').value.trim();
-      if (!txt) {
-        // simple feedback
-        document.getElementById('commentConfirmation').style.color = '#ff6b6b';
-        document.getElementById('commentConfirmation').textContent = currentLang === 'ar' ? 'من فضلك اكتب تعليق قبل الإرسال' : 'Please write a comment before sending';
-        document.getElementById('commentConfirmation').style.display = 'block';
-        setTimeout(()=> {
-          document.getElementById('commentConfirmation').style.display = 'none';
-        }, 2500);
-        return;
-      }
-
-      // save locally (can be changed to send via API)
-      localStorage.setItem('mahway_update_comment', txt);
-      document.getElementById('commentConfirmation').style.color = 'gold';
-      document.getElementById('commentConfirmation').textContent = currentLang === 'ar' ? 'تم حفظ تعليقك — شكراً!' : 'Your comment was saved — Thanks!';
-      document.getElementById('commentConfirmation').style.display = 'block';
-      setTimeout(()=> {
-        document.getElementById('commentConfirmation').style.display = 'none';
-      }, 3000);
-
-      // optionally close modal after sending
-      // closeUpdateModal();
-    }
-
-    // ---------- OPEN / CLOSE ----------
-    function closeUpdateModal() {
-      const overlay = document.getElementById('pageBlur');
-      overlay.style.display = 'none';
-      if (countdownInterval) clearInterval(countdownInterval);
-    }
-
-    // ---------- if you want to re-open from anywhere (optional) ----------
-    function openUpdateModal() {
-      const overlay = document.getElementById('pageBlur');
-      overlay.style.display = 'flex';
-      countdownTarget = Date.now() + NINETEEN_DAYS_MS; // restart if you want from now
-      startCountdownTo(countdownTarget);
-    }
-
-    // expose openUpdateModal to global if needed:
-    window.openUpdateModal = openUpdateModal;
-  </script>
+    <script src="script.js"></script>
 </body>
 </html>

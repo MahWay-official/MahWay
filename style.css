@@ -549,7 +549,36 @@ nav {
     font-weight: 700;
     display: inline-block;
 }
+/* تنسيقات للغات المختلفة */
+[lang="en"] .hero-content,
+[lang="tr"] .hero-content {
+    text-align: center;
+}
 
+[lang="en"] .contact-details,
+[lang="tr"] .contact-details {
+    text-align: left;
+}
+
+[lang="en"] .form-group label,
+[lang="tr"] .form-group label {
+    text-align: left;
+}
+
+[lang="en"] .service-card,
+[lang="tr"] .service-card {
+    text-align: center;
+}
+
+[lang="en"] .stat-item,
+[lang="tr"] .stat-item {
+    text-align: center;
+}
+
+[lang="en"] .footer-content,
+[lang="tr"] .footer-content {
+    text-align: center;
+}
 /* نموذج الشحن */
 .shipping-form-section {
     padding: 6rem 0;

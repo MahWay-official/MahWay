@@ -6,244 +6,295 @@ AOS.init({
     easing: 'ease-out-cubic'
 });
 
+// تهيئة Particles.js
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof particlesJS !== 'undefined') {
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#ffffff" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#ffffff",
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" },
+                    onclick: { enable: true, mode: "push" },
+                    resize: true
+                }
+            }
+        });
+    }
+});
+
 // متغيرات الترجمة الكاملة
 const translations = {
     ar: {
         // التنقل
-        home: "الرئيسية",
-        services: "خدماتنا",
-        shippingForm: "طلب شحن",
-        contact: "اتصل بنا",
+        "nav.home": "الرئيسية",
+        "nav.services": "خدماتنا",
+        "nav.shippingForm": "طلب شحن",
+        "nav.contact": "اتصل بنا",
+        "nav.quickOrder": "طلب سريع",
         
         // الهيرو
-        tagline: "Import Export Shipping",
-        heroDescription: "حلول شحن ذكية لتجارة الاستيراد والتصدير العالمية",
-        orderNow: "اطلب شحنتك الآن",
-        exploreServices: "استكشف خدماتنا",
+        "hero.tagline": "Import Export Shipping",
+        "hero.description": "حلول شحن ذكية لتجارة الاستيراد والتصدير العالمية",
+        "hero.orderNow": "اطلب شحنتك الآن",
+        "hero.exploreServices": "استكشف خدماتنا",
         
         // الإحصائيات
-        successfulShipments: "شحنة ناجحة",
-        countries: "دولة",
-        supportHours: "ساعة دعم",
-        customerSatisfaction: "% رضا العملاء",
+        "stats.shipments": "شحنة ناجحة",
+        "stats.countries": "دولة",
+        "stats.support": "ساعة دعم",
+        "stats.satisfaction": "% رضا العملاء",
         
         // الخدمات السريعة
-        quickServices: "خدماتنا السريعة",
-        fastShipping: "شحن سريع ⚡",
-        airShipping: "شحن جوي",
-        seaShipping: "شحن بحري",
-        fastShippingDesc: "توصيل فوري مع أفضل الأسعار",
-        airShippingDesc: "أسرع وسائل النقل للبضائع العاجلة",
-        seaShippingDesc: "الحل الأمثل للشحنات الكبيرة",
-        hours24: "24-48 ساعة",
-        days2_5: "2-5 أيام",
-        days15_30: "15-30 يوم",
+        "quickServices.title": "خدماتنا السريعة",
+        "service.fast": "شحن سريع ⚡",
+        "service.air": "شحن جوي",
+        "service.sea": "شحن بحري",
+        "service.fast.desc": "توصيل فوري مع أفضل الأسعار",
+        "service.air.desc": "أسرع وسائل النقل للبضائع العاجلة",
+        "service.sea.desc": "الحل الأمثل للشحنات الكبيرة",
+        "service.time.fast": "24-48 ساعة",
+        "service.time.air": "2-5 أيام",
+        "service.time.sea": "15-30 يوم",
         
         // نموذج الشحن
-        shippingRequest: "طلب خدمة الشحن",
-        formSubtitle: "املأ البيانات وسنتواصل معك خلال دقائق",
-        shipmentDetails: "تفاصيل الشحنة",
-        fullName: "الاسم بالكامل *",
-        phoneNumber: "رقم الهاتف *",
-        weight: "الوزن (كجم) *",
-        productLink: "رابط المنتج (اختياري)",
-        shippingType: "نوع الشحن *",
-        shippingRoute: "مسار الشحن *",
-        additionalNotes: "ملاحظات إضافية",
-        chooseShippingType: "اختر نوع الشحن",
-        fastShippingOption: "شحن سريع ⚡",
-        normalShipping: "شحن عادي",
-        chooseRoute: "اختر مسار الشحن",
-        withinEgypt: "داخل مصر 🇪🇬",
-        withinTurkey: "داخل تركيا 🇹🇷",
-        international: "شحن دولي (من بلد لبلد) 🌍",
-        notesPlaceholder: "أي معلومات إضافية عن الشحنة...",
-        sendRequest: "إرسال طلب الشحن",
+        "form.title": "طلب خدمة الشحن",
+        "form.subtitle": "املأ البيانات وسنتواصل معك خلال دقائق",
+        "form.details": "تفاصيل الشحنة",
+        "form.fullName": "الاسم بالكامل *",
+        "form.phone": "رقم الهاتف *",
+        "form.weight": "الوزن (كجم) *",
+        "form.productLink": "رابط المنتج (اختياري)",
+        "form.shippingType": "نوع الشحن *",
+        "form.shippingRoute": "مسار الشحن *",
+        "form.notes": "ملاحظات إضافية",
+        "form.chooseType": "اختر نوع الشحن",
+        "form.fastOption": "شحن سريع ⚡",
+        "form.normalOption": "شحن عادي",
+        "form.chooseRoute": "اختر مسار الشحن",
+        "form.egyptOption": "داخل مصر 🇪🇬",
+        "form.turkeyOption": "داخل تركيا 🇹🇷",
+        "form.internationalOption": "شحن دولي (من بلد لبلد) 🌍",
+        "form.notesPlaceholder": "أي معلومات إضافية عن الشحنة...",
+        "form.send": "إرسال طلب الشحن",
         
         // الخدمات
-        ourServices: "خدماتنا المتكاملة",
-        expressShipping: "شحن اكسبريس",
-        internationalShipping: "شحن دولي",
-        storage: "تخزين",
-        customsClearance: "تخليص جمركي",
-        expressDesc: "توصيل فوري مع أفضل وسائل النقل المتاحة",
-        internationalDesc: "توصيل عالمي مع تغطية شاملة للجمارك",
-        storageDesc: "خدمات تخزين آمنة مع إدارة المخزون",
-        customsDesc: "تخليص جمركي متكامل مع متابعة المستندات",
-        tracking: "تتبع مباشر",
-        customs: "تخليص جمركي",
-        secureStorage: "تخزين آمن",
-        inventory: "إدارة مخزون",
-        documents: "مستندات",
-        fastService: "خدمة سريعة",
+        "services.title": "خدماتنا المتكاملة",
+        "service.express": "شحن اكسبريس",
+        "service.international": "شحن دولي",
+        "service.storage": "تخزين",
+        "service.customs": "تخليص جمركي",
+        "service.express.desc": "توصيل فوري مع أفضل وسائل النقل المتاحة",
+        "service.international.desc": "توصيل عالمي مع تغطية شاملة للجمارك",
+        "service.storage.desc": "خدمات تخزين آمنة مع إدارة المخزون",
+        "service.customs.desc": "تخليص جمركي متكامل مع متابعة المستندات",
+        "service.feature.fast": "⚡ 24-48 ساعة",
+        "service.feature.tracking": "📱 تتبع مباشر",
+        "service.feature.countries": "🌍 25 دولة",
+        "service.feature.customs": "🛃 تخليص جمركي",
+        "service.feature.secure": "🔒 تخزين آمن",
+        "service.feature.inventory": "📊 إدارة مخزون",
+        "service.feature.documents": "📋 مستندات",
+        "service.feature.quick": "⚡ خدمة سريعة",
         
         // اتصل بنا
-        contactUs: "اتصل بنا",
-        contactInfo: "معلومات التواصل",
-        phone: "الهاتف",
-        email: "البريد الإلكتروني",
-        commercialRegister: "السجل التجاري",
+        "contact.title": "اتصل بنا",
+        "contact.company": "MahWay Shipping",
+        "contact.info": "معلومات التواصل",
+        "contact.phone": "الهاتف",
+        "contact.email": "البريد الإلكتروني",
+        "contact.register": "السجل التجاري",
         
         // الفوتر
-        allRights: "جميع الحقوق محفوظة"
+        "footer.rights": "جميع الحقوق محفوظة"
     },
     en: {
         // Navigation
-        home: "Home",
-        services: "Services",
-        shippingForm: "Shipping Request",
-        contact: "Contact Us",
+        "nav.home": "Home",
+        "nav.services": "Services",
+        "nav.shippingForm": "Shipping Request",
+        "nav.contact": "Contact Us",
+        "nav.quickOrder": "Quick Order",
         
         // Hero
-        tagline: "Import Export Shipping",
-        heroDescription: "Smart shipping solutions for global import and export trade",
-        orderNow: "Order Your Shipment Now",
-        exploreServices: "Explore Our Services",
+        "hero.tagline": "Import Export Shipping",
+        "hero.description": "Smart shipping solutions for global import and export trade",
+        "hero.orderNow": "Order Your Shipment Now",
+        "hero.exploreServices": "Explore Our Services",
         
         // Statistics
-        successfulShipments: "Successful Shipments",
-        countries: "Countries",
-        supportHours: "Support Hours",
-        customerSatisfaction: "% Customer Satisfaction",
+        "stats.shipments": "Successful Shipments",
+        "stats.countries": "Countries",
+        "stats.support": "Support Hours",
+        "stats.satisfaction": "% Customer Satisfaction",
         
         // Quick Services
-        quickServices: "Our Quick Services",
-        fastShipping: "Fast Shipping ⚡",
-        airShipping: "Air Shipping",
-        seaShipping: "Sea Shipping",
-        fastShippingDesc: "Instant delivery with best prices",
-        airShippingDesc: "Fastest transport for urgent goods",
-        seaShippingDesc: "Ideal solution for large shipments",
-        hours24: "24-48 Hours",
-        days2_5: "2-5 Days",
-        days15_30: "15-30 Days",
+        "quickServices.title": "Our Quick Services",
+        "service.fast": "Fast Shipping ⚡",
+        "service.air": "Air Shipping",
+        "service.sea": "Sea Shipping",
+        "service.fast.desc": "Instant delivery with best prices",
+        "service.air.desc": "Fastest transport for urgent goods",
+        "service.sea.desc": "Ideal solution for large shipments",
+        "service.time.fast": "24-48 Hours",
+        "service.time.air": "2-5 Days",
+        "service.time.sea": "15-30 Days",
         
         // Shipping Form
-        shippingRequest: "Shipping Service Request",
-        formSubtitle: "Fill the data and we'll contact you within minutes",
-        shipmentDetails: "Shipment Details",
-        fullName: "Full Name *",
-        phoneNumber: "Phone Number *",
-        weight: "Weight (kg) *",
-        productLink: "Product Link (optional)",
-        shippingType: "Shipping Type *",
-        shippingRoute: "Shipping Route *",
-        additionalNotes: "Additional Notes",
-        chooseShippingType: "Choose Shipping Type",
-        fastShippingOption: "Fast Shipping ⚡",
-        normalShipping: "Normal Shipping",
-        chooseRoute: "Choose Shipping Route",
-        withinEgypt: "Within Egypt 🇪🇬",
-        withinTurkey: "Within Turkey 🇹🇷",
-        international: "International (Country to Country) 🌍",
-        notesPlaceholder: "Any additional information about the shipment...",
-        sendRequest: "Send Shipping Request",
+        "form.title": "Shipping Service Request",
+        "form.subtitle": "Fill the data and we'll contact you within minutes",
+        "form.details": "Shipment Details",
+        "form.fullName": "Full Name *",
+        "form.phone": "Phone Number *",
+        "form.weight": "Weight (kg) *",
+        "form.productLink": "Product Link (optional)",
+        "form.shippingType": "Shipping Type *",
+        "form.shippingRoute": "Shipping Route *",
+        "form.notes": "Additional Notes",
+        "form.chooseType": "Choose Shipping Type",
+        "form.fastOption": "Fast Shipping ⚡",
+        "form.normalOption": "Normal Shipping",
+        "form.chooseRoute": "Choose Shipping Route",
+        "form.egyptOption": "Within Egypt 🇪🇬",
+        "form.turkeyOption": "Within Turkey 🇹🇷",
+        "form.internationalOption": "International (Country to Country) 🌍",
+        "form.notesPlaceholder": "Any additional information about the shipment...",
+        "form.send": "Send Shipping Request",
         
         // Services
-        ourServices: "Our Integrated Services",
-        expressShipping: "Express Shipping",
-        internationalShipping: "International Shipping",
-        storage: "Storage",
-        customsClearance: "Customs Clearance",
-        expressDesc: "Instant delivery with best available transport",
-        internationalDesc: "Global delivery with full customs coverage",
-        storageDesc: "Secure storage services with inventory management",
-        customsDesc: "Integrated customs clearance with document follow-up",
-        tracking: "Live Tracking",
-        customs: "Customs Clearance",
-        secureStorage: "Secure Storage",
-        inventory: "Inventory Management",
-        documents: "Documents",
-        fastService: "Fast Service",
+        "services.title": "Our Integrated Services",
+        "service.express": "Express Shipping",
+        "service.international": "International Shipping",
+        "service.storage": "Storage",
+        "service.customs": "Customs Clearance",
+        "service.express.desc": "Instant delivery with best available transport",
+        "service.international.desc": "Global delivery with full customs coverage",
+        "service.storage.desc": "Secure storage services with inventory management",
+        "service.customs.desc": "Integrated customs clearance with document follow-up",
+        "service.feature.fast": "⚡ 24-48 Hours",
+        "service.feature.tracking": "📱 Live Tracking",
+        "service.feature.countries": "🌍 25 Countries",
+        "service.feature.customs": "🛃 Customs Clearance",
+        "service.feature.secure": "🔒 Secure Storage",
+        "service.feature.inventory": "📊 Inventory Management",
+        "service.feature.documents": "📋 Documents",
+        "service.feature.quick": "⚡ Fast Service",
         
         // Contact
-        contactUs: "Contact Us",
-        contactInfo: "Contact Information",
-        phone: "Phone",
-        email: "Email",
-        commercialRegister: "Commercial Register",
+        "contact.title": "Contact Us",
+        "contact.company": "MahWay Shipping",
+        "contact.info": "Contact Information",
+        "contact.phone": "Phone",
+        "contact.email": "Email",
+        "contact.register": "Commercial Register",
         
         // Footer
-        allRights: "All rights reserved"
+        "footer.rights": "All rights reserved"
     },
     tr: {
         // Navigation
-        home: "Ana Sayfa",
-        services: "Hizmetler",
-        shippingForm: "Nakliye Talebi",
-        contact: "İletişim",
+        "nav.home": "Ana Sayfa",
+        "nav.services": "Hizmetler",
+        "nav.shippingForm": "Nakliye Talebi",
+        "nav.contact": "İletişim",
+        "nav.quickOrder": "Hızlı Sipariş",
         
         // Hero
-        tagline: "Import Export Shipping",
-        heroDescription: "Küresel ithalat ve ihracat ticareti için akıllı nakliye çözümleri",
-        orderNow: "Şimdi Nakliyenizi Sipariş Edin",
-        exploreServices: "Hizmetlerimizi Keşfedin",
+        "hero.tagline": "Import Export Shipping",
+        "hero.description": "Küresel ithalat ve ihracat ticareti için akıllı nakliye çözümleri",
+        "hero.orderNow": "Şimdi Nakliyenizi Sipariş Edin",
+        "hero.exploreServices": "Hizmetlerimizi Keşfedin",
         
         // Statistics
-        successfulShipments: "Başarılı Sevkiyat",
-        countries: "Ülke",
-        supportHours: "Destek Saati",
-        customerSatisfaction: "% Müşteri Memnuniyeti",
+        "stats.shipments": "Başarılı Sevkiyat",
+        "stats.countries": "Ülke",
+        "stats.support": "Destek Saati",
+        "stats.satisfaction": "% Müşteri Memnuniyeti",
         
         // Quick Services
-        quickServices: "Hızlı Hizmetlerimiz",
-        fastShipping: "Hızlı Nakliye ⚡",
-        airShipping: "Hava Nakliyesi",
-        seaShipping: "Deniz Nakliyesi",
-        fastShippingDesc: "En iyi fiyatlarla anında teslimat",
-        airShippingDesc: "Acil kargolar için en hızlı taşıma",
-        seaShippingDesc: "Büyük sevkiyatlar için ideal çözüm",
-        hours24: "24-48 Saat",
-        days2_5: "2-5 Gün",
-        days15_30: "15-30 Gün",
+        "quickServices.title": "Hızlı Hizmetlerimiz",
+        "service.fast": "Hızlı Nakliye ⚡",
+        "service.air": "Hava Nakliyesi",
+        "service.sea": "Deniz Nakliyesi",
+        "service.fast.desc": "En iyi fiyatlarla anında teslimat",
+        "service.air.desc": "Acil kargolar için en hızlı taşıma",
+        "service.sea.desc": "Büyük sevkiyatlar için ideal çözüm",
+        "service.time.fast": "24-48 Saat",
+        "service.time.air": "2-5 Gün",
+        "service.time.sea": "15-30 Gün",
         
         // Shipping Form
-        shippingRequest: "Nakliye Hizmeti Talebi",
-        formSubtitle: "Verileri doldurun, sizi dakikalar içinde arayalım",
-        shipmentDetails: "Sevkiyat Detayları",
-        fullName: "Tam Ad *",
-        phoneNumber: "Telefon Numarası *",
-        weight: "Ağırlık (kg) *",
-        productLink: "Ürün Bağlantısı (isteğe bağlı)",
-        shippingType: "Nakliye Türü *",
-        shippingRoute: "Nakliye Rotası *",
-        additionalNotes: "Ek Notlar",
-        chooseShippingType: "Nakliye Türünü Seçin",
-        fastShippingOption: "Hızlı Nakliye ⚡",
-        normalShipping: "Normal Nakliye",
-        chooseRoute: "Nakliye Rotasını Seçin",
-        withinEgypt: "Mısır İçi 🇪🇬",
-        withinTurkey: "Türkiye İçi 🇹🇷",
-        international: "Uluslararası (Ülkeden Ülkeye) 🌍",
-        notesPlaceholder: "Sevkiyat hakkında herhangi bir ek bilgi...",
-        sendRequest: "Nakliye Talebini Gönder",
+        "form.title": "Nakliye Hizmeti Talebi",
+        "form.subtitle": "Verileri doldurun, sizi dakikalar içinde arayalım",
+        "form.details": "Sevkiyat Detayları",
+        "form.fullName": "Tam Ad *",
+        "form.phone": "Telefon Numarası *",
+        "form.weight": "Ağırlık (kg) *",
+        "form.productLink": "Ürün Bağlantısı (isteğe bağlı)",
+        "form.shippingType": "Nakliye Türü *",
+        "form.shippingRoute": "Nakliye Rotası *",
+        "form.notes": "Ek Notlar",
+        "form.chooseType": "Nakliye Türünü Seçin",
+        "form.fastOption": "Hızlı Nakliye ⚡",
+        "form.normalOption": "Normal Nakliye",
+        "form.chooseRoute": "Nakliye Rotasını Seçin",
+        "form.egyptOption": "Mısır İçi 🇪🇬",
+        "form.turkeyOption": "Türkiye İçi 🇹🇷",
+        "form.internationalOption": "Uluslararası (Ülkeden Ülkeye) 🌍",
+        "form.notesPlaceholder": "Sevkiyat hakkında herhangi bir ek bilgi...",
+        "form.send": "Nakliye Talebini Gönder",
         
         // Services
-        ourServices: "Entegre Hizmetlerimiz",
-        expressShipping: "Ekspres Nakliye",
-        internationalShipping: "Uluslararası Nakliye",
-        storage: "Depolama",
-        customsClearance: "Gümrük Takibi",
-        expressDesc: "Mevcut en iyi taşıma ile anında teslimat",
-        internationalDesc: "Tam gümrük kapsamıyla küresel teslimat",
-        storageDesc: "Envanter yönetimi ile güvenli depolama hizmetleri",
-        customsDesc: "Belge takibi ile entegre gümrük takibi",
-        tracking: "Canlı Takip",
-        customs: "Gümrük Takibi",
-        secureStorage: "Güvenli Depolama",
-        inventory: "Envanter Yönetimi",
-        documents: "Belgeler",
-        fastService: "Hızlı Hizmet",
+        "services.title": "Entegre Hizmetlerimiz",
+        "service.express": "Ekspres Nakliye",
+        "service.international": "Uluslararası Nakliye",
+        "service.storage": "Depolama",
+        "service.customs": "Gümrük Takibi",
+        "service.express.desc": "Mevcut en iyi taşıma ile anında teslimat",
+        "service.international.desc": "Tam gümrük kapsamıyla küresel teslimat",
+        "service.storage.desc": "Envanter yönetimi ile güvenli depolama hizmetleri",
+        "service.customs.desc": "Belge takibi ile entegre gümrük takibi",
+        "service.feature.fast": "⚡ 24-48 Saat",
+        "service.feature.tracking": "📱 Canlı Takip",
+        "service.feature.countries": "🌍 25 Ülke",
+        "service.feature.customs": "🛃 Gümrük Takibi",
+        "service.feature.secure": "🔒 Güvenli Depolama",
+        "service.feature.inventory": "📊 Envanter Yönetimi",
+        "service.feature.documents": "📋 Belgeler",
+        "service.feature.quick": "⚡ Hızlı Hizmet",
         
         // Contact
-        contactUs: "Bize Ulaşın",
-        contactInfo: "İletişim Bilgileri",
-        phone: "Telefon",
-        email: "E-posta",
-        commercialRegister: "Ticaret Sicil No",
+        "contact.title": "Bize Ulaşın",
+        "contact.company": "MahWay Shipping",
+        "contact.info": "İletişim Bilgileri",
+        "contact.phone": "Telefon",
+        "contact.email": "E-posta",
+        "contact.register": "Ticaret Sicil No",
         
         // Footer
-        allRights: "Tüm hakları saklıdır"
+        "footer.rights": "Tüm hakları saklıdır"
     }
 };
 
@@ -254,12 +305,6 @@ let currentLanguage = 'ar';
 document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.addEventListener('click', function() {
         const lang = this.dataset.lang;
-        
-        // تحديد الزر النشط
-        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        
-        // تغيير اللغة
         switchLanguage(lang);
     });
 });
@@ -268,16 +313,17 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
 function switchLanguage(lang) {
     currentLanguage = lang;
     
+    // تحديث الأزرار النشطة
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector(`.lang-btn[data-lang="${lang}"]`).classList.add('active');
+    
     // تغيير اتجاه الصفحة
     if (lang === 'ar') {
         document.documentElement.dir = 'rtl';
         document.documentElement.lang = 'ar';
-    } else if (lang === 'en') {
+    } else {
         document.documentElement.dir = 'ltr';
-        document.documentElement.lang = 'en';
-    } else if (lang === 'tr') {
-        document.documentElement.dir = 'ltr';
-        document.documentElement.lang = 'tr';
+        document.documentElement.lang = lang;
     }
     
     // تطبيق جميع الترجمات
@@ -288,124 +334,31 @@ function switchLanguage(lang) {
 function applyAllTranslations() {
     const langData = translations[currentLanguage];
     
-    // التنقل
-    updateElementText('[data-i18n="nav.home"]', langData.home);
-    updateElementText('[data-i18n="nav.services"]', langData.services);
-    updateElementText('[data-i18n="nav.shippingForm"]', langData.shippingForm);
-    updateElementText('[data-i18n="nav.contact"]', langData.contact);
+    // ترجمة كل العناصر مع data-i18n
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (langData[key]) {
+            element.textContent = langData[key];
+        }
+    });
     
-    // الهيرو
-    updateElementText('[data-i18n="hero.tagline"]', langData.tagline);
-    updateElementText('[data-i18n="hero.description"]', langData.heroDescription);
-    updateElementText('[data-i18n="hero.orderNow"]', langData.orderNow);
-    updateElementText('[data-i18n="hero.exploreServices"]', langData.exploreServices);
+    // ترجمة الـ placeholders
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+        const key = element.getAttribute('data-i18n-placeholder');
+        if (langData[key]) {
+            element.placeholder = langData[key];
+        }
+    });
     
-    // الإحصائيات
-    updateElementText('[data-i18n="stats.shipments"]', langData.successfulShipments);
-    updateElementText('[data-i18n="stats.countries"]', langData.countries);
-    updateElementText('[data-i18n="stats.support"]', langData.supportHours);
-    updateElementText('[data-i18n="stats.satisfaction"]', langData.customerSatisfaction);
-    
-    // الخدمات السريعة
-    updateElementText('[data-i18n="quickServices.title"]', langData.quickServices);
-    updateElementText('[data-i18n="service.fast"]', langData.fastShipping);
-    updateElementText('[data-i18n="service.air"]', langData.airShipping);
-    updateElementText('[data-i18n="service.sea"]', langData.seaShipping);
-    updateElementText('[data-i18n="service.fast.desc"]', langData.fastShippingDesc);
-    updateElementText('[data-i18n="service.air.desc"]', langData.airShippingDesc);
-    updateElementText('[data-i18n="service.sea.desc"]', langData.seaShippingDesc);
-    
-    // نموذج الشحن
-    updateElementText('[data-i18n="form.title"]', langData.shippingRequest);
-    updateElementText('[data-i18n="form.subtitle"]', langData.formSubtitle);
-    updateElementText('[data-i18n="form.details"]', langData.shipmentDetails);
-    updateElementText('[data-i18n="form.fullName"]', langData.fullName);
-    updateElementText('[data-i18n="form.phone"]', langData.phoneNumber);
-    updateElementText('[data-i18n="form.weight"]', langData.weight);
-    updateElementText('[data-i18n="form.productLink"]', langData.productLink);
-    updateElementText('[data-i18n="form.shippingType"]', langData.shippingType);
-    updateElementText('[data-i18n="form.shippingRoute"]', langData.shippingRoute);
-    updateElementText('[data-i18n="form.notes"]', langData.additionalNotes);
-    updateElementText('[data-i18n="form.send"]', langData.sendRequest);
-    
-    // تحديث placeholders و options
-    updatePlaceholder('name', langData.fullName);
-    updatePlaceholder('phone', langData.phoneNumber);
-    updatePlaceholder('weight', langData.weight);
-    updatePlaceholder('product-link', langData.productLink);
-    updatePlaceholder('notes', langData.notesPlaceholder);
-    
-    updateSelectOptions('shipping-type', [
-        { value: '', text: langData.chooseShippingType },
-        { value: 'fast', text: langData.fastShippingOption },
-        { value: 'normal', text: langData.normalShipping }
-    ]);
-    
-    updateSelectOptions('shipping-route', [
-        { value: '', text: langData.chooseRoute },
-        { value: 'egypt', text: langData.withinEgypt },
-        { value: 'turkey', text: langData.withinTurkey },
-        { value: 'international', text: langData.international }
-    ]);
-    
-    // الخدمات
-    updateElementText('[data-i18n="services.title"]', langData.ourServices);
-    updateElementText('[data-i18n="service.express"]', langData.expressShipping);
-    updateElementText('[data-i18n="service.international"]', langData.internationalShipping);
-    updateElementText('[data-i18n="service.storage"]', langData.storage);
-    updateElementText('[data-i18n="service.customs"]', langData.customsClearance);
-    updateElementText('[data-i18n="service.express.desc"]', langData.expressDesc);
-    updateElementText('[data-i18n="service.international.desc"]', langData.internationalDesc);
-    updateElementText('[data-i18n="service.storage.desc"]', langData.storageDesc);
-    updateElementText('[data-i18n="service.customs.desc"]', langData.customsDesc);
-    
-    // اتصل بنا
-    updateElementText('[data-i18n="contact.title"]', langData.contactUs);
-    updateElementText('[data-i18n="contact.info"]', langData.contactInfo);
-    updateElementText('[data-i18n="contact.phone"]', langData.phone);
-    updateElementText('[data-i18n="contact.email"]', langData.email);
-    updateElementText('[data-i18n="contact.register"]', langData.commercialRegister);
-    
-    // الفوتر
-    updateElementText('[data-i18n="footer.rights"]', langData.allRights);
+    // ترجمة خيارات الـ select
+    document.querySelectorAll('select option[data-i18n]').forEach(option => {
+        const key = option.getAttribute('data-i18n');
+        if (langData[key]) {
+            option.textContent = langData[key];
+        }
+    });
 }
 
-// دالة مساعدة لتحديث النص
-function updateElementText(selector, text) {
-    const element = document.querySelector(selector);
-    if (element) {
-        element.textContent = text;
-    }
-}
-
-// دالة لتحديث الـ placeholder
-function updatePlaceholder(fieldId, text) {
-    const field = document.getElementById(fieldId);
-    if (field) {
-        field.placeholder = text;
-    }
-}
-
-// دالة لتحديث خيارات الـ select
-function updateSelectOptions(selectId, options) {
-    const select = document.getElementById(selectId);
-    if (select) {
-        select.innerHTML = '';
-        options.forEach(option => {
-            const optionElement = document.createElement('option');
-            optionElement.value = option.value;
-            optionElement.textContent = option.text;
-            select.appendChild(optionElement);
-        });
-    }
-}
-
-// تهيئة الترجمة عند التحميل
-document.addEventListener('DOMContentLoaded', function() {
-    switchLanguage('ar');
-});
-
-// بقية الكود كما هو...
 // تأثير التمرير للهيدر
 window.addEventListener('scroll', function() {
     const header = document.querySelector('.header-animation');
@@ -475,9 +428,6 @@ function startCounters() {
     
     observer.observe(document.querySelector('.stats'));
 }
-
-// تشغيل العداد عند التحميل
-document.addEventListener('DOMContentLoaded', startCounters);
 
 // نموذج الشحن
 document.getElementById('shippingForm').addEventListener('submit', function(e) {
@@ -561,3 +511,30 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// تهيئة الترجمة عند التحميل
+document.addEventListener('DOMContentLoaded', function() {
+    switchLanguage('ar');
+    startCounters();
+});
+
+// تأثيرات Hover للبطاقات
+document.querySelectorAll('.service-card, .quick-service-card').forEach(card => {
+    card.addEventListener('mousemove', function(e) {
+        const rect = this.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const angleY = (x - centerX) / 25;
+        const angleX = (centerY - y) / 25;
+        
+        this.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale(1.05)`;
+    });
+    
+    card.addEventListener('mouseleave', function() {
+        this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+    });
+});

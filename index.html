@@ -1,12 +1,3 @@
-<!-- في التنقل -->
-<ul class="nav-links">
-    <li><a href="#home" class="nav-link" data-i18n="nav.home">الرئيسية</a></li>
-    <li><a href="#services" class="nav-link" data-i18n="nav.services">خدماتنا</a></li>
-    <li><a href="#shipping-form" class="nav-link" data-i18n="nav.shippingForm">طلب شحن</a></li>
-    <li><a href="#contact" class="nav-link" data-i18n="nav.contact">اتصل بنا</a></li>
-</ul>
-
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -35,23 +26,16 @@
                 <img src="logo.png" alt="MahWay Logo" class="logo-img floating">
             </div>
             <ul class="nav-links">
-                <li><a href="#home" class="nav-link">الرئيسية</a></li>
-                <li><a href="#services" class="nav-link">خدماتنا</a></li>
-                <li><a href="#shipping-form" class="nav-link">طلب شحن</a></li>
-                <li><a href="#contact" class="nav-link">اتصل بنا</a></li>
+                <li><a href="#home" class="nav-link" data-i18n="nav.home">الرئيسية</a></li>
+                <li><a href="#services" class="nav-link" data-i18n="nav.services">خدماتنا</a></li>
+                <li><a href="#shipping-form" class="nav-link" data-i18n="nav.shippingForm">طلب شحن</a></li>
+                <li><a href="#contact" class="nav-link" data-i18n="nav.contact">اتصل بنا</a></li>
             </ul>
             <div class="nav-cta">
                 <button class="nav-button" onclick="scrollToForm()">
                     <i class="fas fa-shipping-fast"></i>
-                    طلب سريع
+                    <span data-i18n="nav.quickOrder">طلب سريع</span>
                 </button>
-                <p class="tagline" data-i18n="hero.tagline">Import Export Shipping</p>
-<p class="hero-description" data-i18n="hero.description">حلول شحن ذكية لتجارة الاستيراد والتصدير العالمية</p>
-<button class="cta-button primary pulse" onclick="scrollToForm()">
-    <i class="fas fa-bolt"></i>
-    <span data-i18n="hero.orderNow">اطلب شحنتك الآن</span>
-    <div class="button-shine"></div>
-</button>
             </div>
         </nav>
     </header>
@@ -65,17 +49,17 @@
                 <div class="main-logo">
                     <img src="logo.png" alt="MahWay Logo" class="hero-logo">
                 </div>
-                <p class="tagline">Import Export Shipping</p>
-                <p class="hero-description">حلول شحن ذكية لتجارة الاستيراد والتصدير العالمية</p>
+                <p class="tagline" data-i18n="hero.tagline">Import Export Shipping</p>
+                <p class="hero-description" data-i18n="hero.description">حلول شحن ذكية لتجارة الاستيراد والتصدير العالمية</p>
                 <div class="hero-buttons">
                     <button class="cta-button primary pulse" onclick="scrollToForm()">
                         <i class="fas fa-bolt"></i>
-                        <span>اطلب شحنتك الآن</span>
+                        <span data-i18n="hero.orderNow">اطلب شحنتك الآن</span>
                         <div class="button-shine"></div>
                     </button>
                     <button class="cta-button secondary" onclick="scrollToServices()">
                         <i class="fas fa-chart-line"></i>
-                        <span>استكشف خدماتنا</span>
+                        <span data-i18n="hero.exploreServices">استكشف خدماتنا</span>
                     </button>
                 </div>
             </div>
@@ -98,31 +82,29 @@
                         <i class="fas fa-shipping-fast"></i>
                     </div>
                     <div class="stat-number" data-count="1250">0</div>
-                    <div class="stat-label">شحنة ناجحة</div>
+                    <div class="stat-label" data-i18n="stats.shipments">شحنة ناجحة</div>
                 </div>
                 <div class="stat-item" data-aos="zoom-in" data-aos-delay="200">
                     <div class="stat-icon">
                         <i class="fas fa-globe-americas"></i>
                     </div>
                     <div class="stat-number" data-count="25">0</div>
-                    <div class="stat-label">دولة</div>
+                    <div class="stat-label" data-i18n="stats.countries">دولة</div>
                 </div>
                 <div class="stat-item" data-aos="zoom-in" data-aos-delay="300">
                     <div class="stat-icon">
                         <i class="fas fa-headset"></i>
                     </div>
                     <div class="stat-number" data-count="24">0</div>
-                    <div class="stat-label">ساعة دعم</div>
+                    <div class="stat-label" data-i18n="stats.support">ساعة دعم</div>
                 </div>
                 <div class="stat-item" data-aos="zoom-in" data-aos-delay="400">
                     <div class="stat-icon">
                         <i class="fas fa-smile"></i>
                     </div>
                     <div class="stat-number" data-count="98">0</div>
-                    <div class="stat-label">% رضا العملاء</div>
+                    <div class="stat-label" data-i18n="stats.satisfaction">% رضا العملاء</div>
                 </div>
-           <div class="stat-label" data-i18n="stats.shipments">شحنة ناجحة</div>
-<div class="stat-label" data-i18n="stats.countries">دولة</div>
             </div>
         </div>
     </section>
@@ -130,31 +112,31 @@
     <!-- خدمات سريعة -->
     <section class="quick-services">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">خدماتنا السريعة</h2>
+            <h2 class="section-title" data-aos="fade-up" data-i18n="quickServices.title">خدماتنا السريعة</h2>
             <div class="quick-services-grid">
                 <div class="quick-service-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="service-icon">
                         <i class="fas fa-rocket"></i>
                     </div>
-                    <h3>شحن سريع ⚡</h3>
-                    <p>توصيل فوري مع أفضل الأسعار</p>
-                    <div class="service-time">24-48 ساعة</div>
+                    <h3 data-i18n="service.fast">شحن سريع ⚡</h3>
+                    <p data-i18n="service.fast.desc">توصيل فوري مع أفضل الأسعار</p>
+                    <div class="service-time" data-i18n="service.time.fast">24-48 ساعة</div>
                 </div>
                 <div class="quick-service-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="service-icon">
                         <i class="fas fa-plane"></i>
                     </div>
-                    <h3>شحن جوي</h3>
-                    <p>أسرع وسائل النقل للبضائع العاجلة</p>
-                    <div class="service-time">2-5 أيام</div>
+                    <h3 data-i18n="service.air">شحن جوي</h3>
+                    <p data-i18n="service.air.desc">أسرع وسائل النقل للبضائع العاجلة</p>
+                    <div class="service-time" data-i18n="service.time.air">2-5 أيام</div>
                 </div>
                 <div class="quick-service-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="service-icon">
                         <i class="fas fa-ship"></i>
                     </div>
-                    <h3>شحن بحري</h3>
-                    <p>الحل الأمثل للشحنات الكبيرة</p>
-                    <div class="service-time">15-30 يوم</div>
+                    <h3 data-i18n="service.sea">شحن بحري</h3>
+                    <p data-i18n="service.sea.desc">الحل الأمثل للشحنات الكبيرة</p>
+                    <div class="service-time" data-i18n="service.time.sea">15-30 يوم</div>
                 </div>
             </div>
         </div>
@@ -163,30 +145,30 @@
     <!-- نموذج طلب الشحن -->
     <section id="shipping-form" class="shipping-form-section">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">طلب خدمة الشحن</h2>
-            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">املأ البيانات وسنتواصل معك خلال دقائق</p>
+            <h2 class="section-title" data-aos="fade-up" data-i18n="form.title">طلب خدمة الشحن</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100" data-i18n="form.subtitle">املأ البيانات وسنتواصل معك خلال دقائق</p>
             
             <div class="form-container" data-aos="zoom-in" data-aos-delay="200">
                 <form class="shipping-form" id="shippingForm">
                     <div class="form-header">
                         <i class="fas fa-box-open"></i>
-                        <h3>تفاصيل الشحنة</h3>
+                        <h3 data-i18n="form.details">تفاصيل الشحنة</h3>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label for="name">
                                 <i class="fas fa-user"></i>
-                                الاسم بالكامل *
+                                <span data-i18n="form.fullName">الاسم بالكامل *</span>
                             </label>
-                            <input type="text" id="name" name="name" required>
+                            <input type="text" id="name" name="name" required data-i18n-placeholder="form.fullName">
                         </div>
                         <div class="form-group">
                             <label for="phone">
                                 <i class="fas fa-phone"></i>
-                                رقم الهاتف *
+                                <span data-i18n="form.phone">رقم الهاتف *</span>
                             </label>
-                            <input type="tel" id="phone" name="phone" required>
+                            <input type="tel" id="phone" name="phone" required data-i18n-placeholder="form.phone">
                         </div>
                     </div>
 
@@ -194,16 +176,16 @@
                         <div class="form-group">
                             <label for="weight">
                                 <i class="fas fa-weight-hanging"></i>
-                                الوزن (كجم) *
+                                <span data-i18n="form.weight">الوزن (كجم) *</span>
                             </label>
-                            <input type="number" id="weight" name="weight" required>
+                            <input type="number" id="weight" name="weight" required data-i18n-placeholder="form.weight">
                         </div>
                         <div class="form-group">
                             <label for="product-link">
                                 <i class="fas fa-link"></i>
-                                رابط المنتج (اختياري)
+                                <span data-i18n="form.productLink">رابط المنتج (اختياري)</span>
                             </label>
-                            <input type="url" id="product-link" name="product-link">
+                            <input type="url" id="product-link" name="product-link" data-i18n-placeholder="form.productLink">
                         </div>
                     </div>
 
@@ -211,24 +193,24 @@
                         <div class="form-group">
                             <label for="shipping-type">
                                 <i class="fas fa-bolt"></i>
-                                نوع الشحن *
+                                <span data-i18n="form.shippingType">نوع الشحن *</span>
                             </label>
                             <select id="shipping-type" name="shipping-type" required>
-                                <option value="">اختر نوع الشحن</option>
-                                <option value="fast">شحن سريع ⚡</option>
-                                <option value="normal">شحن عادي</option>
+                                <option value="" data-i18n="form.chooseType">اختر نوع الشحن</option>
+                                <option value="fast" data-i18n="form.fastOption">شحن سريع ⚡</option>
+                                <option value="normal" data-i18n="form.normalOption">شحن عادي</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="shipping-route">
                                 <i class="fas fa-route"></i>
-                                مسار الشحن *
+                                <span data-i18n="form.shippingRoute">مسار الشحن *</span>
                             </label>
                             <select id="shipping-route" name="shipping-route" required>
-                                <option value="">اختر مسار الشحن</option>
-                                <option value="egypt">داخل مصر 🇪🇬</option>
-                                <option value="turkey">داخل تركيا 🇹🇷</option>
-                                <option value="international">شحن دولي (من بلد لبلد) 🌍</option>
+                                <option value="" data-i18n="form.chooseRoute">اختر مسار الشحن</option>
+                                <option value="egypt" data-i18n="form.egyptOption">داخل مصر 🇪🇬</option>
+                                <option value="turkey" data-i18n="form.turkeyOption">داخل تركيا 🇹🇷</option>
+                                <option value="international" data-i18n="form.internationalOption">شحن دولي (من بلد لبلد) 🌍</option>
                             </select>
                         </div>
                     </div>
@@ -236,14 +218,14 @@
                     <div class="form-group full-width">
                         <label for="notes">
                             <i class="fas fa-sticky-note"></i>
-                            ملاحظات إضافية
+                            <span data-i18n="form.notes">ملاحظات إضافية</span>
                         </label>
-                        <textarea id="notes" name="notes" rows="4" placeholder="أي معلومات إضافية عن الشحنة..."></textarea>
+                        <textarea id="notes" name="notes" rows="4" data-i18n-placeholder="form.notesPlaceholder"></textarea>
                     </div>
 
                     <button type="submit" class="submit-btn">
                         <i class="fas fa-paper-plane"></i>
-                        <span>إرسال طلب الشحن</span>
+                        <span data-i18n="form.send">إرسال طلب الشحن</span>
                         <div class="btn-loading">
                             <div class="loading-spinner"></div>
                         </div>
@@ -256,50 +238,50 @@
     <!-- خدماتنا -->
     <section id="services" class="services">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">خدماتنا المتكاملة</h2>
+            <h2 class="section-title" data-aos="fade-up" data-i18n="services.title">خدماتنا المتكاملة</h2>
             <div class="services-grid">
                 <div class="service-card" data-aos="flip-left" data-aos-delay="100">
                     <div class="service-icon">
                         <i class="fas fa-rocket"></i>
                     </div>
-                    <h3>شحن اكسبريس</h3>
-                    <p>توصيل فوري مع أفضل وسائل النقل المتاحة</p>
+                    <h3 data-i18n="service.express">شحن اكسبريس</h3>
+                    <p data-i18n="service.express.desc">توصيل فوري مع أفضل وسائل النقل المتاحة</p>
                     <div class="service-features">
-                        <span>⚡ 24-48 ساعة</span>
-                        <span>📱 تتبع مباشر</span>
+                        <span data-i18n="service.feature.fast">⚡ 24-48 ساعة</span>
+                        <span data-i18n="service.feature.tracking">📱 تتبع مباشر</span>
                     </div>
                 </div>
                 <div class="service-card" data-aos="flip-left" data-aos-delay="200">
                     <div class="service-icon">
                         <i class="fas fa-globe"></i>
                     </div>
-                    <h3>شحن دولي</h3>
-                    <p>توصيل عالمي مع تغطية شاملة للجمارك</p>
+                    <h3 data-i18n="service.international">شحن دولي</h3>
+                    <p data-i18n="service.international.desc">توصيل عالمي مع تغطية شاملة للجمارك</p>
                     <div class="service-features">
-                        <span>🌍 25 دولة</span>
-                        <span>🛃 تخليص جمركي</span>
+                        <span data-i18n="service.feature.countries">🌍 25 دولة</span>
+                        <span data-i18n="service.feature.customs">🛃 تخليص جمركي</span>
                     </div>
                 </div>
                 <div class="service-card" data-aos="flip-left" data-aos-delay="300">
                     <div class="service-icon">
                         <i class="fas fa-warehouse"></i>
                     </div>
-                    <h3>تخزين</h3>
-                    <p>خدمات تخزين آمنة مع إدارة المخزون</p>
+                    <h3 data-i18n="service.storage">تخزين</h3>
+                    <p data-i18n="service.storage.desc">خدمات تخزين آمنة مع إدارة المخزون</p>
                     <div class="service-features">
-                        <span>🔒 تخزين آمن</span>
-                        <span>📊 إدارة مخزون</span>
+                        <span data-i18n="service.feature.secure">🔒 تخزين آمن</span>
+                        <span data-i18n="service.feature.inventory">📊 إدارة مخزون</span>
                     </div>
                 </div>
                 <div class="service-card" data-aos="flip-left" data-aos-delay="400">
                     <div class="service-icon">
                         <i class="fas fa-file-contract"></i>
                     </div>
-                    <h3>تخليص جمركي</h3>
-                    <p>تخليص جمركي متكامل مع متابعة المستندات</p>
+                    <h3 data-i18n="service.customs">تخليص جمركي</h3>
+                    <p data-i18n="service.customs.desc">تخليص جمركي متكامل مع متابعة المستندات</p>
                     <div class="service-features">
-                        <span>📋 مستندات</span>
-                        <span>⚡ خدمة سريعة</span>
+                        <span data-i18n="service.feature.documents">📋 مستندات</span>
+                        <span data-i18n="service.feature.quick">⚡ خدمة سريعة</span>
                     </div>
                 </div>
             </div>
@@ -309,12 +291,12 @@
     <!-- اتصل بنا -->
     <section id="contact" class="contact">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">اتصل بنا</h2>
+            <h2 class="section-title" data-aos="fade-up" data-i18n="contact.title">اتصل بنا</h2>
             <div class="contact-content">
                 <div class="contact-info" data-aos="fade-right">
                     <div class="contact-header">
                         <img src="logo.png" alt="MahWay Logo" class="contact-logo">
-                        <h3>MahWay Shipping</h3>
+                        <h3 data-i18n="contact.company">MahWay Shipping</h3>
                     </div>
                     <div class="contact-items">
                         <div class="contact-item">
@@ -322,7 +304,7 @@
                                 <i class="fas fa-phone"></i>
                             </div>
                             <div class="contact-details">
-                                <strong>الهاتف</strong>
+                                <strong data-i18n="contact.phone">الهاتف</strong>
                                 <a href="tel:+201044727702">+20 10 44727702</a>
                             </div>
                         </div>
@@ -331,7 +313,7 @@
                                 <i class="fas fa-envelope"></i>
                             </div>
                             <div class="contact-details">
-                                <strong>البريد الإلكتروني</strong>
+                                <strong data-i18n="contact.email">البريد الإلكتروني</strong>
                                 <a href="mailto:mahway.contact@gmail.com">mahway.contact@gmail.com</a>
                             </div>
                         </div>
@@ -340,7 +322,7 @@
                                 <i class="fas fa-id-card"></i>
                             </div>
                             <div class="contact-details">
-                                <strong>السجل التجاري</strong>
+                                <strong data-i18n="contact.register">السجل التجاري</strong>
                                 <span>5646346</span>
                             </div>
                         </div>
@@ -358,7 +340,7 @@
                     <img src="logo.png" alt="MahWay Logo" class="footer-logo-img">
                     <div class="footer-text">
                         <h3>MahWay</h3>
-                        <p>Import Export Shipping</p>
+                        <p data-i18n="hero.tagline">Import Export Shipping</p>
                     </div>
                 </div>
                 <div class="footer-social">
@@ -374,7 +356,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 MahWay. جميع الحقوق محفوظة | السجل التجاري: 5646346</p>
+                <p>&copy; 2024 MahWay. <span data-i18n="footer.rights">جميع الحقوق محفوظة</span> | <span data-i18n="contact.register">السجل التجاري</span>: 5646346</p>
             </div>
         </div>
     </footer>

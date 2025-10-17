@@ -7,54 +7,134 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <button class="lang-btn active" data-lang="ar">🇸🇦</button>
+        <button class="lang-btn" data-lang="en">🇺🇸</button>
+        <button class="lang-btn" data-lang="tr">🇹🇷</button>
+    </div>
+
     <!-- الهيدر -->
-    <header>
+    <header class="header-animation">
         <nav>
             <div class="logo">
-                <img src="logo.png" alt="MahWay Logo" class="logo-img">
-                <h2>MahWay</h2>
+                <img src="logo.png" alt="MahWay Logo" class="logo-img floating">
+                <h2 class="logo-text">MahWay</h2>
             </div>
             <ul class="nav-links">
-                <li><a href="#home">الرئيسية</a></li>
-                <li><a href="#about">عن الشركة</a></li>
-                <li><a href="#services">خدماتنا</a></li>
-                <li><a href="#contact">اتصل بنا</a></li>
+                <li><a href="#home" class="nav-link">الرئيسية</a></li>
+                <li><a href="#services" class="nav-link">خدماتنا</a></li>
+                <li><a href="#shipping-form" class="nav-link">طلب شحن</a></li>
+                <li><a href="#contact" class="nav-link">اتصل بنا</a></li>
             </ul>
         </nav>
     </header>
 
     <!-- القسم الرئيسي -->
     <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>MahWay</h1>
-            <p class="tagline">Import Export Shipping</p>
-            <p class="hero-description">حلول شحن متكاملة لتجارة الاستيراد والتصدير</p>
-            <button class="cta-button" onclick="scrollToContact()">احصل على عرض سعر</button>
+        <div class="hero-bg-animation"></div>
+        <div class="container">
+            <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+                <div class="main-logo">
+                    <img src="logo.png" alt="MahWay Logo" class="hero-logo">
+                    <h1 class="hero-title">MahWay</h1>
+                </div>
+                <p class="tagline">Import Export Shipping</p>
+                <p class="hero-description">حلول شحن ذكية لتجارة الاستيراد والتصدير العالمية</p>
+                <button class="cta-button pulse" onclick="scrollToForm()">
+                    <span>اطلب شحنتك الآن</span>
+                    <div class="button-animation"></div>
+                </button>
+            </div>
         </div>
     </section>
 
-    <!-- عن الشركة -->
-    <section id="about" class="about">
+    <!-- إحصائيات -->
+    <section class="stats">
         <div class="container">
-            <h2>عن MahWay</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>شركة MahWay رائدة في مجال الشحن والخدمات اللوجستية، نقدم حلولاً متكاملة لتجارة الاستيراد والتصدير. نحن نساعدك في نقل بضائعك بأمان وسرعة في جميع أنحاء العالم.</p>
-                    <div class="company-info">
-                        <div class="info-item">
-                            <strong>السجل التجاري:</strong> 5646346
+            <div class="stats-grid">
+                <div class="stat-item" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="stat-number" data-count="1000">0</div>
+                    <div class="stat-label">شحنة ناجحة</div>
+                </div>
+                <div class="stat-item" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="stat-number" data-count="15">0</div>
+                    <div class="stat-label">دولة</div>
+                </div>
+                <div class="stat-item" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="stat-number" data-count="24">0</div>
+                    <div class="stat-label">ساعة دعم</div>
+                </div>
+                <div class="stat-item" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="stat-number" data-count="98">0</div>
+                    <div class="stat-label">% رضا العملاء</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- نموذج طلب الشحن -->
+    <section id="shipping-form" class="shipping-form-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">طلب خدمة الشحن</h2>
+            <div class="form-container" data-aos="zoom-in" data-aos-delay="200">
+                <form class="shipping-form" id="shippingForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">الاسم بالكامل *</label>
+                            <input type="text" id="name" name="name" required>
                         </div>
-                        <div class="info-item">
-                            <strong>البريد الإلكتروني:</strong> mahway.contact@gmail.com
-                        </div>
-                        <div class="info-item">
-                            <strong>الهاتف:</strong> +20 10 44727702
+                        <div class="form-group">
+                            <label for="phone">رقم الهاتف *</label>
+                            <input type="tel" id="phone" name="phone" required>
                         </div>
                     </div>
-                </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="weight">الوزن (كجم) *</label>
+                            <input type="number" id="weight" name="weight" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-link">رابط المنتج (اختياري)</label>
+                            <input type="url" id="product-link" name="product-link">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="shipping-type">نوع الشحن *</label>
+                            <select id="shipping-type" name="shipping-type" required>
+                                <option value="">اختر نوع الشحن</option>
+                                <option value="fast">شحن سريع ⚡</option>
+                                <option value="normal">شحن عادي</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="shipping-route">مسار الشحن *</label>
+                            <select id="shipping-route" name="shipping-route" required>
+                                <option value="">اختر مسار الشحن</option>
+                                <option value="egypt">داخل مصر 🇪🇬</option>
+                                <option value="turkey">داخل تركيا 🇹🇷</option>
+                                <option value="international">شحن دولي (من بلد لبلد) 🌍</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="notes">ملاحظات إضافية</label>
+                        <textarea id="notes" name="notes" rows="4" placeholder="أي معلومات إضافية عن الشحنة..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <span>إرسال طلب الشحن</span>
+                        <div class="btn-loading"></div>
+                    </button>
+                </form>
             </div>
         </div>
     </section>
@@ -62,37 +142,27 @@
     <!-- خدماتنا -->
     <section id="services" class="services">
         <div class="container">
-            <h2>خدماتنا</h2>
+            <h2 class="section-title" data-aos="fade-up">خدماتنا المتكاملة</h2>
             <div class="services-grid">
-                <div class="service-card">
+                <div class="service-card" data-aos="flip-left" data-aos-delay="100">
+                    <div class="service-icon">🚀</div>
+                    <h3>شحن سريع</h3>
+                    <p>شحن اكسبريس مع توصيل في أسرع وقت ممكن</p>
+                </div>
+                <div class="service-card" data-aos="flip-left" data-aos-delay="200">
+                    <div class="service-icon">🌍</div>
+                    <h3>شحن دولي</h3>
+                    <p>توصيل عالمي مع تغطية شاملة للجمارك</p>
+                </div>
+                <div class="service-card" data-aos="flip-left" data-aos-delay="300">
                     <div class="service-icon">📦</div>
-                    <h3>استيراد وتصدير</h3>
-                    <p>خدمات شحن متكاملة للاستيراد والتصدير مع تخطيط وتنفيذ العمليات اللوجستية</p>
+                    <h3>تخزين</h3>
+                    <p>خدمات تخزين آمنة مع إدارة المخزون</p>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">🚢</div>
-                    <h3>الشحن البحري</h3>
-                    <p>شحن بحري آمن واقتصادي للبضائع بكافة الأحجام مع متابعة مستمرة</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">✈️</div>
-                    <h3>الشحن الجوي</h3>
-                    <p>شحن جوي سريع للبضائع العاجلة مع وقت توصيل دقيق ومضمون</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">🚚</div>
-                    <h3>الشحن البري</h3>
-                    <p>شحن بري محلي ودولي مع تغطية شاملة لجميع المحافظات والمدن</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">📋</div>
-                    <h3>التخليص الجمركي</h3>
-                    <p>خدمات تخليص جمركي متكاملة مع متابعة الإجراءات والوثائق المطلوبة</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">📊</div>
-                    <h3>الاستشارات اللوجستية</h3>
-                    <p>استشارات متخصصة في سلسلة التوريد وإدارة العمليات اللوجستية</p>
+                <div class="service-card" data-aos="flip-left" data-aos-delay="400">
+                    <div class="service-icon">🛃</div>
+                    <h3>تخليص جمركي</h3>
+                    <p>تخليص جمركي متكامل مع متابعة المستندات</p>
                 </div>
             </div>
         </div>
@@ -101,39 +171,32 @@
     <!-- اتصل بنا -->
     <section id="contact" class="contact">
         <div class="container">
-            <h2>اتصل بنا</h2>
+            <h2 class="section-title" data-aos="fade-up">اتصل بنا</h2>
             <div class="contact-content">
-                <div class="contact-info">
+                <div class="contact-info" data-aos="fade-right">
                     <h3>معلومات التواصل</h3>
                     <div class="contact-item">
-                        <strong>📞 الهاتف:</strong>
-                        <a href="tel:+201044727702">+20 10 44727702</a>
+                        <span class="contact-icon">📞</span>
+                        <div>
+                            <strong>الهاتف:</strong>
+                            <a href="tel:+201044727702">+20 10 44727702</a>
+                        </div>
                     </div>
                     <div class="contact-item">
-                        <strong>📧 البريد الإلكتروني:</strong>
-                        <a href="mailto:mahway.contact@gmail.com">mahway.contact@gmail.com</a>
+                        <span class="contact-icon">📧</span>
+                        <div>
+                            <strong>البريد الإلكتروني:</strong>
+                            <a href="mailto:mahway.contact@gmail.com">mahway.contact@gmail.com</a>
+                        </div>
                     </div>
                     <div class="contact-item">
-                        <strong>📋 السجل التجاري:</strong>
-                        <span>5646346</span>
+                        <span class="contact-icon">📋</span>
+                        <div>
+                            <strong>السجل التجاري:</strong>
+                            <span>5646346</span>
+                        </div>
                     </div>
                 </div>
-                <form class="contact-form" id="contactForm">
-                    <h3>أرسل رسالة</h3>
-                    <div class="form-group">
-                        <input type="text" id="name" placeholder="الاسم بالكامل" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="email" placeholder="البريد الإلكتروني" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" id="phone" placeholder="رقم الهاتف">
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" placeholder="الرسالة" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">إرسال الرسالة</button>
-                </form>
             </div>
         </div>
     </section>
@@ -143,22 +206,21 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <h3>MahWay</h3>
-                    <p>Import Export Shipping</p>
-                </div>
-                <div class="footer-links">
-                    <a href="#home">الرئيسية</a>
-                    <a href="#about">عن الشركة</a>
-                    <a href="#services">خدماتنا</a>
-                    <a href="#contact">اتصل بنا</a>
+                    <img src="logo.png" alt="MahWay Logo" class="footer-logo-img">
+                    <div>
+                        <h3>MahWay</h3>
+                        <p>Import Export Shipping</p>
+                    </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 MahWay. جميع الحقوق محفوظة. السجل التجاري: 5646346</p>
+                <p>&copy; 2024 MahWay. جميع الحقوق محفوظة</p>
             </div>
         </div>
     </footer>
 
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -31,6 +31,29 @@ body {
     background: var(--light-bg);
 }
 
+/* تنسيقات للغات المختلفة */
+[dir="ltr"] body {
+    direction: ltr;
+    text-align: left;
+}
+
+[dir="ltr"] .hero-content,
+[dir="ltr"] .contact-details,
+[dir="ltr"] .form-group label,
+[dir="ltr"] .service-card,
+[dir="ltr"] .stat-item,
+[dir="ltr"] .footer-content {
+    text-align: center;
+}
+
+[dir="ltr"] .contact-item {
+    text-align: left;
+}
+
+[dir="ltr"] .form-group label {
+    text-align: left;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -53,6 +76,11 @@ body {
     box-shadow: var(--shadow);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+[dir="ltr"] .language-switcher {
+    left: auto;
+    right: 20px;
 }
 
 .lang-btn {
@@ -549,36 +577,7 @@ nav {
     font-weight: 700;
     display: inline-block;
 }
-/* تنسيقات للغات المختلفة */
-[lang="en"] .hero-content,
-[lang="tr"] .hero-content {
-    text-align: center;
-}
 
-[lang="en"] .contact-details,
-[lang="tr"] .contact-details {
-    text-align: left;
-}
-
-[lang="en"] .form-group label,
-[lang="tr"] .form-group label {
-    text-align: left;
-}
-
-[lang="en"] .service-card,
-[lang="tr"] .service-card {
-    text-align: center;
-}
-
-[lang="en"] .stat-item,
-[lang="tr"] .stat-item {
-    text-align: center;
-}
-
-[lang="en"] .footer-content,
-[lang="tr"] .footer-content {
-    text-align: center;
-}
 /* نموذج الشحن */
 .shipping-form-section {
     padding: 6rem 0;
@@ -919,6 +918,10 @@ nav {
     flex: 1;
 }
 
+[dir="ltr"] .contact-details {
+    text-align: left;
+}
+
 .contact-details strong {
     display: block;
     margin-bottom: 0.5rem;
@@ -1015,6 +1018,11 @@ footer {
     .language-switcher {
         left: 10px;
         padding: 15px 8px;
+    }
+
+    [dir="ltr"] .language-switcher {
+        left: auto;
+        right: 10px;
     }
 
     .lang-btn {

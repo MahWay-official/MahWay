@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome@6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <!-- Language Switcher -->
@@ -21,14 +21,14 @@
         <button class="lang-btn" data-lang="tr">🇹🇷</button>
     </div>
 
-    <!-- Header -->
+    <!-- الهيدر -->
     <header class="header-animation">
         <nav>
             <div class="logo">
                 <img src="logo.png" alt="MahWay Logo" class="logo-img floating">
             </div>
             
-            <!-- Mobile Menu Toggle -->
+            <!-- قائمة هامبرجر للجوال -->
             <div class="mobile-menu-toggle" id="mobileMenuToggle">
                 <span></span>
                 <span></span>
@@ -50,7 +50,7 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
+    <!-- القسم الرئيسي -->
     <section id="home" class="hero">
         <div class="hero-particles" id="particles-js"></div>
         <div class="hero-bg-animation"></div>
@@ -75,7 +75,7 @@
             </div>
         </div>
         
-        <!-- Animated Waves -->
+        <!-- موجات متحركة -->
         <div class="waves">
             <div class="wave wave-1"></div>
             <div class="wave wave-2"></div>
@@ -83,7 +83,7 @@
         </div>
     </section>
 
-    <!-- Statistics -->
+    <!-- إحصائيات -->
     <section class="stats">
         <div class="container">
             <div class="stats-grid">
@@ -119,7 +119,7 @@
         </div>
     </section>
 
-    <!-- Quick Services -->
+    <!-- خدمات سريعة -->
     <section class="quick-services">
         <div class="container">
             <h2 class="section-title" data-aos="fade-up" data-i18n="quickServices.title">خدماتنا السريعة</h2>
@@ -152,7 +152,7 @@
         </div>
     </section>
 
-    <!-- Shipping Form -->
+    <!-- نموذج طلب الشحن -->
     <section id="shipping-form" class="shipping-form-section">
         <div class="container">
             <h2 class="section-title" data-aos="fade-up" data-i18n="form.title">طلب خدمة الشحن</h2>
@@ -171,14 +171,14 @@
                                 <i class="fas fa-user"></i>
                                 <span data-i18n="form.fullName">الاسم بالكامل *</span>
                             </label>
-                            <input type="text" id="name" name="name" required>
+                            <input type="text" id="name" name="name" required data-i18n-placeholder="form.fullName">
                         </div>
                         <div class="form-group">
                             <label for="phone">
                                 <i class="fas fa-phone"></i>
                                 <span data-i18n="form.phone">رقم الهاتف *</span>
                             </label>
-                            <input type="tel" id="phone" name="phone" required>
+                            <input type="tel" id="phone" name="phone" required data-i18n-placeholder="form.phone">
                         </div>
                     </div>
 
@@ -188,14 +188,14 @@
                                 <i class="fas fa-weight-hanging"></i>
                                 <span data-i18n="form.weight">الوزن (كجم) *</span>
                             </label>
-                            <input type="number" id="weight" name="weight" required>
+                            <input type="number" id="weight" name="weight" required data-i18n-placeholder="form.weight">
                         </div>
                         <div class="form-group">
                             <label for="product-link">
                                 <i class="fas fa-link"></i>
                                 <span data-i18n="form.productLink">رابط المنتج (اختياري)</span>
                             </label>
-                            <input type="url" id="product-link" name="product-link">
+                            <input type="url" id="product-link" name="product-link" data-i18n-placeholder="form.productLink">
                         </div>
                     </div>
 
@@ -230,7 +230,7 @@
                             <i class="fas fa-sticky-note"></i>
                             <span data-i18n="form.notes">ملاحظات إضافية</span>
                         </label>
-                        <textarea id="notes" name="notes" rows="4" placeholder="أي معلومات إضافية عن الشحنة..."></textarea>
+                        <textarea id="notes" name="notes" rows="4" data-i18n-placeholder="form.notesPlaceholder"></textarea>
                     </div>
 
                     <button type="submit" class="submit-btn">
@@ -245,7 +245,7 @@
         </div>
     </section>
 
-    <!-- Services -->
+    <!-- خدماتنا -->
     <section id="services" class="services">
         <div class="container">
             <h2 class="section-title" data-aos="fade-up" data-i18n="services.title">خدماتنا المتكاملة</h2>
@@ -298,7 +298,7 @@
         </div>
     </section>
 
-    <!-- Ratings Section -->
+    <!-- قسم التقييم -->
     <section class="ratings-section">
         <div class="container">
             <h2 class="section-title" data-aos="fade-up" data-i18n="ratings.title">تقييم الخدمة</h2>
@@ -338,7 +338,7 @@
                 </div>
             </div>
 
-            <!-- Rating Statistics -->
+            <!-- إحصائيات التقييمات -->
             <div class="ratings-stats" data-aos="fade-up" data-aos-delay="300">
                 <div class="rating-stat">
                     <div class="rating-average">
@@ -361,7 +361,7 @@
         </div>
     </section>
 
-    <!-- Contact -->
+    <!-- اتصل بنا -->
     <section id="contact" class="contact">
         <div class="container">
             <h2 class="section-title" data-aos="fade-up" data-i18n="contact.title">اتصل بنا</h2>
@@ -405,7 +405,7 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- الفوتر -->
     <footer>
         <div class="container">
             <div class="footer-content">

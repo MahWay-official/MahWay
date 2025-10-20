@@ -119,6 +119,14 @@ const translations = {
         "service.feature.documents": "📋 مستندات",
         "service.feature.quick": "⚡ خدمة سريعة",
         
+        // التقييم
+        "ratings.title": "تقييم الخدمة",
+        "ratings.subtitle": "كيف كانت تجربتك مع MahWay؟",
+        "ratings.default": "اضغط على النجوم للتقييم",
+        "ratings.submit": "إرسال التقييم",
+        "ratings.thanks": "شكراً لك! تم تسجيل تقييمك بنجاح",
+        "ratings.based": "بناءً على <span id='totalRatings'>127</span> تقييم",
+        
         // اتصل بنا
         "contact.title": "اتصل بنا",
         "contact.company": "MahWay Shipping",
@@ -201,6 +209,14 @@ const translations = {
         "service.feature.inventory": "📊 Inventory Management",
         "service.feature.documents": "📋 Documents",
         "service.feature.quick": "⚡ Fast Service",
+        
+        // Ratings
+        "ratings.title": "Service Rating",
+        "ratings.subtitle": "How was your experience with MahWay?",
+        "ratings.default": "Click on stars to rate",
+        "ratings.submit": "Submit Rating",
+        "ratings.thanks": "Thank you! Your rating has been submitted successfully",
+        "ratings.based": "Based on <span id='totalRatings'>127</span> ratings",
         
         // Contact
         "contact.title": "Contact Us",
@@ -285,6 +301,14 @@ const translations = {
         "service.feature.documents": "📋 Belgeler",
         "service.feature.quick": "⚡ Hızlı Hizmet",
         
+        // Ratings
+        "ratings.title": "Hizmet Değerlendirmesi",
+        "ratings.subtitle": "MahWay deneyiminiz nasıldı?",
+        "ratings.default": "Derecelendirmek için yıldızlara tıklayın",
+        "ratings.submit": "Değerlendirmeyi Gönder",
+        "ratings.thanks": "Teşekkürler! Derecelendirmeniz başarıyla gönderildi",
+        "ratings.based": "<span id='totalRatings'>127</span> değerlendirmeye dayanarak",
+        
         // Contact
         "contact.title": "Bize Ulaşın",
         "contact.company": "MahWay Shipping",
@@ -357,6 +381,209 @@ function applyAllTranslations() {
             option.textContent = langData[key];
         }
     });
+}
+
+// نظام التقييم
+let currentRating = 0;
+let hasRated = false;
+
+// تهيئة نظام التقييم
+function initRatingSystem() {
+    // التحقق إذا كان المستخدم قد قيم مسبقاً
+    const savedRating = localStorage.getItem('mahway_rating');
+    if (savedRating) {
+        hasRated = true;
+        showRatingSuccess();
+        return;
+    }
+
+    // إضافة event listeners للنجوم
+    document.querySelectorAll('.star').forEach(star => {
+        star.addEventListener('click', handleStarClick);
+        star.addEventListener('mouseenter', handleStarHover);
+    });
+
+    // إضافة event listener للزر
+    document.getElementById('submitRating').addEventListener('click', submitRating);
+}
+
+// التعامل مع النقر على النجوم
+function handleStarClick(e) {
+    if (hasRated) return;
+    
+    const star = e.currentTarget;
+    const rating = parseInt(star.getAttribute('data-rating'));
+    currentRating = rating;
+    
+    updateStarsDisplay(rating);
+    updateRatingMessage(rating);
+    enableSubmitButton();
+}
+
+// التعامل مع hover على النجوم
+function handleStarHover(e) {
+    if (hasRated) return;
+    
+    const star = e.currentTarget;
+    const rating = parseInt(star.getAttribute('data-rating'));
+    
+    updateStarsDisplay(rating, true);
+}
+
+// تحديث عرض النجوم
+function updateStarsDisplay(rating, isHover = false) {
+    const stars = document.querySelectorAll('.star');
+    
+    stars.forEach((star, index) => {
+        const starRating = parseInt(star.getAttribute('data-rating'));
+        const icon = star.querySelector('i');
+        
+        if (starRating <= rating) {
+            icon.className = 'fas fa-star';
+            star.classList.add('active');
+        } else {
+            icon.className = 'far fa-star';
+            star.classList.remove('active');
+        }
+    });
+    
+    // إعادة التعيين إذا لم يكن hover
+    if (!isHover && rating === 0) {
+        stars.forEach(star => {
+            const icon = star.querySelector('i');
+            icon.className = 'far fa-star';
+            star.classList.remove('active');
+        });
+    }
+}
+
+// تحديث رسالة التقييم
+function updateRatingMessage(rating) {
+    const messages = {
+        ar: {
+            1: "سيء جداً 😞",
+            2: "ليس جيداً 🙁",
+            3: "جيد 😊",
+            4: "جيد جداً 😄",
+            5: "ممتاز! 🤩"
+        },
+        en: {
+            1: "Very Bad 😞",
+            2: "Not Good 🙁",
+            3: "Good 😊",
+            4: "Very Good 😄",
+            5: "Excellent! 🤩"
+        },
+        tr: {
+            1: "Çok Kötü 😞",
+            2: "İyi Değil 🙁",
+            3: "İyi 😊",
+            4: "Çok İyi 😄",
+            5: "Mükemmel! 🤩"
+        }
+    };
+    
+    const messageElement = document.getElementById('ratingMessage');
+    const langMessages = messages[currentLanguage] || messages.ar;
+    messageElement.textContent = langMessages[rating];
+}
+
+// تمكين زر الإرسال
+function enableSubmitButton() {
+    const submitBtn = document.getElementById('submitRating');
+    submitBtn.disabled = false;
+    submitBtn.style.opacity = '1';
+    submitBtn.style.pointerEvents = 'all';
+}
+
+// إرسال التقييم
+function submitRating() {
+    if (hasRated || currentRating === 0) return;
+    
+    // حفظ التقييم في localStorage
+    localStorage.setItem('mahway_rating', currentRating.toString());
+    localStorage.setItem('mahway_rating_date', new Date().toISOString());
+    
+    hasRated = true;
+    showRatingSuccess();
+    updateRatingStats();
+    
+    // إرسال البيانات للخادم (يمكنك إضافة كود AJAX هنا)
+    console.log('تم إرسال التقييم:', currentRating);
+}
+
+// عرض رسالة النجاح
+function showRatingSuccess() {
+    const starsContainer = document.getElementById('starsContainer');
+    const submitBtn = document.getElementById('submitRating');
+    const successDiv = document.getElementById('ratingSuccess');
+    
+    starsContainer.style.opacity = '0.5';
+    starsContainer.style.pointerEvents = 'none';
+    submitBtn.style.display = 'none';
+    successDiv.style.display = 'flex';
+    
+    // تحديث رسالة النجاح حسب اللغة
+    const successMessages = {
+        ar: "شكراً لك! تم تسجيل تقييمك بنجاح",
+        en: "Thank you! Your rating has been submitted successfully",
+        tr: "Teşekkürler! Derecelendirmeniz başarıyla gönderildi"
+    };
+    
+    successDiv.querySelector('span').textContent = successMessages[currentLanguage] || successMessages.ar;
+}
+
+// تحديث إحصائيات التقييم (محاكاة)
+function updateRatingStats() {
+    // في الواقع الفعلي، هتبقى البيانات من الخادم
+    const averageElement = document.getElementById('averageRating');
+    const totalElement = document.getElementById('totalRatings');
+    
+    // محاكاة تحديث الإحصائيات
+    const currentAverage = parseFloat(averageElement.textContent);
+    const currentTotal = parseInt(totalElement.textContent);
+    
+    // حساب المتوسط الجديد
+    const newTotal = currentTotal + 1;
+    const newAverage = ((currentAverage * currentTotal) + currentRating) / newTotal;
+    
+    // تحديث الواجهة
+    averageElement.textContent = newAverage.toFixed(1);
+    totalElement.textContent = newTotal;
+    
+    // تحديث النجوم في الإحصائيات
+    updateAverageStars(newAverage);
+}
+
+// تحديث النجوم في قسم الإحصائيات
+function updateAverageStars(average) {
+    const starsContainer = document.querySelector('.average-stars');
+    starsContainer.innerHTML = '';
+    
+    const fullStars = Math.floor(average);
+    const hasHalfStar = average % 1 >= 0.5;
+    
+    // إضافة النجوم الكاملة
+    for (let i = 0; i < fullStars; i++) {
+        const star = document.createElement('i');
+        star.className = 'fas fa-star';
+        starsContainer.appendChild(star);
+    }
+    
+    // إضافة نصف نجمة إذا لزم الأمر
+    if (hasHalfStar) {
+        const halfStar = document.createElement('i');
+        halfStar.className = 'fas fa-star-half-alt';
+        starsContainer.appendChild(halfStar);
+    }
+    
+    // إضافة النجوم الفارغة
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+    for (let i = 0; i < emptyStars; i++) {
+        const emptyStar = document.createElement('i');
+        emptyStar.className = 'far fa-star';
+        starsContainer.appendChild(emptyStar);
+    }
 }
 
 // تأثير التمرير للهيدر
@@ -512,29 +739,48 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
+// إصلاح viewport للـ iOS
+function fixViewportForIOS() {
+    const viewport = document.querySelector('meta[name="viewport"]');
+    if (viewport && /iPhone|iPad|iPod/.test(navigator.userAgent)) {
+        viewport.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no');
+    }
+}
+
 // تهيئة الترجمة عند التحميل
 document.addEventListener('DOMContentLoaded', function() {
     switchLanguage('ar');
     startCounters();
+    initRatingSystem();
+    fixViewportForIOS();
+    
+    // تأثيرات Hover للبطاقات
+    document.querySelectorAll('.service-card, .quick-service-card').forEach(card => {
+        card.addEventListener('mousemove', function(e) {
+            if (window.innerWidth > 768) { // فقط على الشاشات الكبيرة
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const angleY = (x - centerX) / 25;
+                const angleX = (centerY - y) / 25;
+                
+                this.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale(1.05)`;
+            }
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            if (window.innerWidth > 768) {
+                this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+            }
+        });
+    });
 });
 
-// تأثيرات Hover للبطاقات
-document.querySelectorAll('.service-card, .quick-service-card').forEach(card => {
-    card.addEventListener('mousemove', function(e) {
-        const rect = this.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const angleY = (x - centerX) / 25;
-        const angleX = (centerY - y) / 25;
-        
-        this.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale(1.05)`;
-    });
-    
-    card.addEventListener('mouseleave', function() {
-        this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
-    });
-});
+// منع تكبير الصفحة على iOS
+document.addEventListener('touchmove', function (event) {
+    if (event.scale !== 1) { event.preventDefault(); }
+}, { passive: false });

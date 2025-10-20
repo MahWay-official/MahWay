@@ -1,3 +1,4 @@
+// script.js
 // تهيئة AOS للأنيميشن
 AOS.init({
     duration: 1200,
@@ -45,8 +46,155 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// متغيرات الترجمة الكاملة
-const translations = { ... نفس محتوى الترجمة اللي عندك بدون تغيير ... };
+// متغيرات الترجمة
+const translations = {
+    ar: {
+        "nav.home": "الرئيسية",
+        "nav.services": "خدماتنا",
+        "nav.shippingForm": "طلب شحن",
+        "nav.contact": "اتصل بنا",
+        "nav.quickOrder": "طلب سريع",
+        "hero.tagline": "Import Export Shipping",
+        "hero.description": "حلول شحن ذكية لتجارة الاستيراد والتصدير العالمية",
+        "hero.orderNow": "اطلب شحنتك الآن",
+        "hero.exploreServices": "استكشف خدماتنا",
+        "stats.shipments": "شحنة ناجحة",
+        "stats.countries": "دولة",
+        "stats.support": "ساعة دعم",
+        "stats.satisfaction": "% رضا العملاء",
+        "quickServices.title": "خدماتنا السريعة",
+        "service.fast": "شحن سريع ⚡",
+        "service.air": "شحن جوي",
+        "service.sea": "شحن بحري",
+        "service.fast.desc": "توصيل فوري مع أفضل الأسعار",
+        "service.air.desc": "أسرع وسائل النقل للبضائع العاجلة",
+        "service.sea.desc": "الحل الأمثل للشحنات الكبيرة",
+        "service.time.fast": "24-48 ساعة",
+        "service.time.air": "2-5 أيام",
+        "service.time.sea": "15-30 يوم",
+        "form.title": "طلب خدمة الشحن",
+        "form.subtitle": "املأ البيانات وسنتواصل معك خلال دقائق",
+        "form.details": "تفاصيل الشحنة",
+        "form.fullName": "الاسم بالكامل *",
+        "form.phone": "رقم الهاتف *",
+        "form.weight": "الوزن (كجم) *",
+        "form.productLink": "رابط المنتج (اختياري)",
+        "form.shippingType": "نوع الشحن *",
+        "form.shippingRoute": "مسار الشحن *",
+        "form.notes": "ملاحظات إضافية",
+        "form.chooseType": "اختر نوع الشحن",
+        "form.fastOption": "شحن سريع ⚡",
+        "form.normalOption": "شحن عادي",
+        "form.chooseRoute": "اختر مسار الشحن",
+        "form.egyptOption": "داخل مصر 🇪🇬",
+        "form.turkeyOption": "داخل تركيا 🇹🇷",
+        "form.internationalOption": "شحن دولي (من بلد لبلد) 🌍",
+        "form.send": "إرسال طلب الشحن",
+        "services.title": "خدماتنا المتكاملة",
+        "service.express": "شحن اكسبريس",
+        "service.international": "شحن دولي",
+        "service.storage": "تخزين",
+        "service.customs": "تخليص جمركي",
+        "service.express.desc": "توصيل فوري مع أفضل وسائل النقل المتاحة",
+        "service.international.desc": "توصيل عالمي مع تغطية شاملة للجمارك",
+        "service.storage.desc": "خدمات تخزين آمنة مع إدارة المخزون",
+        "service.customs.desc": "تخليص جمركي متكامل مع متابعة المستندات",
+        "service.feature.fast": "⚡ 24-48 ساعة",
+        "service.feature.tracking": "📱 تتبع مباشر",
+        "service.feature.countries": "🌍 25 دولة",
+        "service.feature.customs": "🛃 تخليص جمركي",
+        "service.feature.secure": "🔒 تخزين آمن",
+        "service.feature.inventory": "📊 إدارة مخزون",
+        "service.feature.documents": "📋 مستندات",
+        "service.feature.quick": "⚡ خدمة سريعة",
+        "ratings.title": "تقييم الخدمة",
+        "ratings.subtitle": "كيف كانت تجربتك مع MahWay؟",
+        "ratings.default": "اضغط على النجوم للتقييم",
+        "ratings.submit": "إرسال التقييم",
+        "ratings.thanks": "شكراً لك! تم تسجيل تقييمك بنجاح",
+        "ratings.based": "بناءً على",
+        "ratings.ratings": "تقييم",
+        "contact.title": "اتصل بنا",
+        "contact.company": "MahWay Shipping",
+        "contact.phone": "الهاتف",
+        "contact.email": "البريد الإلكتروني",
+        "contact.register": "السجل التجاري",
+        "footer.rights": "جميع الحقوق محفوظة"
+    },
+    en: {
+        "nav.home": "Home",
+        "nav.services": "Services",
+        "nav.shippingForm": "Shipping Request",
+        "nav.contact": "Contact Us",
+        "nav.quickOrder": "Quick Order",
+        "hero.tagline": "Import Export Shipping",
+        "hero.description": "Smart shipping solutions for global import and export trade",
+        "hero.orderNow": "Order Your Shipment Now",
+        "hero.exploreServices": "Explore Our Services",
+        "stats.shipments": "Successful Shipments",
+        "stats.countries": "Countries",
+        "stats.support": "Support Hours",
+        "stats.satisfaction": "% Customer Satisfaction",
+        "quickServices.title": "Our Quick Services",
+        "service.fast": "Fast Shipping ⚡",
+        "service.air": "Air Shipping",
+        "service.sea": "Sea Shipping",
+        "service.fast.desc": "Instant delivery with best prices",
+        "service.air.desc": "Fastest transport for urgent goods",
+        "service.sea.desc": "Ideal solution for large shipments",
+        "service.time.fast": "24-48 Hours",
+        "service.time.air": "2-5 Days",
+        "service.time.sea": "15-30 Days",
+        "form.title": "Shipping Service Request",
+        "form.subtitle": "Fill the data and we'll contact you within minutes",
+        "form.details": "Shipment Details",
+        "form.fullName": "Full Name *",
+        "form.phone": "Phone Number *",
+        "form.weight": "Weight (kg) *",
+        "form.productLink": "Product Link (optional)",
+        "form.shippingType": "Shipping Type *",
+        "form.shippingRoute": "Shipping Route *",
+        "form.notes": "Additional Notes",
+        "form.chooseType": "Choose Shipping Type",
+        "form.fastOption": "Fast Shipping ⚡",
+        "form.normalOption": "Normal Shipping",
+        "form.chooseRoute": "Choose Shipping Route",
+        "form.egyptOption": "Within Egypt 🇪🇬",
+        "form.turkeyOption": "Within Turkey 🇹🇷",
+        "form.internationalOption": "International (Country to Country) 🌍",
+        "form.send": "Send Shipping Request",
+        "services.title": "Our Integrated Services",
+        "service.express": "Express Shipping",
+        "service.international": "International Shipping",
+        "service.storage": "Storage",
+        "service.customs": "Customs Clearance",
+        "service.express.desc": "Instant delivery with best available transport",
+        "service.international.desc": "Global delivery with full customs coverage",
+        "service.storage.desc": "Secure storage services with inventory management",
+        "service.customs.desc": "Integrated customs clearance with document follow-up",
+        "service.feature.fast": "⚡ 24-48 Hours",
+        "service.feature.tracking": "📱 Live Tracking",
+        "service.feature.countries": "🌍 25 Countries",
+        "service.feature.customs": "🛃 Customs Clearance",
+        "service.feature.secure": "🔒 Secure Storage",
+        "service.feature.inventory": "📊 Inventory Management",
+        "service.feature.documents": "📋 Documents",
+        "service.feature.quick": "⚡ Fast Service",
+        "ratings.title": "Service Rating",
+        "ratings.subtitle": "How was your experience with MahWay?",
+        "ratings.default": "Click on stars to rate",
+        "ratings.submit": "Submit Rating",
+        "ratings.thanks": "Thank you! Your rating has been submitted successfully",
+        "ratings.based": "Based on",
+        "ratings.ratings": "ratings",
+        "contact.title": "Contact Us",
+        "contact.company": "MahWay Shipping",
+        "contact.phone": "Phone",
+        "contact.email": "Email",
+        "contact.register": "Commercial Register",
+        "footer.rights": "All rights reserved"
+    }
+};
 
 // اللغة الحالية
 let currentLanguage = 'ar';
@@ -62,70 +210,60 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
 // تطبيق الترجمة
 function switchLanguage(lang) {
     currentLanguage = lang;
+    
+    // تحديث الأزرار النشطة
     document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
     document.querySelector(`.lang-btn[data-lang="${lang}"]`).classList.add('active');
-    document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
-    document.documentElement.lang = lang;
+    
+    // تغيير اتجاه الصفحة
+    if (lang === 'ar') {
+        document.documentElement.dir = 'rtl';
+        document.documentElement.lang = 'ar';
+    } else {
+        document.documentElement.dir = 'ltr';
+        document.documentElement.lang = lang;
+    }
+    
+    // تطبيق جميع الترجمات
     applyAllTranslations();
 }
 
+// تطبيق جميع الترجمات
 function applyAllTranslations() {
     const langData = translations[currentLanguage];
+    
+    // ترجمة كل العناصر مع data-i18n
     document.querySelectorAll('[data-i18n]').forEach(element => {
         const key = element.getAttribute('data-i18n');
-        if (langData[key]) element.textContent = langData[key];
-    });
-    document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
-        const key = element.getAttribute('data-i18n-placeholder');
-        if (langData[key]) element.placeholder = langData[key];
-    });
-    document.querySelectorAll('select option[data-i18n]').forEach(option => {
-        const key = option.getAttribute('data-i18n');
-        if (langData[key]) option.textContent = langData[key];
+        if (langData[key]) {
+            element.textContent = langData[key];
+        }
     });
 }
 
-// نظام التقييم
-let currentRating = 0;
-let hasRated = false;
-
+// تهيئة نظام التقييم
 function initRatingSystem() {
-    const savedRating = localStorage.getItem('mahway_rating');
-    if (savedRating) {
-        hasRated = true;
-        currentRating = parseInt(savedRating);
-        updateStarsDisplay(currentRating);
-        showRatingSuccess();
-        return;
-    }
-    document.querySelectorAll('.star').forEach(star => {
-        star.addEventListener('click', handleStarClick);
-        star.addEventListener('mouseenter', handleStarHover);
-    });
-    document.getElementById('submitRating').addEventListener('click', submitRating);
-}
-
-function handleStarClick(e) {
-    if (hasRated) return;
-    const rating = parseInt(e.currentTarget.getAttribute('data-rating'));
-    currentRating = rating;
-    updateStarsDisplay(rating);
-    updateRatingMessage(rating);
-    enableSubmitButton();
-}
-
-function handleStarHover(e) {
-    if (hasRated) return;
-    const rating = parseInt(e.currentTarget.getAttribute('data-rating'));
-    updateStarsDisplay(rating, true);
-}
-
-function updateStarsDisplay(rating, isHover = false) {
     const stars = document.querySelectorAll('.star');
+    const submitBtn = document.getElementById('submitRating');
+    const ratingMessage = document.getElementById('ratingMessage');
+    
     stars.forEach(star => {
-        const r = parseInt(star.getAttribute('data-rating'));
+        star.addEventListener('click', function() {
+            const rating = parseInt(this.getAttribute('data-rating'));
+            updateStars(rating);
+            submitBtn.disabled = false;
+            updateRatingMessage(rating);
+        });
+    });
+    
+    submitBtn.addEventListener('click', submitRating);
+}
+
+function updateStars(rating) {
+    const stars = document.querySelectorAll('.star');
+    stars.forEach((star, index) => {
         const icon = star.querySelector('i');
-        if (r <= rating) {
+        if (index < rating) {
             icon.className = 'fas fa-star';
             star.classList.add('active');
         } else {
@@ -133,289 +271,117 @@ function updateStarsDisplay(rating, isHover = false) {
             star.classList.remove('active');
         }
     });
-    if (!isHover && rating === 0 && !hasRated) {
-        stars.forEach(star => {
-            const icon = star.querySelector('i');
-            icon.className = 'far fa-star';
-            star.classList.remove('active');
-        });
-    }
 }
 
 function updateRatingMessage(rating) {
     const messages = {
-        ar: {1:"سيء جداً 😞",2:"ليس جيداً 🙁",3:"جيد 😊",4:"جيد جداً 😄",5:"ممتاز! 🤩"},
-        en: {1:"Very Bad 😞",2:"Not Good 🙁",3:"Good 😊",4:"Very Good 😄",5:"Excellent! 🤩"},
-        tr: {1:"Çok Kötü 😞",2:"İyi Değil 🙁",3:"İyi 😊",4:"Çok İyi 😄",5:"Mükemmel! 🤩"}
+        ar: {
+            1: "سيء جداً 😞",
+            2: "ليس جيداً 🙁",
+            3: "جيد 😊",
+            4: "جيد جداً 😄",
+            5: "ممتاز! 🤩"
+        },
+        en: {
+            1: "Very Bad 😞",
+            2: "Not Good 🙁",
+            3: "Good 😊",
+            4: "Very Good 😄",
+            5: "Excellent! 🤩"
+        }
     };
-    const msg = document.getElementById('ratingMessage');
-    msg.textContent = (messages[currentLanguage] || messages.ar)[rating];
-}
-
-function enableSubmitButton() {
-    const submitBtn = document.getElementById('submitRating');
-    submitBtn.disabled = false;
-    submitBtn.style.opacity = '1';
-    submitBtn.style.pointerEvents = 'all';
+    
+    const messageElement = document.getElementById('ratingMessage');
+    const langMessages = messages[currentLanguage] || messages.ar;
+    messageElement.textContent = langMessages[rating];
 }
 
 function submitRating() {
-    if (hasRated || currentRating === 0) return;
-    localStorage.setItem('mahway_rating', currentRating.toString());
-    localStorage.setItem('mahway_rating_date', new Date().toISOString());
-    hasRated = true;
-    showRatingSuccess();
-    updateRatingStats();
-}
-
-function showRatingSuccess() {
-    const starsContainer = document.getElementById('starsContainer');
-    const submitBtn = document.getElementById('submitRating');
-    const successDiv = document.getElementById('ratingSuccess');
-    starsContainer.style.opacity = '0.5';
-    starsContainer.style.pointerEvents = 'none';
-    submitBtn.style.display = 'none';
-    successDiv.style.display = 'flex';
-    const msg = {
-        ar: "شكراً لك! تم تسجيل تقييمك بنجاح",
-        en: "Thank you! Your rating has been submitted successfully",
-        tr: "Teşekkürler! Derecelendirmeniz başarıyla gönderildi"
-    };
-    successDiv.querySelector('span').textContent = msg[currentLanguage] || msg.ar;
-}
-
-function updateRatingStats() {
-    const averageElement = document.getElementById('averageRating');
-    const totalElement = document.getElementById('totalRatings');
-    const currentAverage = parseFloat(averageElement.textContent);
-    const currentTotal = parseInt(totalElement.textContent);
-    const newTotal = currentTotal + 1;
-    const newAverage = ((currentAverage * currentTotal) + currentRating) / newTotal;
-    averageElement.textContent = newAverage.toFixed(1);
-    totalElement.textContent = newTotal;
-    updateAverageStars(newAverage);
-}
-
-function updateAverageStars(average) {
-    const starsContainer = document.querySelector('.average-stars');
-    starsContainer.innerHTML = '';
-    const fullStars = Math.floor(average);
-    const hasHalfStar = average % 1 >= 0.5;
-    for (let i = 0; i < fullStars; i++) {
-        const star = document.createElement('i');
-        star.className = 'fas fa-star';
-        starsContainer.appendChild(star);
-    }
-    if (hasHalfStar) {
-        const halfStar = document.createElement('i');
-        halfStar.className = 'fas fa-star-half-alt';
-        starsContainer.appendChild(halfStar);
-    }
-    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
-    for (let i = 0; i < emptyStars; i++) {
-        const empty = document.createElement('i');
-        empty.className = 'far fa-star';
-        starsContainer.appendChild(empty);
+    const stars = document.querySelectorAll('.star');
+    let rating = 0;
+    
+    stars.forEach(star => {
+        if (star.classList.contains('active')) {
+            rating++;
+        }
+    });
+    
+    if (rating > 0) {
+        document.getElementById('ratingSuccess').style.display = 'flex';
+        document.getElementById('submitRating').style.display = 'none';
+        
+        // تحديث الإحصائيات
+        const totalRatings = document.getElementById('totalRatings');
+        const currentTotal = parseInt(totalRatings.textContent);
+        totalRatings.textContent = currentTotal + 1;
     }
 }
 
-// ✅ نظام قائمة الجوال (مُعدّل بالكامل)
+// نظام قائمة الجوال
 function initMobileMenu() {
     const mobileToggle = document.getElementById('mobileMenuToggle');
     const navLinks = document.querySelector('.nav-links');
-    const body = document.body;
-
-    if (!mobileToggle || !navLinks) return;
-
-    let overlay = document.querySelector('.nav-overlay');
-    if (!overlay) {
-        overlay = document.createElement('div');
-        overlay.className = 'nav-overlay';
-        document.body.appendChild(overlay);
-    }
-
-    mobileToggle.addEventListener('click', e => {
-        e.stopPropagation();
-        mobileToggle.classList.toggle('active');
+    
+    if (!mobileToggle) return;
+    
+    mobileToggle.addEventListener('click', function() {
+        this.classList.toggle('active');
         navLinks.classList.toggle('active');
-        overlay.classList.toggle('active');
-        body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
     });
-
-    overlay.addEventListener('click', () => {
-        mobileToggle.classList.remove('active');
-        navLinks.classList.remove('active');
-        overlay.classList.remove('active');
-        body.style.overflow = '';
-    });
-
+    
+    // إغلاق القائمة عند النقر على رابط
     document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
+        link.addEventListener('click', function() {
             mobileToggle.classList.remove('active');
             navLinks.classList.remove('active');
-            overlay.classList.remove('active');
-            body.style.overflow = '';
         });
     });
+}
 
-    window.addEventListener('resize', () => {
-        if (window.innerWidth > 1024) {
-            body.style.overflow = '';
-            navLinks.classList.remove('active');
-            mobileToggle.classList.remove('active');
-            overlay.classList.remove('active');
-        }
+// الانتقال للنموذج
+function scrollToForm() {
+    document.getElementById('shipping-form').scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
     });
 }
 
-// إصلاح مشاكل اللمس
-function fixTouchIssues() {
-    let lastTouchEnd = 0;
-    document.addEventListener('touchend', function(event) {
-        const now = new Date().getTime();
-        if (now - lastTouchEnd <= 300) event.preventDefault();
-        lastTouchEnd = now;
-    }, false);
-
-    function setVH() {
-        let vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-    }
-    setVH();
-    window.addEventListener('resize', setVH);
-    window.addEventListener('orientationchange', setVH);
+// الانتقال للخدمات
+function scrollToServices() {
+    document.getElementById('services').scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+    });
 }
 
-// الهيدر عند التمرير
-window.addEventListener('scroll', function() {
-    const header = document.querySelector('.header-animation');
-    const scrollY = window.scrollY;
-    if (scrollY > 100) {
-        header.style.background = 'rgba(255, 255, 255, 0.98)';
-        header.style.backdropFilter = 'blur(20px)';
-        header.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
-        header.style.padding = '0.5rem 0';
-    } else {
-        header.style.background = 'rgba(255, 255, 255, 0.98)';
-        header.style.boxShadow = 'none';
-        header.style.padding = '1rem 0';
-    }
-});
-
-// الانتقال
-function scrollToForm() { document.getElementById('shipping-form').scrollIntoView({ behavior: 'smooth' }); }
-function scrollToServices() { document.getElementById('services').scrollIntoView({ behavior: 'smooth' }); }
-
-// عداد الإحصائيات
+// عدّاد الإحصائيات
 function startCounters() {
     const counters = document.querySelectorAll('.stat-number');
-    let started = false;
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !started) {
-                started = true;
-                counters.forEach(counter => {
-                    const target = +counter.getAttribute('data-count');
-                    const duration = 2500;
-                    const step = target / (duration / 16);
-                    let current = 0;
-                    const update = () => {
-                        current += step;
-                        if (current < target) {
-                            counter.textContent = Math.ceil(current);
-                            requestAnimationFrame(update);
-                        } else counter.textContent = target;
-                    };
-                    update();
-                });
-                observer.unobserve(entry.target);
+    
+    counters.forEach(counter => {
+        const target = +counter.getAttribute('data-count');
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+        
+        const updateCounter = () => {
+            current += step;
+            if (current < target) {
+                counter.textContent = Math.ceil(current);
+                requestAnimationFrame(updateCounter);
+            } else {
+                counter.textContent = target;
             }
-        });
-    }, { threshold: 0.5 });
-    observer.observe(document.querySelector('.stats'));
-}
-
-// نموذج الشحن
-document.getElementById('shippingForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const btn = this.querySelector('.submit-btn');
-    btn.classList.add('loading');
-    setTimeout(() => {
-        const data = {
-            name: document.getElementById('name').value,
-            phone: document.getElementById('phone').value,
-            weight: document.getElementById('weight').value,
-            productLink: document.getElementById('product-link').value,
-            shippingType: document.getElementById('shipping-type').value,
-            shippingRoute: document.getElementById('shipping-route').value,
-            notes: document.getElementById('notes').value
         };
-        console.log('بيانات طلب الشحن:', data);
-        showSuccessMessage(currentLanguage === 'ar' ?
-            'شكراً لك! تم استلام طلب الشحن 🚀<br>سنتواصل معك خلال 24 ساعة.' :
-            currentLanguage === 'en' ?
-            'Thank you! Shipping request received 🚀<br>We will contact you within 24 hours.' :
-            'Teşekkürler! Nakliye talebiniz alındı 🚀<br>24 saat içinde sizinle iletişime geçeceğiz.'
-        );
-        this.reset();
-        btn.classList.remove('loading');
-    }, 3000);
-});
-
-function showSuccessMessage(message) {
-    const div = document.createElement('div');
-    div.className = 'success-message';
-    div.innerHTML = message;
-    div.style.cssText = `
-        position: fixed; top:50%; left:50%;
-        transform: translate(-50%, -50%) scale(0);
-        background: linear-gradient(135deg,#10b981,#059669);
-        color:#fff; padding:2rem 3rem; border-radius:20px;
-        box-shadow:0 25px 50px rgba(0,0,0,0.3);
-        z-index:10000; text-align:center; font-size:1.3rem;
-        font-weight:700; animation: popIn 0.6s ease forwards;
-    `;
-    document.body.appendChild(div);
-    setTimeout(() => {
-        div.style.animation = 'popOut 0.6s ease forwards';
-        setTimeout(() => div.remove(), 600);
-    }, 3000);
+        
+        updateCounter();
+    });
 }
 
-const style = document.createElement('style');
-style.textContent = `
-@keyframes popIn {0%{transform:translate(-50%,-50%) scale(0);opacity:0;}
-70%{transform:translate(-50%,-50%) scale(1.1);opacity:1;}
-100%{transform:translate(-50%,-50%) scale(1);opacity:1;}}
-@keyframes popOut {0%{transform:translate(-50%,-50%) scale(1);opacity:1;}
-30%{transform:translate(-50%,-50%) scale(1.1);opacity:1;}
-100%{transform:translate(-50%,-50%) scale(0);opacity:0;}}`;
-document.head.appendChild(style);
-
-// إصلاح viewport للـ iOS
-function fixViewportForIOS() {
-    const vp = document.querySelector('meta[name="viewport"]');
-    if (vp && /iPhone|iPad|iPod/.test(navigator.userAgent))
-        vp.setAttribute('content','width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no');
-}
-
-// تشغيل عند التحميل
+// تهيئة عند التحميل
 document.addEventListener('DOMContentLoaded', function() {
     switchLanguage('ar');
     startCounters();
     initRatingSystem();
     initMobileMenu();
-    fixTouchIssues();
-    fixViewportForIOS();
-    document.querySelectorAll('.service-card,.quick-service-card').forEach(card => {
-        card.addEventListener('mousemove', e => {
-            if (window.innerWidth > 768) {
-                const r = card.getBoundingClientRect();
-                const x = e.clientX - r.left, y = e.clientY - r.top;
-                const aY = (x - r.width/2)/25, aX = (r.height/2 - y)/25;
-                card.style.transform = `perspective(1000px) rotateX(${aX}deg) rotateY(${aY}deg) scale(1.05)`;
-            }
-        });
-        card.addEventListener('mouseleave', () => card.style.transform='');
-    });
 });

@@ -1,874 +1,1638 @@
-// تهيئة AOS للأنيميشن
-AOS.init({
-    duration: 1200,
-    once: true,
-    offset: 100,
-    easing: 'ease-out-cubic'
-});
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-// تهيئة Particles.js
-document.addEventListener('DOMContentLoaded', function() {
-    if (typeof particlesJS !== 'undefined') {
-        particlesJS('particles-js', {
-            particles: {
-                number: { value: 80, density: { enable: true, value_area: 800 } },
-                color: { value: "#ffffff" },
-                shape: { type: "circle" },
-                opacity: { value: 0.5, random: true },
-                size: { value: 3, random: true },
-                line_linked: {
-                    enable: true,
-                    distance: 150,
-                    color: "#ffffff",
-                    opacity: 0.2,
-                    width: 1
-                },
-                move: {
-                    enable: true,
-                    speed: 2,
-                    direction: "none",
-                    random: true,
-                    straight: false,
-                    out_mode: "out",
-                    bounce: false
-                }
-            },
-            interactivity: {
-                detect_on: "canvas",
-                events: {
-                    onhover: { enable: true, mode: "repulse" },
-                    onclick: { enable: true, mode: "push" },
-                    resize: true
-                }
-            }
-        });
+:root {
+    --primary-color: #2563eb;
+    --primary-dark: #1d4ed8;
+    --secondary-color: #f59e0b;
+    --accent-color: #8b5cf6;
+    --text-color: #1f2937;
+    --text-light: #6b7280;
+    --light-bg: #f8fafc;
+    --white: #ffffff;
+    --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --shadow: 0 20px 40px rgba(0,0,0,0.1);
+    --shadow-hover: 0 30px 60px rgba(0,0,0,0.15);
+    --border-radius: 20px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+    font-family: 'Cairo', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    direction: rtl;
+    overflow-x: hidden;
+    background: var(--light-bg);
+}
+
+/* تنسيقات للغات المختلفة */
+[dir="ltr"] body {
+    direction: ltr;
+    text-align: left;
+}
+
+[dir="ltr"] .hero-content,
+[dir="ltr"] .contact-details,
+[dir="ltr"] .form-group label,
+[dir="ltr"] .service-card,
+[dir="ltr"] .stat-item,
+[dir="ltr"] .footer-content {
+    text-align: center;
+}
+
+[dir="ltr"] .contact-item {
+    text-align: left;
+}
+
+[dir="ltr"] .form-group label {
+    text-align: left;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Language Switcher */
+.language-switcher {
+    position: fixed;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 18px 12px;
+    border-radius: 30px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+[dir="ltr"] .language-switcher {
+    left: auto;
+    right: 20px;
+}
+
+.lang-btn {
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    transition: var(--transition);
+    opacity: 0.6;
+    position: relative;
+}
+
+.lang-btn.active,
+.lang-btn:hover {
+    opacity: 1;
+    transform: scale(1.2);
+    background: var(--light-bg);
+}
+
+.lang-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    background: var(--primary-color);
+    border-radius: 50%;
+}
+
+/* الهيدر */
+.header-animation {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    transition: var(--transition);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    transition: var(--transition);
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+}
+
+.floating {
+    animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(5deg); }
+}
+
+/* قائمة الهامبرجر للجوال */
+.mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    cursor: pointer;
+    z-index: 1002;
+}
+
+.mobile-menu-toggle span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: var(--primary-color);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2.5rem;
+}
+
+.nav-link {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 700;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    font-size: 1.1rem;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient);
+    opacity: 0;
+    transition: var(--transition);
+    border-radius: 25px;
+}
+
+.nav-link:hover::before {
+    opacity: 0.1;
+}
+
+.nav-link:hover {
+    color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.nav-cta {
+    display: flex;
+    align-items: center;
+}
+
+.nav-button {
+    background: var(--gradient);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+}
+
+.nav-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(37, 99, 235, 0.4);
+}
+
+/* القسم الرئيسي */
+.hero {
+    background: var(--gradient);
+    color: var(--white);
+    min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hero-bg-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
+    animation: backgroundShift 15s ease-in-out infinite;
+    z-index: 1;
+}
+
+@keyframes backgroundShift {
+    0%, 100% { 
+        transform: scale(1) rotate(0deg);
+        filter: hue-rotate(0deg);
     }
-});
-
-// متغيرات الترجمة الكاملة
-const translations = {
-    ar: {
-        // التنقل
-        "nav.home": "الرئيسية",
-        "nav.services": "خدماتنا",
-        "nav.shippingForm": "طلب شحن",
-        "nav.contact": "اتصل بنا",
-        "nav.quickOrder": "طلب سريع",
-        
-        // الهيرو
-        "hero.tagline": "Import Export Shipping",
-        "hero.description": "حلول شحن ذكية لتجارة الاستيراد والتصدير العالمية",
-        "hero.orderNow": "اطلب شحنتك الآن",
-        "hero.exploreServices": "استكشف خدماتنا",
-        
-        // الإحصائيات
-        "stats.shipments": "شحنة ناجحة",
-        "stats.countries": "دولة",
-        "stats.support": "ساعة دعم",
-        "stats.satisfaction": "% رضا العملاء",
-        
-        // الخدمات السريعة
-        "quickServices.title": "خدماتنا السريعة",
-        "service.fast": "شحن سريع ⚡",
-        "service.air": "شحن جوي",
-        "service.sea": "شحن بحري",
-        "service.fast.desc": "توصيل فوري مع أفضل الأسعار",
-        "service.air.desc": "أسرع وسائل النقل للبضائع العاجلة",
-        "service.sea.desc": "الحل الأمثل للشحنات الكبيرة",
-        "service.time.fast": "24-48 ساعة",
-        "service.time.air": "2-5 أيام",
-        "service.time.sea": "15-30 يوم",
-        
-        // نموذج الشحن
-        "form.title": "طلب خدمة الشحن",
-        "form.subtitle": "املأ البيانات وسنتواصل معك خلال دقائق",
-        "form.details": "تفاصيل الشحنة",
-        "form.fullName": "الاسم بالكامل *",
-        "form.phone": "رقم الهاتف *",
-        "form.weight": "الوزن (كجم) *",
-        "form.productLink": "رابط المنتج (اختياري)",
-        "form.shippingType": "نوع الشحن *",
-        "form.shippingRoute": "مسار الشحن *",
-        "form.notes": "ملاحظات إضافية",
-        "form.chooseType": "اختر نوع الشحن",
-        "form.fastOption": "شحن سريع ⚡",
-        "form.normalOption": "شحن عادي",
-        "form.chooseRoute": "اختر مسار الشحن",
-        "form.egyptOption": "داخل مصر 🇪🇬",
-        "form.turkeyOption": "داخل تركيا 🇹🇷",
-        "form.internationalOption": "شحن دولي (من بلد لبلد) 🌍",
-        "form.notesPlaceholder": "أي معلومات إضافية عن الشحنة...",
-        "form.send": "إرسال طلب الشحن",
-        
-        // الخدمات
-        "services.title": "خدماتنا المتكاملة",
-        "service.express": "شحن اكسبريس",
-        "service.international": "شحن دولي",
-        "service.storage": "تخزين",
-        "service.customs": "تخليص جمركي",
-        "service.express.desc": "توصيل فوري مع أفضل وسائل النقل المتاحة",
-        "service.international.desc": "توصيل عالمي مع تغطية شاملة للجمارك",
-        "service.storage.desc": "خدمات تخزين آمنة مع إدارة المخزون",
-        "service.customs.desc": "تخليص جمركي متكامل مع متابعة المستندات",
-        "service.feature.fast": "⚡ 24-48 ساعة",
-        "service.feature.tracking": "📱 تتبع مباشر",
-        "service.feature.countries": "🌍 25 دولة",
-        "service.feature.customs": "🛃 تخليص جمركي",
-        "service.feature.secure": "🔒 تخزين آمن",
-        "service.feature.inventory": "📊 إدارة مخزون",
-        "service.feature.documents": "📋 مستندات",
-        "service.feature.quick": "⚡ خدمة سريعة",
-        
-        // التقييم
-        "ratings.title": "تقييم الخدمة",
-        "ratings.subtitle": "كيف كانت تجربتك مع MahWay؟",
-        "ratings.default": "اضغط على النجوم للتقييم",
-        "ratings.submit": "إرسال التقييم",
-        "ratings.thanks": "شكراً لك! تم تسجيل تقييمك بنجاح",
-        "ratings.based": "بناءً على",
-        "ratings.ratings": "تقييم",
-        
-        // اتصل بنا
-        "contact.title": "اتصل بنا",
-        "contact.company": "MahWay Shipping",
-        "contact.info": "معلومات التواصل",
-        "contact.phone": "الهاتف",
-        "contact.email": "البريد الإلكتروني",
-        "contact.register": "السجل التجاري",
-        
-        // الفوتر
-        "footer.rights": "جميع الحقوق محفوظة"
-    },
-    en: {
-        // Navigation
-        "nav.home": "Home",
-        "nav.services": "Services",
-        "nav.shippingForm": "Shipping Request",
-        "nav.contact": "Contact Us",
-        "nav.quickOrder": "Quick Order",
-        
-        // Hero
-        "hero.tagline": "Import Export Shipping",
-        "hero.description": "Smart shipping solutions for global import and export trade",
-        "hero.orderNow": "Order Your Shipment Now",
-        "hero.exploreServices": "Explore Our Services",
-        
-        // Statistics
-        "stats.shipments": "Successful Shipments",
-        "stats.countries": "Countries",
-        "stats.support": "Support Hours",
-        "stats.satisfaction": "% Customer Satisfaction",
-        
-        // Quick Services
-        "quickServices.title": "Our Quick Services",
-        "service.fast": "Fast Shipping ⚡",
-        "service.air": "Air Shipping",
-        "service.sea": "Sea Shipping",
-        "service.fast.desc": "Instant delivery with best prices",
-        "service.air.desc": "Fastest transport for urgent goods",
-        "service.sea.desc": "Ideal solution for large shipments",
-        "service.time.fast": "24-48 Hours",
-        "service.time.air": "2-5 Days",
-        "service.time.sea": "15-30 Days",
-        
-        // Shipping Form
-        "form.title": "Shipping Service Request",
-        "form.subtitle": "Fill the data and we'll contact you within minutes",
-        "form.details": "Shipment Details",
-        "form.fullName": "Full Name *",
-        "form.phone": "Phone Number *",
-        "form.weight": "Weight (kg) *",
-        "form.productLink": "Product Link (optional)",
-        "form.shippingType": "Shipping Type *",
-        "form.shippingRoute": "Shipping Route *",
-        "form.notes": "Additional Notes",
-        "form.chooseType": "Choose Shipping Type",
-        "form.fastOption": "Fast Shipping ⚡",
-        "form.normalOption": "Normal Shipping",
-        "form.chooseRoute": "Choose Shipping Route",
-        "form.egyptOption": "Within Egypt 🇪🇬",
-        "form.turkeyOption": "Within Turkey 🇹🇷",
-        "form.internationalOption": "International (Country to Country) 🌍",
-        "form.notesPlaceholder": "Any additional information about the shipment...",
-        "form.send": "Send Shipping Request",
-        
-        // Services
-        "services.title": "Our Integrated Services",
-        "service.express": "Express Shipping",
-        "service.international": "International Shipping",
-        "service.storage": "Storage",
-        "service.customs": "Customs Clearance",
-        "service.express.desc": "Instant delivery with best available transport",
-        "service.international.desc": "Global delivery with full customs coverage",
-        "service.storage.desc": "Secure storage services with inventory management",
-        "service.customs.desc": "Integrated customs clearance with document follow-up",
-        "service.feature.fast": "⚡ 24-48 Hours",
-        "service.feature.tracking": "📱 Live Tracking",
-        "service.feature.countries": "🌍 25 Countries",
-        "service.feature.customs": "🛃 Customs Clearance",
-        "service.feature.secure": "🔒 Secure Storage",
-        "service.feature.inventory": "📊 Inventory Management",
-        "service.feature.documents": "📋 Documents",
-        "service.feature.quick": "⚡ Fast Service",
-        
-        // Ratings
-        "ratings.title": "Service Rating",
-        "ratings.subtitle": "How was your experience with MahWay?",
-        "ratings.default": "Click on stars to rate",
-        "ratings.submit": "Submit Rating",
-        "ratings.thanks": "Thank you! Your rating has been submitted successfully",
-        "ratings.based": "Based on",
-        "ratings.ratings": "ratings",
-        
-        // Contact
-        "contact.title": "Contact Us",
-        "contact.company": "MahWay Shipping",
-        "contact.info": "Contact Information",
-        "contact.phone": "Phone",
-        "contact.email": "Email",
-        "contact.register": "Commercial Register",
-        
-        // Footer
-        "footer.rights": "All rights reserved"
-    },
-    tr: {
-        // Navigation
-        "nav.home": "Ana Sayfa",
-        "nav.services": "Hizmetler",
-        "nav.shippingForm": "Nakliye Talebi",
-        "nav.contact": "İletişim",
-        "nav.quickOrder": "Hızlı Sipariş",
-        
-        // Hero
-        "hero.tagline": "Import Export Shipping",
-        "hero.description": "Küresel ithalat ve ihracat ticareti için akıllı nakliye çözümleri",
-        "hero.orderNow": "Şimdi Nakliyenizi Sipariş Edin",
-        "hero.exploreServices": "Hizmetlerimizi Keşfedin",
-        
-        // Statistics
-        "stats.shipments": "Başarılı Sevkiyat",
-        "stats.countries": "Ülke",
-        "stats.support": "Destek Saati",
-        "stats.satisfaction": "% Müşteri Memnuniyeti",
-        
-        // Quick Services
-        "quickServices.title": "Hızlı Hizmetlerimiz",
-        "service.fast": "Hızlı Nakliye ⚡",
-        "service.air": "Hava Nakliyesi",
-        "service.sea": "Deniz Nakliyesi",
-        "service.fast.desc": "En iyi fiyatlarla anında teslimat",
-        "service.air.desc": "Acil kargolar için en hızlı taşıma",
-        "service.sea.desc": "Büyük sevkiyatlar için ideal çözüm",
-        "service.time.fast": "24-48 Saat",
-        "service.time.air": "2-5 Gün",
-        "service.time.sea": "15-30 Gün",
-        
-        // Shipping Form
-        "form.title": "Nakliye Hizmeti Talebi",
-        "form.subtitle": "Verileri doldurun, sizi dakikalar içinde arayalım",
-        "form.details": "Sevkiyat Detayları",
-        "form.fullName": "Tam Ad *",
-        "form.phone": "Telefon Numarası *",
-        "form.weight": "Ağırlık (kg) *",
-        "form.productLink": "Ürün Bağlantısı (isteğe bağlı)",
-        "form.shippingType": "Nakliye Türü *",
-        "form.shippingRoute": "Nakliye Rotası *",
-        "form.notes": "Ek Notlar",
-        "form.chooseType": "Nakliye Türünü Seçin",
-        "form.fastOption": "Hızlı Nakliye ⚡",
-        "form.normalOption": "Normal Nakliye",
-        "form.chooseRoute": "Nakliye Rotasını Seçin",
-        "form.egyptOption": "Mısır İçi 🇪🇬",
-        "form.turkeyOption": "Türkiye İçi 🇹🇷",
-        "form.internationalOption": "Uluslararası (Ülkeden Ülkeye) 🌍",
-        "form.notesPlaceholder": "Sevkiyat hakkında herhangi bir ek bilgi...",
-        "form.send": "Nakliye Talebini Gönder",
-        
-        // Services
-        "services.title": "Entegre Hizmetlerimiz",
-        "service.express": "Ekspres Nakliye",
-        "service.international": "Uluslararası Nakliye",
-        "service.storage": "Depolama",
-        "service.customs": "Gümrük Takibi",
-        "service.express.desc": "Mevcut en iyi taşıma ile anında teslimat",
-        "service.international.desc": "Tam gümrük kapsamıyla küresel teslimat",
-        "service.storage.desc": "Envanter yönetimi ile güvenli depolama hizmetleri",
-        "service.customs.desc": "Belge takibi ile entegre gümrük takibi",
-        "service.feature.fast": "⚡ 24-48 Saat",
-        "service.feature.tracking": "📱 Canlı Takip",
-        "service.feature.countries": "🌍 25 Ülke",
-        "service.feature.customs": "🛃 Gümrük Takibi",
-        "service.feature.secure": "🔒 Güvenli Depolama",
-        "service.feature.inventory": "📊 Envanter Yönetimi",
-        "service.feature.documents": "📋 Belgeler",
-        "service.feature.quick": "⚡ Hızlı Hizmet",
-        
-        // Ratings
-        "ratings.title": "Hizmet Değerlendirmesi",
-        "ratings.subtitle": "MahWay deneyiminiz nasıldı?",
-        "ratings.default": "Derecelendirmek için yıldızlara tıklayın",
-        "ratings.submit": "Değerlendirmeyi Gönder",
-        "ratings.thanks": "Teşekkürler! Derecelendirmeniz başarıyla gönderildi",
-        "ratings.based": "Dayalı",
-        "ratings.ratings": "değerlendirme",
-        
-        // Contact
-        "contact.title": "Bize Ulaşın",
-        "contact.company": "MahWay Shipping",
-        "contact.info": "İletişim Bilgileri",
-        "contact.phone": "Telefon",
-        "contact.email": "E-posta",
-        "contact.register": "Ticaret Sicil No",
-        
-        // Footer
-        "footer.rights": "Tüm hakları saklıdır"
+    33% { 
+        transform: scale(1.1) rotate(120deg);
+        filter: hue-rotate(120deg);
     }
-};
-
-// اللغة الحالية
-let currentLanguage = 'ar';
-
-// تبديل اللغة
-document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-        const lang = this.dataset.lang;
-        switchLanguage(lang);
-    });
-});
-
-// تطبيق الترجمة
-function switchLanguage(lang) {
-    currentLanguage = lang;
-    
-    // تحديث الأزرار النشطة
-    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-    document.querySelector(`.lang-btn[data-lang="${lang}"]`).classList.add('active');
-    
-    // تغيير اتجاه الصفحة
-    if (lang === 'ar') {
-        document.documentElement.dir = 'rtl';
-        document.documentElement.lang = 'ar';
-    } else {
-        document.documentElement.dir = 'ltr';
-        document.documentElement.lang = lang;
-    }
-    
-    // تطبيق جميع الترجمات
-    applyAllTranslations();
-}
-
-// تطبيق جميع الترجمات
-function applyAllTranslations() {
-    const langData = translations[currentLanguage];
-    
-    // ترجمة كل العناصر مع data-i18n
-    document.querySelectorAll('[data-i18n]').forEach(element => {
-        const key = element.getAttribute('data-i18n');
-        if (langData[key]) {
-            element.textContent = langData[key];
-        }
-    });
-    
-    // ترجمة الـ placeholders
-    document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
-        const key = element.getAttribute('data-i18n-placeholder');
-        if (langData[key]) {
-            element.placeholder = langData[key];
-        }
-    });
-    
-    // ترجمة خيارات الـ select
-    document.querySelectorAll('select option[data-i18n]').forEach(option => {
-        const key = option.getAttribute('data-i18n');
-        if (langData[key]) {
-            option.textContent = langData[key];
-        }
-    });
-}
-
-// نظام التقييم
-let currentRating = 0;
-let hasRated = false;
-
-// تهيئة نظام التقييم
-function initRatingSystem() {
-    // التحقق إذا كان المستخدم قد قيم مسبقاً
-    const savedRating = localStorage.getItem('mahway_rating');
-    if (savedRating) {
-        hasRated = true;
-        currentRating = parseInt(savedRating);
-        updateStarsDisplay(currentRating);
-        showRatingSuccess();
-        return;
-    }
-
-    // إضافة event listeners للنجوم
-    document.querySelectorAll('.star').forEach(star => {
-        star.addEventListener('click', handleStarClick);
-        star.addEventListener('mouseenter', handleStarHover);
-    });
-
-    // إضافة event listener للزر
-    document.getElementById('submitRating').addEventListener('click', submitRating);
-}
-
-// التعامل مع النقر على النجوم
-function handleStarClick(e) {
-    if (hasRated) return;
-    
-    const star = e.currentTarget;
-    const rating = parseInt(star.getAttribute('data-rating'));
-    currentRating = rating;
-    
-    updateStarsDisplay(rating);
-    updateRatingMessage(rating);
-    enableSubmitButton();
-}
-
-// التعامل مع hover على النجوم
-function handleStarHover(e) {
-    if (hasRated) return;
-    
-    const star = e.currentTarget;
-    const rating = parseInt(star.getAttribute('data-rating'));
-    
-    updateStarsDisplay(rating, true);
-}
-
-// تحديث عرض النجوم - الإصدار المصحح
-function updateStarsDisplay(rating, isHover = false) {
-    const stars = document.querySelectorAll('.star');
-    
-    stars.forEach((star, index) => {
-        const starRating = parseInt(star.getAttribute('data-rating'));
-        const icon = star.querySelector('i');
-        
-        if (starRating <= rating) {
-            icon.className = 'fas fa-star';
-            star.classList.add('active');
-        } else {
-            icon.className = 'far fa-star';
-            star.classList.remove('active');
-        }
-    });
-    
-    // إعادة التعيين إذا لم يكن hover ولم يكن هناك تقييم
-    if (!isHover && rating === 0 && !hasRated) {
-        stars.forEach(star => {
-            const icon = star.querySelector('i');
-            icon.className = 'far fa-star';
-            star.classList.remove('active');
-        });
+    66% { 
+        transform: scale(1.05) rotate(240deg);
+        filter: hue-rotate(240deg);
     }
 }
 
-// تحديث رسالة التقييم
-function updateRatingMessage(rating) {
-    const messages = {
-        ar: {
-            1: "سيء جداً 😞",
-            2: "ليس جيداً 🙁",
-            3: "جيد 😊",
-            4: "جيد جداً 😄",
-            5: "ممتاز! 🤩"
-        },
-        en: {
-            1: "Very Bad 😞",
-            2: "Not Good 🙁",
-            3: "Good 😊",
-            4: "Very Good 😄",
-            5: "Excellent! 🤩"
-        },
-        tr: {
-            1: "Çok Kötü 😞",
-            2: "İyi Değil 🙁",
-            3: "İyi 😊",
-            4: "Çok İyi 😄",
-            5: "Mükemmel! 🤩"
-        }
-    };
-    
-    const messageElement = document.getElementById('ratingMessage');
-    const langMessages = messages[currentLanguage] || messages.ar;
-    messageElement.textContent = langMessages[rating];
+.hero-content {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    padding: 4rem 0;
 }
 
-// تمكين زر الإرسال
-function enableSubmitButton() {
-    const submitBtn = document.getElementById('submitRating');
-    submitBtn.disabled = false;
-    submitBtn.style.opacity = '1';
-    submitBtn.style.pointerEvents = 'all';
+.main-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
 }
 
-// إرسال التقييم
-function submitRating() {
-    if (hasRated || currentRating === 0) return;
-    
-    // حفظ التقييم في localStorage
-    localStorage.setItem('mahway_rating', currentRating.toString());
-    localStorage.setItem('mahway_rating_date', new Date().toISOString());
-    
-    hasRated = true;
-    showRatingSuccess();
-    updateRatingStats();
-    
-    // إرسال البيانات للخادم (يمكنك إضافة كود AJAX هنا)
-    console.log('تم إرسال التقييم:', currentRating);
+.hero-logo {
+    width: 280px;
+    height: 280px;
+    object-fit: contain;
+    margin-bottom: 2rem;
+    animation: bounce 3s ease-in-out infinite;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));
+    border-radius: 30px;
 }
 
-// عرض رسالة النجاح
-function showRatingSuccess() {
-    const starsContainer = document.getElementById('starsContainer');
-    const submitBtn = document.getElementById('submitRating');
-    const successDiv = document.getElementById('ratingSuccess');
-    
-    starsContainer.style.opacity = '0.5';
-    starsContainer.style.pointerEvents = 'none';
-    submitBtn.style.display = 'none';
-    successDiv.style.display = 'flex';
-    
-    // تحديث رسالة النجاح حسب اللغة
-    const successMessages = {
-        ar: "شكراً لك! تم تسجيل تقييمك بنجاح",
-        en: "Thank you! Your rating has been submitted successfully",
-        tr: "Teşekkürler! Derecelendirmeniz başarıyla gönderildi"
-    };
-    
-    successDiv.querySelector('span').textContent = successMessages[currentLanguage] || successMessages.ar;
-}
-
-// تحديث إحصائيات التقييم (محاكاة)
-function updateRatingStats() {
-    // في الواقع الفعلي، هتبقى البيانات من الخادم
-    const averageElement = document.getElementById('averageRating');
-    const totalElement = document.getElementById('totalRatings');
-    
-    // محاكاة تحديث الإحصائيات
-    const currentAverage = parseFloat(averageElement.textContent);
-    const currentTotal = parseInt(totalElement.textContent);
-    
-    // حساب المتوسط الجديد
-    const newTotal = currentTotal + 1;
-    const newAverage = ((currentAverage * currentTotal) + currentRating) / newTotal;
-    
-    // تحديث الواجهة
-    averageElement.textContent = newAverage.toFixed(1);
-    totalElement.textContent = newTotal;
-    
-    // تحديث النجوم في الإحصائيات
-    updateAverageStars(newAverage);
-}
-
-// تحديث النجوم في قسم الإحصائيات
-function updateAverageStars(average) {
-    const starsContainer = document.querySelector('.average-stars');
-    starsContainer.innerHTML = '';
-    
-    const fullStars = Math.floor(average);
-    const hasHalfStar = average % 1 >= 0.5;
-    
-    // إضافة النجوم الكاملة
-    for (let i = 0; i < fullStars; i++) {
-        const star = document.createElement('i');
-        star.className = 'fas fa-star';
-        starsContainer.appendChild(star);
+@keyframes bounce {
+    0%, 100% { 
+        transform: translateY(0) scale(1);
     }
-    
-    // إضافة نصف نجمة إذا لزم الأمر
-    if (hasHalfStar) {
-        const halfStar = document.createElement('i');
-        halfStar.className = 'fas fa-star-half-alt';
-        starsContainer.appendChild(halfStar);
+    25% { 
+        transform: translateY(-20px) scale(1.05);
     }
-    
-    // إضافة النجوم الفارغة
-    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
-    for (let i = 0; i < emptyStars; i++) {
-        const emptyStar = document.createElement('i');
-        emptyStar.className = 'far fa-star';
-        starsContainer.appendChild(emptyStar);
+    50% { 
+        transform: translateY(-10px) scale(1.02);
+    }
+    75% { 
+        transform: translateY(-15px) scale(1.03);
     }
 }
 
-// نظام قائمة الجوال
-function initMobileMenu() {
-    const mobileToggle = document.getElementById('mobileMenuToggle');
-    const navLinks = document.querySelector('.nav-links');
-    const body = document.body;
-    
-    if (!mobileToggle) return;
-    
-    // إنشاء overlay
-    const overlay = document.createElement('div');
-    overlay.className = 'nav-overlay';
-    document.body.appendChild(overlay);
-    
-    // فتح/إغلاق القائمة
-    mobileToggle.addEventListener('click', function(e) {
-        e.stopPropagation();
-        this.classList.toggle('active');
-        navLinks.classList.toggle('active');
-        overlay.classList.toggle('active');
-        body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
-    });
-    
-    // إغلاق القائمة عند النقر على overlay
-    overlay.addEventListener('click', function() {
-        mobileToggle.classList.remove('active');
-        navLinks.classList.remove('active');
-        this.classList.remove('active');
-        body.style.overflow = '';
-    });
-    
-    // إغلاق القائمة عند النقر على رابط
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', function() {
-            mobileToggle.classList.remove('active');
-            navLinks.classList.remove('active');
-            overlay.classList.remove('active');
-            body.style.overflow = '';
-        });
-    });
-    
-    // إغلاق القائمة عند تغيير حجم النافذة
-    window.addEventListener('resize', function() {
-        if (window.innerWidth > 768) {
-            mobileToggle.classList.remove('active');
-            navLinks.classList.remove('active');
-            overlay.classList.remove('active');
-            body.style.overflow = '';
-        }
-    });
+.tagline {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 600;
+    text-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-// إصلاح مشاكل اللمس في الجوال
-function fixTouchIssues() {
-    // منع الزوم المزدوج
-    let lastTouchEnd = 0;
-    document.addEventListener('touchend', function (event) {
-        const now = (new Date()).getTime();
-        if (now - lastTouchEnd <= 300) {
-            event.preventDefault();
-        }
-        lastTouchEnd = now;
-    }, false);
-    
-    // تحسين أداء التمرير
-    document.addEventListener('touchmove', function (event) {
-        if (event.scale !== 1) {
-            event.preventDefault();
-        }
-    }, { passive: false });
-    
-    // إصلاح ارتفاع 100vh في الجوال
-    function setVH() {
-        let vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
+.hero-description {
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.8;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cta-button {
+    border: none;
+    padding: 1.3rem 2.5rem;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 700;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    text-decoration: none;
+}
+
+.cta-button.primary {
+    background: var(--secondary-color);
+    color: var(--text-color);
+    box-shadow: 0 15px 35px rgba(245, 158, 11, 0.4);
+}
+
+.cta-button.secondary {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { 
+        box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+    }
+    70% { 
+        box-shadow: 0 0 0 25px rgba(245, 158, 11, 0);
+    }
+    100% { 
+        box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+    }
+}
+
+.cta-button:hover {
+    transform: translateY(-5px) scale(1.05);
+}
+
+.cta-button.primary:hover {
+    box-shadow: 0 20px 45px rgba(245, 158, 11, 0.6);
+}
+
+.cta-button.secondary:hover {
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 15px 35px rgba(255, 255, 255, 0.2);
+}
+
+.button-shine {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+    transition: left 0.8s;
+}
+
+.cta-button:hover .button-shine {
+    left: 100%;
+}
+
+/* موجات متحركة */
+.waves {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 200%;
+    height: 100px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="white"/></svg>');
+    background-size: 1000px 100px;
+}
+
+.wave-1 {
+    animation: wave 25s linear infinite;
+    opacity: 0.1;
+}
+
+.wave-2 {
+    animation: wave 20s linear infinite reverse;
+    opacity: 0.15;
+}
+
+.wave-3 {
+    animation: wave 15s linear infinite;
+    opacity: 0.05;
+}
+
+@keyframes wave {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(-25%); }
+    100% { transform: translateX(-50%); }
+}
+
+/* الإحصائيات */
+.stats {
+    padding: 6rem 0;
+    background: var(--white);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: var(--light-bg);
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--gradient);
+}
+
+.stat-item:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-hover);
+}
+
+.stat-icon {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+.stat-number {
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-family: 'Cairo', sans-serif;
+}
+
+.stat-label {
+    color: var(--text-light);
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+/* خدمات سريعة */
+.quick-services {
+    padding: 6rem 0;
+    background: var(--gradient-3);
+    color: white;
+}
+
+.quick-services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.quick-service-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 3rem 2rem;
+    border-radius: var(--border-radius);
+    text-align: center;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.quick-service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+}
+
+.quick-service-card:hover::before {
+    transform: translateX(100%);
+}
+
+.quick-service-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.quick-service-card .service-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+}
+
+.quick-service-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.quick-service-card p {
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+}
+
+.service-time {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    font-weight: 700;
+    display: inline-block;
+}
+
+/* نموذج الشحن */
+.shipping-form-section {
+    padding: 6rem 0;
+    background: var(--white);
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 3rem;
+    color: var(--primary-color);
+    position: relative;
+    font-weight: 900;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 6px;
+    background: var(--gradient);
+    border-radius: 3px;
+}
+
+.section-subtitle {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 1.3rem;
+    color: var(--text-light);
+}
+
+.form-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--white);
+    padding: 3rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255,255,255,0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.form-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: var(--gradient);
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.form-header i {
+    font-size: 4rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.form-header h3 {
+    font-size: 2rem;
+    color: var(--text-color);
+}
+
+.shipping-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.form-group label i {
+    color: var(--primary-color);
+    width: 20px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 1.2rem 1.5rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    transition: var(--transition);
+    font-family: 'Cairo', sans-serif;
+    background: var(--light-bg);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    transform: translateY(-2px);
+    background: var(--white);
+}
+
+.submit-btn {
+    background: var(--gradient);
+    color: var(--white);
+    border: none;
+    padding: 1.5rem 2rem;
+    font-size: 1.3rem;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 700;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+.btn-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.loading-spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid transparent;
+    border-top: 3px solid var(--white);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.submit-btn.loading .btn-loading {
+    opacity: 1;
+}
+
+.submit-btn.loading span,
+.submit-btn.loading i {
+    opacity: 0;
+}
+
+/* الخدمات */
+.services {
+    padding: 6rem 0;
+    background: var(--light-bg);
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+}
+
+.service-card {
+    background: var(--white);
+    padding: 3rem 2rem;
+    border-radius: var(--border-radius);
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: var(--gradient);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover::before {
+    transform: scaleX(1);
+}
+
+.service-card:hover {
+    transform: translateY(-15px) scale(1.03);
+    box-shadow: var(--shadow-hover);
+}
+
+.service-card .service-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+}
+
+.service-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+
+.service-card p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.service-features {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.service-features span {
+    background: var(--light-bg);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* قسم التقييم */
+.ratings-section {
+    padding: 6rem 0;
+    background: var(--light-bg);
+}
+
+.ratings-container {
+    background: var(--white);
+    padding: 3rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.stars-container {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    direction: ltr;
+}
+
+.star {
+    font-size: 3rem;
+    color: #ddd;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.star:hover,
+.star.active {
+    color: #ffc107;
+    transform: scale(1.2);
+}
+
+.star:hover ~ .star {
+    color: #ddd;
+}
+
+.star.active ~ .star {
+    color: #ddd;
+}
+
+.rating-text {
+    margin-bottom: 2rem;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#ratingMessage {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.submit-rating-btn {
+    background: var(--gradient);
+    color: var(--white);
+    border: none;
+    padding: 1.2rem 2.5rem;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.submit-rating-btn:not(:disabled) {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.submit-rating-btn:not(:disabled):hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+.rating-success {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin-top: 2rem;
+    animation: slideIn 0.6s ease;
+}
+
+.rating-success i {
+    font-size: 2rem;
+}
+
+.rating-success span {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* إحصائيات التقييمات */
+.ratings-stats {
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.rating-stat {
+    display: inline-block;
+    background: var(--white);
+    padding: 2rem 3rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.rating-average {
+    margin-bottom: 1rem;
+}
+
+.average-number {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--primary-color);
+    display: block;
+    line-height: 1;
+}
+
+.average-stars {
+    display: flex;
+    justify-content: center;
+    gap: 0.2rem;
+    margin: 0.5rem 0;
+}
+
+.average-stars i {
+    color: #ffc107;
+    font-size: 1.2rem;
+}
+
+.rating-count {
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+/* اتصل بنا */
+.contact {
+    padding: 6rem 0;
+    background: var(--white);
+}
+
+.contact-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-info {
+    background: var(--light-bg);
+    padding: 3rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+.contact-header {
+    margin-bottom: 3rem;
+}
+
+.contact-logo {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+    border-radius: 20px;
+}
+
+.contact-header h3 {
+    color: var(--primary-color);
+    font-size: 2rem;
+}
+
+.contact-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: var(--white);
+    border-radius: 15px;
+    transition: var(--transition);
+}
+
+.contact-item:hover {
+    transform: translateX(10px);
+    box-shadow: var(--shadow);
+}
+
+.contact-icon {
+    width: 50px;
+    height: 50px;
+    background: var(--gradient);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.3rem;
+}
+
+.contact-details {
+    text-align: right;
+    flex: 1;
+}
+
+[dir="ltr"] .contact-details {
+    text-align: left;
+}
+
+.contact-details strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.contact-details a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: var(--transition);
+    font-size: 1.1rem;
+}
+
+.contact-details a:hover {
+    color: var(--secondary-color);
+}
+
+/* الفوتر */
+footer {
+    background: var(--text-color);
+    color: var(--white);
+    padding: 4rem 0 1rem;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.footer-logo-img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 15px;
+}
+
+.footer-text h3 {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(45deg, #fff, #f0f0f0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.footer-text p {
+    opacity: 0.8;
+    font-size: 1.1rem;
+}
+
+.footer-social {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-link {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    transition: var(--transition);
+    font-size: 1.3rem;
+}
+
+.social-link:hover {
+    background: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer-bottom p {
+    opacity: 0.7;
+}
+
+/* إصلاحات شاملة للجوال */
+@media (max-width: 768px) {
+    /* إصلاح التمرير والعناصر المتداخلة */
+    body {
+        overflow-x: hidden;
+        position: relative;
+        width: 100%;
     }
     
-    setVH();
-    window.addEventListener('resize', setVH);
-    window.addEventListener('orientationchange', setVH);
-}
-
-// تأثير التمرير للهيدر
-window.addEventListener('scroll', function() {
-    const header = document.querySelector('.header-animation');
-    const scrollY = window.scrollY;
-    
-    if (scrollY > 100) {
-        header.style.background = 'rgba(255, 255, 255, 0.98)';
-        header.style.backdropFilter = 'blur(20px)';
-        header.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
-        header.style.padding = '0.5rem 0';
-    } else {
-        header.style.background = 'rgba(255, 255, 255, 0.98)';
-        header.style.boxShadow = 'none';
-        header.style.padding = '1rem 0';
-    }
-});
-
-// الانتقال للنموذج
-function scrollToForm() {
-    document.getElementById('shipping-form').scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-    });
-}
-
-// الانتقال للخدمات
-function scrollToServices() {
-    document.getElementById('services').scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-    });
-}
-
-// عدّاد الإحصائيات
-function startCounters() {
-    const counters = document.querySelectorAll('.stat-number');
-    let started = false;
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !started) {
-                started = true;
-                
-                counters.forEach(counter => {
-                    const target = +counter.getAttribute('data-count');
-                    const duration = 2500;
-                    const step = target / (duration / 16);
-                    let current = 0;
-                    
-                    const updateCounter = () => {
-                        current += step;
-                        if (current < target) {
-                            counter.textContent = Math.ceil(current);
-                            requestAnimationFrame(updateCounter);
-                        } else {
-                            counter.textContent = target;
-                        }
-                    };
-                    
-                    updateCounter();
-                });
-                
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 });
-    
-    observer.observe(document.querySelector('.stats'));
-}
-
-// نموذج الشحن
-document.getElementById('shippingForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const submitBtn = this.querySelector('.submit-btn');
-    submitBtn.classList.add('loading');
-    
-    // محاكاة إرسال البيانات
-    setTimeout(() => {
-        const formData = {
-            name: document.getElementById('name').value,
-            phone: document.getElementById('phone').value,
-            weight: document.getElementById('weight').value,
-            productLink: document.getElementById('product-link').value,
-            shippingType: document.getElementById('shipping-type').value,
-            shippingRoute: document.getElementById('shipping-route').value,
-            notes: document.getElementById('notes').value
-        };
-        
-        console.log('بيانات طلب الشحن:', formData);
-        
-        // رسالة نجاح متحركة
-        showSuccessMessage(currentLanguage === 'ar' ? 
-            'شكراً لك! تم استلام طلب الشحن 🚀<br>سنتواصل معك خلال 24 ساعة.' :
-            currentLanguage === 'en' ?
-            'Thank you! Shipping request received 🚀<br>We will contact you within 24 hours.' :
-            'Teşekkürler! Nakliye talebiniz alındı 🚀<br>24 saat içinde sizinle iletişime geçeceğiz.'
-        );
-        
-        // إعادة تعيين النموذج
-        this.reset();
-        submitBtn.classList.remove('loading');
-    }, 3000);
-});
-
-// عرض رسالة النجاح
-function showSuccessMessage(message) {
-    const successDiv = document.createElement('div');
-    successDiv.className = 'success-message';
-    successDiv.innerHTML = message;
-    successDiv.style.cssText = `
+    /* إصلاح الهيدر في الموبايل */
+    .header-animation {
         position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) scale(0);
-        background: linear-gradient(135deg, #10b981, #059669);
-        color: white;
-        padding: 2rem 3rem;
-        border-radius: 20px;
-        box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-        z-index: 10000;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.98) !important;
+        backdrop-filter: blur(20px);
+        padding: 0.5rem 0 !important;
+    }
+    
+    /* إصلاح التنقل في الموبايل */
+    nav {
+        flex-wrap: wrap;
+        gap: 1rem;
+        padding: 0 1rem;
+    }
+    
+    .logo {
+        flex: 1;
+    }
+    
+    .logo-img {
+        width: 50px !important;
+        height: 50px !important;
+    }
+    
+    .mobile-menu-toggle {
+        display: flex;
+        order: 3;
+    }
+    
+    .nav-links {
+        display: none !important;
+    }
+    
+    .nav-cta {
+        order: 2;
+    }
+    
+    .nav-button {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+        white-space: nowrap;
+    }
+    
+    /* إصلاح الهيرو في الموبايل */
+    .hero {
+        min-height: 100vh;
+        margin-top: 60px;
+    }
+    
+    .hero-content {
+        padding: 2rem 0;
+    }
+    
+    .hero-logo {
+        width: 150px !important;
+        height: 150px !important;
+        margin-bottom: 1rem;
+    }
+    
+    .tagline {
+        font-size: 1.5rem !important;
+        margin-bottom: 1rem;
+    }
+    
+    .hero-description {
+        font-size: 1.1rem !important;
+        margin-bottom: 2rem;
+        padding: 0 1rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+        padding: 0 1rem;
+    }
+    
+    .cta-button {
+        width: 100%;
+        justify-content: center;
+        padding: 1rem 1.5rem;
+        font-size: 1.1rem;
+    }
+    
+    /* إصلاح الإحصائيات في الموبايل */
+    .stats {
+        padding: 3rem 0;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        padding: 0 1rem;
+    }
+    
+    .stat-item {
+        padding: 1.5rem 0.5rem;
+    }
+    
+    .stat-number {
+        font-size: 2rem !important;
+    }
+    
+    .stat-label {
+        font-size: 0.9rem;
+    }
+    
+    /* إصلاح الخدمات السريعة في الموبايل */
+    .quick-services {
+        padding: 3rem 0;
+    }
+    
+    .quick-services-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 0 1rem;
+    }
+    
+    .quick-service-card {
+        padding: 2rem 1rem;
+    }
+    
+    /* إصلاح النموذج في الموبايل */
+    .shipping-form-section {
+        padding: 3rem 0;
+    }
+    
+    .form-container {
+        padding: 1.5rem;
+        margin: 0 1rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 1rem;
+        font-size: 16px;
+    }
+    
+    /* إصلاح الخدمات في الموبايل */
+    .services {
+        padding: 3rem 0;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 0 1rem;
+    }
+    
+    .service-card {
+        padding: 2rem 1rem;
+    }
+    
+    /* إصلاح التقييم في الموبايل */
+    .ratings-section {
+        padding: 3rem 0;
+    }
+    
+    .ratings-container {
+        padding: 2rem 1rem;
+        margin: 0 1rem;
+    }
+    
+    .star {
+        font-size: 2rem !important;
+    }
+    
+    /* إصلاح اتصل بنا في الموبايل */
+    .contact {
+        padding: 3rem 0;
+    }
+    
+    .contact-info {
+        padding: 2rem 1rem;
+        margin: 0 1rem;
+    }
+    
+    .contact-item {
+        padding: 1rem;
+    }
+    
+    /* إصلاح الفوتر في الموبايل */
+    footer {
+        padding: 2rem 0 1rem;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        gap: 1.5rem;
         text-align: center;
-        font-size: 1.3rem;
-        font-weight: 700;
-        animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-    `;
+        padding: 0 1rem;
+    }
     
-    document.body.appendChild(successDiv);
+    /* إصلاح اللغة سويتشر في الموبايل */
+    .language-switcher {
+        position: fixed;
+        top: auto;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        flex-direction: row;
+        padding: 12px 20px;
+        border-radius: 50px;
+        z-index: 1001;
+    }
     
-    setTimeout(() => {
-        successDiv.style.animation = 'popOut 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards';
-        setTimeout(() => {
-            document.body.removeChild(successDiv);
-        }, 600);
-    }, 3000);
+    .lang-btn {
+        font-size: 1.4rem;
+        padding: 8px;
+    }
+    
+    /* قائمة الجوال */
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        height: 100vh;
+        background: var(--white);
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 80px 2rem 2rem;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        transition: right 0.3s ease;
+        z-index: 1001;
+        display: flex !important;
+    }
+    
+    .nav-links.active {
+        right: 0;
+    }
+    
+    .nav-link {
+        width: 100%;
+        text-align: right;
+        padding: 1rem 0;
+        border-bottom: 1px solid #eee;
+        font-size: 1.2rem;
+    }
+    
+    /* تأثير الهامبرجر عند الفتح */
+    .mobile-menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px);
+    }
+    
+    .mobile-menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .mobile-menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+    }
+    
+    /* طبقة overlay */
+    .nav-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 1000;
+        display: none;
+    }
+    
+    .nav-overlay.active {
+        display: block;
+    }
+    
+    /* إضافة مساحة في الأسفل لتجنب تداخل العناصر */
+    body::after {
+        content: '';
+        display: block;
+        height: 80px;
+    }
 }
 
-// إضافة أنيميشن للرسالة
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes popIn {
-        0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-        70% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
-        100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+/* إصلاحات إضافية للشاشات الصغيرة جداً */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 0.5rem;
     }
-    @keyframes popOut {
-        0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-        30% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
-        100% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+    
+    .hero-logo {
+        width: 120px !important;
+        height: 120px !important;
     }
-`;
-document.head.appendChild(style);
-
-// إصلاح viewport للـ iOS
-function fixViewportForIOS() {
-    const viewport = document.querySelector('meta[name="viewport"]');
-    if (viewport && /iPhone|iPad|iPod/.test(navigator.userAgent)) {
-        viewport.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no');
+    
+    .tagline {
+        font-size: 1.3rem !important;
+    }
+    
+    .hero-description {
+        font-size: 1rem !important;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .section-title {
+        font-size: 1.8rem !important;
+        padding: 0 1rem;
+    }
+    
+    .section-subtitle {
+        font-size: 1.1rem;
+        padding: 0 1rem;
+    }
+    
+    .language-switcher {
+        bottom: 15px;
+        padding: 10px 15px;
+    }
+    
+    .lang-btn {
+        font-size: 1.2rem;
+    }
+    
+    .stars-container {
+        gap: 0.3rem;
+    }
+    
+    .star {
+        font-size: 1.8rem !important;
+    }
+    
+    .ratings-container {
+        padding: 1.5rem 1rem;
+    }
+    
+    .rating-stat {
+        padding: 1rem 1.5rem;
+    }
+    
+    .average-number {
+        font-size: 2rem;
     }
 }
 
-// تهيئة الترجمة عند التحميل
-document.addEventListener('DOMContentLoaded', function() {
-    switchLanguage('ar');
-    startCounters();
-    initRatingSystem();
-    initMobileMenu();
-    fixTouchIssues();
-    fixViewportForIOS();
+/* منع التكبير في حقول الإدخال على iOS */
+@media screen and (max-width: 768px) {
+    input[type="text"],
+    input[type="tel"],
+    input[type="number"],
+    input[type="url"],
+    select,
+    textarea {
+        font-size: 16px !important;
+        transform: scale(1);
+        max-height: 44px;
+    }
     
-    // تأثيرات Hover للبطاقات
-    document.querySelectorAll('.service-card, .quick-service-card').forEach(card => {
-        card.addEventListener('mousemove', function(e) {
-            if (window.innerWidth > 768) {
-                const rect = this.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const angleY = (x - centerX) / 25;
-                const angleX = (centerY - y) / 25;
-                
-                this.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale(1.05)`;
-            }
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            if (window.innerWidth > 768) {
-                this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
-            }
-        });
-    });
-});
+    /* تحسين مظهر select على iOS */
+    select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        background-size: 1em;
+        padding-right: 2.5rem;
+    }
+}
 
-// منع تكبير الصفحة على iOS
-document.addEventListener('touchmove', function (event) {
-    if (event.scale !== 1) { event.preventDefault(); }
-}, { passive: false });
+/* تحسين أداء التمرير على iOS */
+html {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+}
+
+body {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* إصلاح مشكلة viewport في iOS */
+@viewport {
+    width: device-width;
+    zoom: 1.0;
+}
+
+@-ms-viewport {
+    width: device-width;
+}
+
+/* تحسين أداء الأنيميشن في الموبايل */
+@media (max-width: 768px) {
+    .hero-bg-animation,
+    .hero-particles {
+        animation: none !important;
+        transform: none !important;
+    }
+    
+    .floating {
+        animation: floating 3s ease-in-out infinite;
+    }
+    
+    /* تقليل تأثيرات hover في الموبايل */
+    .service-card:hover,
+    .quick-service-card:hover,
+    .stat-item:hover {
+        transform: none;
+    }
+}
+
+/* منع مشاكل التمرير في Safari */
+@media not all and (min-resolution:.001dpcm) { 
+    @supports (-webkit-appearance:none) {
+        .hero {
+            height: 100vh;
+            height: -webkit-fill-available;
+        }
+    }
+}

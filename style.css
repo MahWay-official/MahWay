@@ -158,6 +158,26 @@ nav {
     50% { transform: translateY(-15px) rotate(5deg); }
 }
 
+/* قائمة الهامبرجر للجوال */
+.mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    cursor: pointer;
+    z-index: 1002;
+}
+
+.mobile-menu-toggle span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: var(--primary-color);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
 .nav-links {
     display: flex;
     list-style: none;
@@ -229,6 +249,7 @@ nav {
     background: var(--gradient);
     color: var(--white);
     min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
     display: flex;
     align-items: center;
     position: relative;
@@ -1178,169 +1199,350 @@ footer {
     opacity: 0.7;
 }
 
-/* التجاوب مع الشاشات الصغيرة */
+/* إصلاحات شاملة للجوال */
 @media (max-width: 768px) {
-    .language-switcher {
-        left: 10px;
-        padding: 15px 8px;
+    /* إصلاح التمرير والعناصر المتداخلة */
+    body {
+        overflow-x: hidden;
+        position: relative;
+        width: 100%;
     }
-
-    [dir="ltr"] .language-switcher {
-        left: auto;
-        right: 10px;
+    
+    /* إصلاح الهيدر في الموبايل */
+    .header-animation {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.98) !important;
+        backdrop-filter: blur(20px);
+        padding: 0.5rem 0 !important;
     }
-
-    .lang-btn {
-        font-size: 1.3rem;
-    }
-
+    
+    /* إصلاح التنقل في الموبايل */
     nav {
         flex-wrap: wrap;
         gap: 1rem;
         padding: 0 1rem;
     }
-
-    .nav-links {
-        order: 3;
-        width: 100%;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 1rem;
+    
+    .logo {
+        flex: 1;
     }
-
+    
+    .logo-img {
+        width: 50px !important;
+        height: 50px !important;
+    }
+    
+    .mobile-menu-toggle {
+        display: flex;
+        order: 3;
+    }
+    
+    .nav-links {
+        display: none !important;
+    }
+    
     .nav-cta {
         order: 2;
     }
-
-    .logo-img {
-        width: 60px;
-        height: 60px;
+    
+    .nav-button {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+        white-space: nowrap;
     }
-
+    
+    /* إصلاح الهيرو في الموبايل */
+    .hero {
+        min-height: 100vh;
+        margin-top: 60px;
+    }
+    
+    .hero-content {
+        padding: 2rem 0;
+    }
+    
     .hero-logo {
-        width: 200px;
-        height: 200px;
+        width: 150px !important;
+        height: 150px !important;
+        margin-bottom: 1rem;
     }
-
+    
     .tagline {
-        font-size: 1.8rem;
+        font-size: 1.5rem !important;
+        margin-bottom: 1rem;
     }
-
+    
     .hero-description {
-        font-size: 1.2rem;
+        font-size: 1.1rem !important;
+        margin-bottom: 2rem;
+        padding: 0 1rem;
     }
-
+    
     .hero-buttons {
         flex-direction: column;
-        align-items: center;
+        gap: 1rem;
+        width: 100%;
+        padding: 0 1rem;
     }
-
+    
+    .cta-button {
+        width: 100%;
+        justify-content: center;
+        padding: 1rem 1.5rem;
+        font-size: 1.1rem;
+    }
+    
+    /* إصلاح الإحصائيات في الموبايل */
+    .stats {
+        padding: 3rem 0;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        padding: 0 1rem;
+    }
+    
+    .stat-item {
+        padding: 1.5rem 0.5rem;
+    }
+    
+    .stat-number {
+        font-size: 2rem !important;
+    }
+    
+    .stat-label {
+        font-size: 0.9rem;
+    }
+    
+    /* إصلاح الخدمات السريعة في الموبايل */
+    .quick-services {
+        padding: 3rem 0;
+    }
+    
+    .quick-services-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 0 1rem;
+    }
+    
+    .quick-service-card {
+        padding: 2rem 1rem;
+    }
+    
+    /* إصلاح النموذج في الموبايل */
+    .shipping-form-section {
+        padding: 3rem 0;
+    }
+    
+    .form-container {
+        padding: 1.5rem;
+        margin: 0 1rem;
+    }
+    
     .form-row {
         grid-template-columns: 1fr;
         gap: 1rem;
     }
-
-    .form-container {
-        padding: 2rem 1.5rem;
-        margin: 0 1rem;
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 1rem;
+        font-size: 16px;
     }
-
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
+    
+    /* إصلاح الخدمات في الموبايل */
+    .services {
+        padding: 3rem 0;
     }
-
-    .stat-item {
-        padding: 1.5rem 1rem;
-    }
-
-    .stat-number {
-        font-size: 2.5rem;
-    }
-
-    .quick-services-grid,
+    
     .services-grid {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 1rem;
+        padding: 0 1rem;
     }
-
-    .service-card,
-    .quick-service-card {
-        padding: 2rem 1.5rem;
+    
+    .service-card {
+        padding: 2rem 1rem;
     }
-
-    .footer-content {
-        flex-direction: column;
-        gap: 2rem;
-        text-align: center;
+    
+    /* إصلاح التقييم في الموبايل */
+    .ratings-section {
+        padding: 3rem 0;
     }
-
-    .section-title {
-        font-size: 2.2rem;
-    }
-
-    /* تحسينات قسم التقييم للجوال */
+    
     .ratings-container {
-        padding: 2rem 1.5rem;
+        padding: 2rem 1rem;
         margin: 0 1rem;
     }
     
     .star {
-        font-size: 2.5rem;
+        font-size: 2rem !important;
     }
     
-    .rating-text {
-        min-height: 50px;
+    /* إصلاح اتصل بنا في الموبايل */
+    .contact {
+        padding: 3rem 0;
     }
     
-    #ratingMessage {
-        font-size: 1.1rem;
+    .contact-info {
+        padding: 2rem 1rem;
+        margin: 0 1rem;
     }
     
-    .submit-rating-btn {
-        padding: 1rem 2rem;
-        font-size: 1.1rem;
+    .contact-item {
+        padding: 1rem;
     }
     
-    .rating-stat {
-        padding: 1.5rem 2rem;
+    /* إصلاح الفوتر في الموبايل */
+    footer {
+        padding: 2rem 0 1rem;
     }
     
-    .average-number {
-        font-size: 2.5rem;
+    .footer-content {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+        padding: 0 1rem;
+    }
+    
+    /* إصلاح اللغة سويتشر في الموبايل */
+    .language-switcher {
+        position: fixed;
+        top: auto;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        flex-direction: row;
+        padding: 12px 20px;
+        border-radius: 50px;
+        z-index: 1001;
+    }
+    
+    .lang-btn {
+        font-size: 1.4rem;
+        padding: 8px;
+    }
+    
+    /* قائمة الجوال */
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        height: 100vh;
+        background: var(--white);
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 80px 2rem 2rem;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        transition: right 0.3s ease;
+        z-index: 1001;
+        display: flex !important;
+    }
+    
+    .nav-links.active {
+        right: 0;
+    }
+    
+    .nav-link {
+        width: 100%;
+        text-align: right;
+        padding: 1rem 0;
+        border-bottom: 1px solid #eee;
+        font-size: 1.2rem;
+    }
+    
+    /* تأثير الهامبرجر عند الفتح */
+    .mobile-menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px);
+    }
+    
+    .mobile-menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .mobile-menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+    }
+    
+    /* طبقة overlay */
+    .nav-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 1000;
+        display: none;
+    }
+    
+    .nav-overlay.active {
+        display: block;
+    }
+    
+    /* إضافة مساحة في الأسفل لتجنب تداخل العناصر */
+    body::after {
+        content: '';
+        display: block;
+        height: 80px;
     }
 }
 
+/* إصلاحات إضافية للشاشات الصغيرة جداً */
 @media (max-width: 480px) {
     .container {
-        padding: 0 1rem;
+        padding: 0 0.5rem;
     }
-
+    
     .hero-logo {
-        width: 150px;
-        height: 150px;
+        width: 120px !important;
+        height: 120px !important;
     }
-
+    
+    .tagline {
+        font-size: 1.3rem !important;
+    }
+    
+    .hero-description {
+        font-size: 1rem !important;
+    }
+    
     .stats-grid {
         grid-template-columns: 1fr;
     }
-
+    
     .section-title {
-        font-size: 1.8rem;
+        font-size: 1.8rem !important;
+        padding: 0 1rem;
     }
-
-    .cta-button {
-        padding: 1rem 2rem;
-        font-size: 1rem;
+    
+    .section-subtitle {
+        font-size: 1.1rem;
+        padding: 0 1rem;
     }
-
-    /* تحسينات إضافية للجوال */
+    
+    .language-switcher {
+        bottom: 15px;
+        padding: 10px 15px;
+    }
+    
+    .lang-btn {
+        font-size: 1.2rem;
+    }
+    
     .stars-container {
         gap: 0.3rem;
     }
     
     .star {
-        font-size: 2rem;
+        font-size: 1.8rem !important;
     }
     
     .ratings-container {
@@ -1356,23 +1558,81 @@ footer {
     }
 }
 
-/* منع zoom على input في iOS */
+/* منع التكبير في حقول الإدخال على iOS */
 @media screen and (max-width: 768px) {
-    input, select, textarea {
+    input[type="text"],
+    input[type="tel"],
+    input[type="number"],
+    input[type="url"],
+    select,
+    textarea {
         font-size: 16px !important;
+        transform: scale(1);
+        max-height: 44px;
+    }
+    
+    /* تحسين مظهر select على iOS */
+    select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        background-size: 1em;
+        padding-right: 2.5rem;
     }
 }
 
-/* تحسين التمرير السلس */
+/* تحسين أداء التمرير على iOS */
 html {
+    -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
 }
 
+body {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* إصلاح مشكلة viewport في iOS */
+@viewport {
+    width: device-width;
+    zoom: 1.0;
+}
+
+@-ms-viewport {
+    width: device-width;
+}
+
 /* تحسين أداء الأنيميشن في الموبايل */
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+@media (max-width: 768px) {
+    .hero-bg-animation,
+    .hero-particles {
+        animation: none !important;
+        transform: none !important;
+    }
+    
+    .floating {
+        animation: floating 3s ease-in-out infinite;
+    }
+    
+    /* تقليل تأثيرات hover في الموبايل */
+    .service-card:hover,
+    .quick-service-card:hover,
+    .stat-item:hover {
+        transform: none;
+    }
+}
+
+/* منع مشاكل التمرير في Safari */
+@media not all and (min-resolution:.001dpcm) { 
+    @supports (-webkit-appearance:none) {
+        .hero {
+            height: 100vh;
+            height: -webkit-fill-available;
+        }
     }
 }

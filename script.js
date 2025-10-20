@@ -386,11 +386,11 @@ function applyAllTranslations() {
     });
 }
 
-// نظام التقييم
+// نظام التقييم المحسن
 let currentRating = 0;
 let hasRated = false;
 
-// تهيئة نظام التقييم
+// تهيئة نظام التقييم المحسن
 function initRatingSystem() {
     // التحقق إذا كان المستخدم قد قيم مسبقاً
     const savedRating = localStorage.getItem('mahway_rating');
@@ -405,11 +405,41 @@ function initRatingSystem() {
     // إضافة event listeners للنجوم
     document.querySelectorAll('.star').forEach(star => {
         star.addEventListener('click', handleStarClick);
+        star.addEventListener('touchstart', handleStarTouch, { passive: true });
         star.addEventListener('mouseenter', handleStarHover);
     });
 
     // إضافة event listener للزر
-    document.getElementById('submitRating').addEventListener('click', submitRating);
+    const submitBtn = document.getElementById('submitRating');
+    if (submitBtn) {
+        submitBtn.addEventListener('click', submitRating);
+    }
+
+    // إضافة event listener لمساحة النجوم ككل
+    const starsContainer = document.getElementById('starsContainer');
+    if (starsContainer) {
+        starsContainer.addEventListener('mouseleave', () => {
+            if (!hasRated) {
+                updateStarsDisplay(currentRating);
+            }
+        });
+    }
+}
+
+// التعامل مع اللمس على النجوم (للجوال)
+function handleStarTouch(e) {
+    if (hasRated) return;
+    
+    const star = e.currentTarget;
+    const rating = parseInt(star.getAttribute('data-rating'));
+    currentRating = rating;
+    
+    updateStarsDisplay(rating);
+    updateRatingMessage(rating);
+    enableSubmitButton();
+    
+    // منع السلوك الافتراضي
+    e.preventDefault();
 }
 
 // التعامل مع النقر على النجوم
@@ -435,7 +465,7 @@ function handleStarHover(e) {
     updateStarsDisplay(rating, true);
 }
 
-// تحديث عرض النجوم - الإصدار المصحح
+// تحديث عرض النجوم - الإصدار المحسن
 function updateStarsDisplay(rating, isHover = false) {
     const stars = document.querySelectorAll('.star');
     
@@ -446,9 +476,11 @@ function updateStarsDisplay(rating, isHover = false) {
         if (starRating <= rating) {
             icon.className = 'fas fa-star';
             star.classList.add('active');
+            star.style.color = '#ffc107';
         } else {
             icon.className = 'far fa-star';
             star.classList.remove('active');
+            star.style.color = '#ddd';
         }
     });
     
@@ -458,6 +490,7 @@ function updateStarsDisplay(rating, isHover = false) {
             const icon = star.querySelector('i');
             icon.className = 'far fa-star';
             star.classList.remove('active');
+            star.style.color = '#ddd';
         });
     }
 }
@@ -489,16 +522,21 @@ function updateRatingMessage(rating) {
     };
     
     const messageElement = document.getElementById('ratingMessage');
-    const langMessages = messages[currentLanguage] || messages.ar;
-    messageElement.textContent = langMessages[rating];
+    if (messageElement) {
+        const langMessages = messages[currentLanguage] || messages.ar;
+        messageElement.textContent = langMessages[rating] || langMessages[0];
+    }
 }
 
 // تمكين زر الإرسال
 function enableSubmitButton() {
     const submitBtn = document.getElementById('submitRating');
-    submitBtn.disabled = false;
-    submitBtn.style.opacity = '1';
-    submitBtn.style.pointerEvents = 'all';
+    if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = '1';
+        submitBtn.style.cursor = 'pointer';
+        submitBtn.style.pointerEvents = 'all';
+    }
 }
 
 // إرسال التقييم
@@ -523,19 +561,27 @@ function showRatingSuccess() {
     const submitBtn = document.getElementById('submitRating');
     const successDiv = document.getElementById('ratingSuccess');
     
-    starsContainer.style.opacity = '0.5';
-    starsContainer.style.pointerEvents = 'none';
-    submitBtn.style.display = 'none';
-    successDiv.style.display = 'flex';
+    if (starsContainer) {
+        starsContainer.style.opacity = '0.5';
+        starsContainer.style.pointerEvents = 'none';
+    }
     
-    // تحديث رسالة النجاح حسب اللغة
-    const successMessages = {
-        ar: "شكراً لك! تم تسجيل تقييمك بنجاح",
-        en: "Thank you! Your rating has been submitted successfully",
-        tr: "Teşekkürler! Derecelendirmeniz başarıyla gönderildi"
-    };
+    if (submitBtn) {
+        submitBtn.style.display = 'none';
+    }
     
-    successDiv.querySelector('span').textContent = successMessages[currentLanguage] || successMessages.ar;
+    if (successDiv) {
+        successDiv.style.display = 'flex';
+        
+        // تحديث رسالة النجاح حسب اللغة
+        const successMessages = {
+            ar: "شكراً لك! تم تسجيل تقييمك بنجاح",
+            en: "Thank you! Your rating has been submitted successfully",
+            tr: "Teşekkürler! Derecelendirmeniz başarıyla gönderildi"
+        };
+        
+        successDiv.querySelector('span').textContent = successMessages[currentLanguage] || successMessages.ar;
+    }
 }
 
 // تحديث إحصائيات التقييم (محاكاة)
@@ -563,6 +609,8 @@ function updateRatingStats() {
 // تحديث النجوم في قسم الإحصائيات
 function updateAverageStars(average) {
     const starsContainer = document.querySelector('.average-stars');
+    if (!starsContainer) return;
+    
     starsContainer.innerHTML = '';
     
     const fullStars = Math.floor(average);
@@ -591,18 +639,21 @@ function updateAverageStars(average) {
     }
 }
 
-// نظام قائمة الجوال
+// نظام قائمة الجوال المحسن
 function initMobileMenu() {
     const mobileToggle = document.getElementById('mobileMenuToggle');
     const navLinks = document.querySelector('.nav-links');
     const body = document.body;
     
-    if (!mobileToggle) return;
+    if (!mobileToggle || !navLinks) return;
     
     // إنشاء overlay
-    const overlay = document.createElement('div');
-    overlay.className = 'nav-overlay';
-    document.body.appendChild(overlay);
+    let overlay = document.querySelector('.nav-overlay');
+    if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.className = 'nav-overlay';
+        document.body.appendChild(overlay);
+    }
     
     // فتح/إغلاق القائمة
     mobileToggle.addEventListener('click', function(e) {
@@ -610,7 +661,14 @@ function initMobileMenu() {
         this.classList.toggle('active');
         navLinks.classList.toggle('active');
         overlay.classList.toggle('active');
-        body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+        
+        if (navLinks.classList.contains('active')) {
+            body.style.overflow = 'hidden';
+            body.classList.add('menu-open');
+        } else {
+            body.style.overflow = '';
+            body.classList.remove('menu-open');
+        }
     });
     
     // إغلاق القائمة عند النقر على overlay
@@ -619,6 +677,7 @@ function initMobileMenu() {
         navLinks.classList.remove('active');
         this.classList.remove('active');
         body.style.overflow = '';
+        body.classList.remove('menu-open');
     });
     
     // إغلاق القائمة عند النقر على رابط
@@ -628,6 +687,7 @@ function initMobileMenu() {
             navLinks.classList.remove('active');
             overlay.classList.remove('active');
             body.style.overflow = '';
+            body.classList.remove('menu-open');
         });
     });
     
@@ -638,11 +698,23 @@ function initMobileMenu() {
             navLinks.classList.remove('active');
             overlay.classList.remove('active');
             body.style.overflow = '';
+            body.classList.remove('menu-open');
+        }
+    });
+    
+    // إغلاق القائمة عند الضغط على زر الهروب
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            mobileToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+            overlay.classList.remove('active');
+            body.style.overflow = '';
+            body.classList.remove('menu-open');
         }
     });
 }
 
-// إصلاح مشاكل اللمس في الجوال
+// إصلاح مشاكل اللمس في الجوال - محسن
 function fixTouchIssues() {
     // منع الزوم المزدوج
     let lastTouchEnd = 0;
@@ -829,7 +901,7 @@ document.head.appendChild(style);
 function fixViewportForIOS() {
     const viewport = document.querySelector('meta[name="viewport"]');
     if (viewport && /iPhone|iPad|iPod/.test(navigator.userAgent)) {
-        viewport.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no');
+        viewport.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover');
     }
 }
 
@@ -842,10 +914,10 @@ document.addEventListener('DOMContentLoaded', function() {
     fixTouchIssues();
     fixViewportForIOS();
     
-    // تأثيرات Hover للبطاقات
-    document.querySelectorAll('.service-card, .quick-service-card').forEach(card => {
-        card.addEventListener('mousemove', function(e) {
-            if (window.innerWidth > 768) {
+    // تأثيرات Hover للبطاقات (لأجهزة الكمبيوتر فقط)
+    if (window.innerWidth > 768) {
+        document.querySelectorAll('.service-card, .quick-service-card').forEach(card => {
+            card.addEventListener('mousemove', function(e) {
                 const rect = this.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
@@ -857,18 +929,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 const angleX = (centerY - y) / 25;
                 
                 this.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale(1.05)`;
-            }
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            if (window.innerWidth > 768) {
+            });
+            
+            card.addEventListener('mouseleave', function() {
                 this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
-            }
+            });
         });
-    });
+    }
 });
 
 // منع تكبير الصفحة على iOS
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function (event) {
+    const now = (new Date()).getTime();
+    if (now - lastTouchEnd <= 300) {
+        event.preventDefault();
+    }
+    lastTouchEnd = now;
+}, false);
+
 document.addEventListener('touchmove', function (event) {
-    if (event.scale !== 1) { event.preventDefault(); }
+    if (event.scale !== 1) {
+        event.preventDefault();
+    }
 }, { passive: false });

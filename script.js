@@ -125,7 +125,8 @@ const translations = {
         "ratings.default": "اضغط على النجوم للتقييم",
         "ratings.submit": "إرسال التقييم",
         "ratings.thanks": "شكراً لك! تم تسجيل تقييمك بنجاح",
-        "ratings.based": "بناءً على <span id='totalRatings'>127</span> تقييم",
+        "ratings.based": "بناءً على",
+        "ratings.ratings": "تقييم",
         
         // اتصل بنا
         "contact.title": "اتصل بنا",
@@ -216,7 +217,8 @@ const translations = {
         "ratings.default": "Click on stars to rate",
         "ratings.submit": "Submit Rating",
         "ratings.thanks": "Thank you! Your rating has been submitted successfully",
-        "ratings.based": "Based on <span id='totalRatings'>127</span> ratings",
+        "ratings.based": "Based on",
+        "ratings.ratings": "ratings",
         
         // Contact
         "contact.title": "Contact Us",
@@ -307,7 +309,8 @@ const translations = {
         "ratings.default": "Derecelendirmek için yıldızlara tıklayın",
         "ratings.submit": "Değerlendirmeyi Gönder",
         "ratings.thanks": "Teşekkürler! Derecelendirmeniz başarıyla gönderildi",
-        "ratings.based": "<span id='totalRatings'>127</span> değerlendirmeye dayanarak",
+        "ratings.based": "Dayalı",
+        "ratings.ratings": "değerlendirme",
         
         // Contact
         "contact.title": "Bize Ulaşın",
@@ -393,6 +396,8 @@ function initRatingSystem() {
     const savedRating = localStorage.getItem('mahway_rating');
     if (savedRating) {
         hasRated = true;
+        currentRating = parseInt(savedRating);
+        updateStarsDisplay(currentRating);
         showRatingSuccess();
         return;
     }
@@ -430,7 +435,7 @@ function handleStarHover(e) {
     updateStarsDisplay(rating, true);
 }
 
-// تحديث عرض النجوم
+// تحديث عرض النجوم - الإصدار المصحح
 function updateStarsDisplay(rating, isHover = false) {
     const stars = document.querySelectorAll('.star');
     
@@ -447,8 +452,8 @@ function updateStarsDisplay(rating, isHover = false) {
         }
     });
     
-    // إعادة التعيين إذا لم يكن hover
-    if (!isHover && rating === 0) {
+    // إعادة التعيين إذا لم يكن hover ولم يكن هناك تقييم
+    if (!isHover && rating === 0 && !hasRated) {
         stars.forEach(star => {
             const icon = star.querySelector('i');
             icon.className = 'far fa-star';
@@ -584,6 +589,87 @@ function updateAverageStars(average) {
         emptyStar.className = 'far fa-star';
         starsContainer.appendChild(emptyStar);
     }
+}
+
+// نظام قائمة الجوال
+function initMobileMenu() {
+    const mobileToggle = document.getElementById('mobileMenuToggle');
+    const navLinks = document.querySelector('.nav-links');
+    const body = document.body;
+    
+    if (!mobileToggle) return;
+    
+    // إنشاء overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'nav-overlay';
+    document.body.appendChild(overlay);
+    
+    // فتح/إغلاق القائمة
+    mobileToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        this.classList.toggle('active');
+        navLinks.classList.toggle('active');
+        overlay.classList.toggle('active');
+        body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+    });
+    
+    // إغلاق القائمة عند النقر على overlay
+    overlay.addEventListener('click', function() {
+        mobileToggle.classList.remove('active');
+        navLinks.classList.remove('active');
+        this.classList.remove('active');
+        body.style.overflow = '';
+    });
+    
+    // إغلاق القائمة عند النقر على رابط
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function() {
+            mobileToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+            overlay.classList.remove('active');
+            body.style.overflow = '';
+        });
+    });
+    
+    // إغلاق القائمة عند تغيير حجم النافذة
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            mobileToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+            overlay.classList.remove('active');
+            body.style.overflow = '';
+        }
+    });
+}
+
+// إصلاح مشاكل اللمس في الجوال
+function fixTouchIssues() {
+    // منع الزوم المزدوج
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function (event) {
+        const now = (new Date()).getTime();
+        if (now - lastTouchEnd <= 300) {
+            event.preventDefault();
+        }
+        lastTouchEnd = now;
+    }, false);
+    
+    // تحسين أداء التمرير
+    document.addEventListener('touchmove', function (event) {
+        if (event.scale !== 1) {
+            event.preventDefault();
+        }
+    }, { passive: false });
+    
+    // إصلاح ارتفاع 100vh في الجوال
+    function setVH() {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    
+    setVH();
+    window.addEventListener('resize', setVH);
+    window.addEventListener('orientationchange', setVH);
 }
 
 // تأثير التمرير للهيدر
@@ -752,12 +838,14 @@ document.addEventListener('DOMContentLoaded', function() {
     switchLanguage('ar');
     startCounters();
     initRatingSystem();
+    initMobileMenu();
+    fixTouchIssues();
     fixViewportForIOS();
     
     // تأثيرات Hover للبطاقات
     document.querySelectorAll('.service-card, .quick-service-card').forEach(card => {
         card.addEventListener('mousemove', function(e) {
-            if (window.innerWidth > 768) { // فقط على الشاشات الكبيرة
+            if (window.innerWidth > 768) {
                 const rect = this.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;

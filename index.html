@@ -16,8 +16,8 @@
 <body>
     <!-- Language Switcher -->
     <div class="language-switcher">
-        <button class="lang-btn active" data-lang="ar">🇸🇦</button>
-        <button class="lang-btn" data-lang="en">🇺🇸</button>
+        <button class="lang-btn active" data-lang="ar">🇪🇬</button>
+        <button class="lang-btn" data-lang="en">🇬🇧</button>
         <button class="lang-btn" data-lang="tr">🇹🇷</button>
     </div>
 
@@ -27,6 +27,14 @@
             <div class="logo">
                 <img src="logo.png" alt="MahWay Logo" class="logo-img floating">
             </div>
+            
+            <!-- قائمة هامبرجر للجوال -->
+            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
             <ul class="nav-links">
                 <li><a href="#home" class="nav-link" data-i18n="nav.home">الرئيسية</a></li>
                 <li><a href="#services" class="nav-link" data-i18n="nav.services">خدماتنا</a></li>
@@ -343,7 +351,11 @@
                             <i class="fas fa-star-half-alt"></i>
                         </div>
                     </div>
-                    <div class="rating-count" data-i18n="ratings.based">بناءً على <span id="totalRatings">127</span> تقييم</div>
+                    <div class="rating-count">
+                        <span data-i18n="ratings.based">بناءً على</span> 
+                        <span id="totalRatings">127</span> 
+                        <span data-i18n="ratings.ratings">تقييم</span>
+                    </div>
                 </div>
             </div>
         </div>

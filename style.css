@@ -1682,4 +1682,27 @@ section, div {
     padding: 20px 10px;
   }
 }
+/* إصلاح نهائي لمشكلة اللمس والتمرير على الموبايل */
+html, body {
+  width: 100%;
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+}
+
+* {
+  touch-action: auto !important;
+  pointer-events: auto !important;
+}
+
+/* تعطيل التفاعل مع الخلفية أو الطبقات الشفافة */
+#background,
+canvas,
+.animation-bg,
+.hero::before,
+.hero::after {
+  pointer-events: none !important;
+}
 

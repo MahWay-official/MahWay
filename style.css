@@ -1636,3 +1636,16 @@ body {
         }
     }
 }
+/* إصلاح مشكلة التمرير على الموبايل */
+html, body {
+  width: 100%;
+  height: auto;
+  overflow-x: hidden; /* يمنع التمرير الجانبي */
+  overflow-y: auto;   /* يسمح بالتمرير العمودي */
+  -webkit-overflow-scrolling: touch; /* تمرير سلس على أجهزة iOS */
+}
+
+section, div {
+  max-width: 100vw; /* يمنع العناصر من الخروج عن الشاشة */
+}
+

@@ -36,10 +36,35 @@ window.addEventListener('load', () => {
 
 // ========== اللغة ==========
 let currentLanguage = 'ar';
-const langButtons = document.querySelectorAll('.lang-btn');
-const translationsExist = typeof translations !== 'undefined';
 
-if (langButtons && translationsExist) {
+// ✅ تأكد أن كائن الترجمة موجود هنا
+const translations = {
+    ar: {
+        title: "شركة MahWay للشحن والتصدير",
+        welcome: "مرحبًا بك في شركة MahWay",
+        desc: "نحن متخصصون في الشحن والتصدير حول العالم.",
+        rate_us: "قيّم تجربتك معنا",
+        rating_value: "التقييم: 0 من 5"
+    },
+    en: {
+        title: "MahWay Import Export Shipping",
+        welcome: "Welcome to MahWay Company",
+        desc: "We specialize in global import and export shipping.",
+        rate_us: "Rate your experience with us",
+        rating_value: "Rating: 0 out of 5"
+    },
+    tr: {
+        title: "MahWay İthalat İhracat Taşımacılık",
+        welcome: "MahWay Şirketine Hoş Geldiniz",
+        desc: "Dünya genelinde ihracat ve ithalat konusunda uzmanız.",
+        rate_us: "Deneyiminizi değerlendirin",
+        rating_value: "Puan: 0 / 5"
+    }
+};
+
+const langButtons = document.querySelectorAll('.lang-btn');
+
+if (langButtons) {
     langButtons.forEach(btn => {
         btn.addEventListener('click', function() {
             const lang = this.dataset.lang;
@@ -67,14 +92,6 @@ function applyAllTranslations() {
         const key = el.dataset.i18n;
         if (langData[key]) el.textContent = langData[key];
     });
-    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-        const key = el.dataset.i18nPlaceholder;
-        if (langData[key]) el.placeholder = langData[key];
-    });
-    document.querySelectorAll('option[data-i18n]').forEach(opt => {
-        const key = opt.dataset.i18n;
-        if (langData[key]) opt.textContent = langData[key];
-    });
 }
 
 // ========== نموذج الشحن ==========
@@ -95,7 +112,6 @@ if (shippingForm) {
             notes: document.getElementById('notes').value.trim()
         };
 
-        // إرسال البيانات عبر EmailJS
         emailjs.send('service_xxxxxx', 'template_xxxxxx', formData)
             .then(() => {
                 showSuccessMessage(
@@ -116,7 +132,6 @@ if (shippingForm) {
     });
 }
 
-// ========== رسالة النجاح ==========
 function showSuccessMessage(message) {
     const msgDiv = document.createElement('div');
     msgDiv.className = 'success-popup';
@@ -152,13 +167,6 @@ initMobileMenu();
 
 // ========== تحسين تجربة الجوال ==========
 (function fixMobile() {
-    let lastTouch = 0;
-    document.addEventListener('touchend', e => {
-        const now = Date.now();
-        if (now - lastTouch <= 300) e.preventDefault();
-        lastTouch = now;
-    }, false);
-    
     const setVH = () => {
         document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
     };
@@ -203,3 +211,27 @@ function startCounters() {
     observer.observe(document.querySelector('.stats'));
 }
 startCounters();
+
+// ========== التقييم بالنجوم ==========
+document.addEventListener('DOMContentLoaded', () => {
+    const stars = document.querySelectorAll(".stars i");
+    const ratingText = document.getElementById("rating-value");
+    if (!stars.length || !ratingText) return;
+    let currentRating = 0;
+
+    stars.forEach(star => {
+        star.addEventListener("click", () => {
+            currentRating = parseInt(star.getAttribute("data-value"));
+            stars.forEach(s => {
+                s.classList.remove("active");
+                if (parseInt(s.getAttribute("data-value")) <= currentRating) {
+                    s.classList.add("active");
+                }
+            });
+
+            if (currentLanguage === "ar") ratingText.textContent = `التقييم: ${currentRating} من 5`;
+            else if (currentLanguage === "en") ratingText.textContent = `Rating: ${currentRating} out of 5`;
+            else ratingText.textContent = `Puan: ${currentRating} / 5`;
+        });
+    });
+});
